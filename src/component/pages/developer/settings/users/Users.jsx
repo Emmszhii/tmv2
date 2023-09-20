@@ -12,11 +12,14 @@ const Users = () => {
   return (
     <>
       <Header />
-      <section className={`main__grid ${store.isMenuOpen ? "open" : ""}`}>
-        <aside className={`${store.isMenuOpen ? "open " : ""}   `}>
+      <section
+        className={`main__grid custom__scroll
+        ${store.isMenuOpen ? "open" : ""} `}
+      >
+        <aside className={`${store.isMenuOpen ? "open " : ""} `}>
           <Navigation menu="settings" />
         </aside>
-        <main className="px-2 lg:pr-10">
+        <main className="p-3 lg:p-0 lg:pr-10">
           <Breadcrumbs />
           <div className="flex justify-between items-center my-5">
             <h1 className="mb-0">Users</h1>

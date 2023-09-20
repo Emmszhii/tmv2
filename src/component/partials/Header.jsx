@@ -11,7 +11,10 @@ const Header = () => {
   return (
     <>
       {store.isMenuOpen && (
-        <div className="absolute lg:static top-0 left-0 right-0 bottom-0 z-40 bg-black/50"></div>
+        <div
+          className="absolute lg:static top-0 left-0 right-0 bottom-0 z-40 bg-black/50"
+          onClick={handleBurgerBtn}
+        ></div>
       )}
       <header className="flex py-4 px-2 items-center justify-between relative z-50 bg-white">
         <div className="flex items-center gap-4">
