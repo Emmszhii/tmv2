@@ -4,6 +4,7 @@ import Navigation from "../../../../partials/Navigation";
 import Breadcrumbs from "../../../../partials/Breadcrumbs";
 import { StoreContext } from "../../../../../store/StoreContext";
 import { Link } from "react-router-dom";
+import { FiChevronRight } from "react-icons/fi";
 
 const Users = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -21,8 +22,44 @@ const Users = () => {
             <h1 className="mb-0">Users</h1>
           </div>
           <ul>
-            <li>
-              <Link to={``}></Link>
+            <li className="hover:bg-gray-100">
+              <Link to={`/settings/users/system`}>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="mb-1 text-base">System</h4>
+                    <p>list of roles used on the system</p>
+                  </div>
+                  <div className="p-4 text-2xl">
+                    <FiChevronRight />
+                  </div>
+                </div>
+              </Link>
+            </li>
+            <li className="hover:bg-gray-100">
+              <Link to={`/settings/users/other`}>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="mb-1 text-base">Other</h4>
+                    <p>list of roles used on the other</p>
+                  </div>
+                  <div className="p-4 text-2xl">
+                    <FiChevronRight />
+                  </div>
+                </div>
+              </Link>
+            </li>
+            <li className="hover:bg-gray-100">
+              <Link to={`/settings/users/roles`}>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="mb-1 text-base">Roles</h4>
+                    <p>list of roles used on the roles</p>
+                  </div>
+                  <div className="p-4 text-2xl">
+                    <FiChevronRight />
+                  </div>
+                </div>
+              </Link>
             </li>
           </ul>
         </main>
