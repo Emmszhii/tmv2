@@ -1,8 +1,8 @@
 import React from "react";
 import { BiSolidUserCircle } from "react-icons/bi";
+import { setIsMenuOpen } from "../../store/StoreAction";
 import { StoreContext } from "../../store/StoreContext";
 import Logo from "../svg/Logo";
-import { setIsMenuOpen } from "../../store/StoreAction";
 
 const Header = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -25,13 +25,13 @@ const Header = () => {
             <span></span>
             <span></span>
           </div>
-          <div>
+          <div className="w-20">
             <Logo />
           </div>
         </div>
 
         <div className="flex items-center gap-2 text-right">
-          <div className="m-0 text-sm">
+          <div className="m-0 text-sm hidden lg:block">
             <p className="m-0 leading-none font-bold">Emms</p>
             <p className="m-0">Developer</p>
           </div>

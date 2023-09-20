@@ -283,7 +283,7 @@
   }
 
   .main__grid {
-    @apply grid grid-cols-[0px_1fr] lg:grid-cols-[200px_1fr] min-h-[calc(100vh_-_66px)] lg:min-h-[calc(100vh_-_82px)] gap-0 lg:gap-8 transition-all;
+    @apply grid grid-cols-[0px_1fr] lg:grid-cols-[200px_1fr] min-h-[calc(100vh_-_66px)] lg:min-h-[calc(100vh_-_80px)] gap-0 lg:gap-8 transition-all;
   }
 
   .main__grid.open {
