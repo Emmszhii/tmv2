@@ -9,10 +9,9 @@ const initVal = {
   isSave: false,
   isShow: false,
   isConfirm: false,
-  isArchive: false,
-  isRestore: false,
-  isAdd: false,
+  isRestore: false, 
   isEdit: false,
+  isAdd: false,
   isView: false,
   isFeedback: false,
   isSearch: false,
@@ -28,11 +27,6 @@ const initVal = {
   isRefresh: false,
   isToolsOpen: false,
   isSettingsOpen: false,
-  isInfoOpen: false,
-  isClientOpen: false,
-  isMenuOpen: false,
-  isTimeEntryOpen: false,
-  isStaffOpen: false,
 };
 
 const StoreContext = React.createContext();

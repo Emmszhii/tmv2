@@ -1,12 +1,12 @@
 import React from "react";
-import { StoreContext } from "../../store/StoreContext";
-import {
-  setIsSettingsOpen,
-  setIsStaffOpen,
-  setIsTimeEntryOpen,
-  setIsToolsOpen,
-} from "../../store/StoreAction";
+import { BsGear, BsPersonVcard } from "react-icons/bs";
+import { LiaToolsSolid, LiaBusinessTimeSolid } from "react-icons/lia";
+import { BiUserCircle } from "react-icons/bi";
+import { setIsSettingsOpen, setIsToolsOpen } from "../../store/StoreAction";
+import { PiCaretRight } from "react-icons/pi";
 import { devNavUrl } from "../helpers/functions-general";
+import { StoreContext } from "../../store/StoreContext";
+import { Link } from "react-router-dom";
 
 const Navigation = ({ menu, submenu = null, val }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -33,7 +33,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
           >
             <div className="flex justify-between items-center w-full">
               <div className="flex gap-3 items-center ">
-                <BsGear className="text-lg" /> Tools
+                <LiaToolsSolid className="text-lg" /> Tools
               </div>
               <PiCaretRight
                 className={!store.setIsToolsOpen ? "rotate-0" : "rotate-90"}
@@ -100,7 +100,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
           >
             <div className="flex justify-between items-center w-full">
               <div className="flex gap-3 items-center ">
-                <BsGear className="text-lg" /> Time Entry
+                <LiaBusinessTimeSolid className="text-lg" /> Time Entry
               </div>
               {/* <PiCaretRight
                 className={!store.isTimeEntryOpen ? "rotate-0" : "rotate-90"}
@@ -115,7 +115,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
           >
             <div className="flex justify-between items-center w-full">
               <div className="flex gap-3 items-center ">
-                <BsGear className="text-lg" /> Staff
+                <BiUserCircle className="text-lg" /> Staff
               </div>
               {/* <PiCaretRight
                 className={!store.isTimeEntryOpen ? "rotate-0" : "rotate-90"}
@@ -130,7 +130,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
           >
             <div className="flex justify-between items-center w-full">
               <div className="flex gap-3 items-center ">
-                <BsGear className="text-lg" /> Client
+                <BsPersonVcard className="text-lg" /> Client
               </div>
               {/* <PiCaretRight
                 className={!store.isClientOpen ? "rotate-0" : "rotate-90"}
@@ -155,22 +155,6 @@ const Navigation = ({ menu, submenu = null, val }) => {
         </li>
         <div className={store.isSettingsOpen ? "showdropdown" : "hidden"}>
           <ul className="ml-9 ">
-            <li
-              className={` ${
-                submenu === "toolsWorkLoadChart"
-                  ? "bg-[#436c8a]/80 rounded-md"
-                  : ""
-              }`}
-            >
-              <Link
-                to={`${urlRolePath}/tools/workloadchart`}
-                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
-                  submenu === "toolsWorkLoadChart" ? "active__submenu" : ""
-                }`}
-              >
-                WorkLoad Chart
-              </Link>
-            </li>
             <li
               className={` ${
                 submenu === "settingsAccessLevel"
@@ -199,6 +183,212 @@ const Navigation = ({ menu, submenu = null, val }) => {
                 }`}
               >
                 Users
+              </Link>
+            </li>
+            <li
+              className={` ${
+                submenu === "settingsActivities"
+                  ? "bg-[#436c8a]/80 rounded-md"
+                  : ""
+              }`}
+            >
+              <Link
+                to={`${urlRolePath}/settings/activities`}
+                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
+                  submenu === "settingsActivities" ? "active__submenu" : ""
+                }`}
+              >
+                Activities
+              </Link>
+            </li>
+            <li
+              className={` ${
+                submenu === "settingsRates" ? "bg-[#436c8a]/80 rounded-md" : ""
+              }`}
+            >
+              <Link
+                to={`${urlRolePath}/settings/rates`}
+                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
+                  submenu === "settingsRates" ? "active__submenu" : ""
+                }`}
+              >
+                Rates
+              </Link>
+            </li>
+            <li
+              className={` ${
+                submenu === "settingsEngagement"
+                  ? "bg-[#436c8a]/80 rounded-md"
+                  : ""
+              }`}
+            >
+              <Link
+                to={`${urlRolePath}/settings/engagement`}
+                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
+                  submenu === "settingsEngagement" ? "active__submenu" : ""
+                }`}
+              >
+                Engagement
+              </Link>
+            </li>
+            <li
+              className={` ${
+                submenu === "settingsOffices"
+                  ? "bg-[#436c8a]/80 rounded-md"
+                  : ""
+              }`}
+            >
+              <Link
+                to={`${urlRolePath}/settings/offices`}
+                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
+                  submenu === "settingsOffices" ? "active__submenu" : ""
+                }`}
+              >
+                Offices
+              </Link>
+            </li>
+            <li
+              className={` ${
+                submenu === "settingsDepartment"
+                  ? "bg-[#436c8a]/80 rounded-md"
+                  : ""
+              }`}
+            >
+              <Link
+                to={`${urlRolePath}/settings/department`}
+                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
+                  submenu === "settingsDepartment" ? "active__submenu" : ""
+                }`}
+              >
+                Department
+              </Link>
+            </li>
+            <li
+              className={` ${
+                submenu === "settingsEntities"
+                  ? "bg-[#436c8a]/80 rounded-md"
+                  : ""
+              }`}
+            >
+              <Link
+                to={`${urlRolePath}/settings/entities`}
+                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
+                  submenu === "settingsEntities" ? "active__submenu" : ""
+                }`}
+              >
+                Entities
+              </Link>
+            </li>
+            <li
+              className={` ${
+                submenu === "settingsReferralType"
+                  ? "bg-[#436c8a]/80 rounded-md"
+                  : ""
+              }`}
+            >
+              <Link
+                to={`${urlRolePath}/settings/referraltype`}
+                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
+                  submenu === "settingsReferralType" ? "active__submenu" : ""
+                }`}
+              >
+                Referral Type
+              </Link>
+            </li>
+            <li
+              className={` ${
+                submenu === "settingsReferralSource"
+                  ? "bg-[#436c8a]/80 rounded-md"
+                  : ""
+              }`}
+            >
+              <Link
+                to={`${urlRolePath}/settings/referralsource`}
+                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
+                  submenu === "settingsReferralSource" ? "active__submenu" : ""
+                }`}
+              >
+                Referral Source
+              </Link>
+            </li>
+            <li
+              className={` ${
+                submenu === "settingsLostReason"
+                  ? "bg-[#436c8a]/80 rounded-md"
+                  : ""
+              }`}
+            >
+              <Link
+                to={`${urlRolePath}/settings/lostreason`}
+                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
+                  submenu === "settingsLostReason" ? "active__submenu" : ""
+                }`}
+              >
+                Lost Reason
+              </Link>
+            </li>
+            <li
+              className={` ${
+                submenu === "settingsLostTo" ? "bg-[#436c8a]/80 rounded-md" : ""
+              }`}
+            >
+              <Link
+                to={`${urlRolePath}/settings/lostto`}
+                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
+                  submenu === "settingsLostTo" ? "active__submenu" : ""
+                }`}
+              >
+                Lost To
+              </Link>
+            </li>
+            <li
+              className={` ${
+                submenu === "settingsWonReason"
+                  ? "bg-[#436c8a]/80 rounded-md"
+                  : ""
+              }`}
+            >
+              <Link
+                to={`${urlRolePath}/settings/wonreason`}
+                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
+                  submenu === "settingsWonReason" ? "active__submenu" : ""
+                }`}
+              >
+                Won Reason
+              </Link>
+            </li>
+            <li
+              className={` ${
+                submenu === "settingsClientClass"
+                  ? "bg-[#436c8a]/80 rounded-md"
+                  : ""
+              }`}
+            >
+              <Link
+                to={`${urlRolePath}/settings/clientclass`}
+                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
+                  submenu === "settingsClientClass" ? "active__submenu" : ""
+                }`}
+              >
+                Client Class
+              </Link>
+            </li>
+            <li
+              className={` ${
+                submenu === "settingsForm1099SpecialCharacter"
+                  ? "bg-[#436c8a]/80 rounded-md"
+                  : ""
+              }`}
+            >
+              <Link
+                to={`${urlRolePath}/settings/form1099special-character`}
+                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
+                  submenu === "settingsForm1099SpecialCharacter"
+                    ? "active__submenu"
+                    : ""
+                }`}
+              >
+                Client Class
               </Link>
             </li>
           </ul>
