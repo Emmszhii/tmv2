@@ -177,6 +177,16 @@ export const StoreReducer = (state, action) => {
         ...state,
         isArchive: action.payload,
       };
+    case "IS_TIMEENTRY_OPEN":
+      return {
+        ...state,
+        isTimeEntryOpen: action.payload,
+      };
+    case "IS_STAFF_OPEN":
+      return {
+        ...state,
+        isStaffOpen: action.payload,
+      };
 
     default:
       return state;

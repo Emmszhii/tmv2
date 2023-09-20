@@ -31,6 +31,8 @@ const initVal = {
   isInfoOpen: false,
   isClientOpen: false,
   isMenuOpen: false,
+  isTimeEntryOpen: false,
+  isStaffOpen: false,
 };
 
 const StoreContext = React.createContext();

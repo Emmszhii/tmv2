@@ -212,3 +212,15 @@ export const setIsClientOpen = (val) => {
     payload: val,
   };
 };
+export const setIsTimeEntryOpen = (val) => {
+  return {
+    type: "IS_TIMEENTRY_OPEN",
+    payload: val,
+  };
+};
+export const setIsStaffOpen = (val) => {
+  return {
+    type: "isStaffOpen",
+    payload: val,
+  };
+};
