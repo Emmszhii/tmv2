@@ -4,7 +4,6 @@ import { StoreContext } from "../../../../../../store/StoreContext";
 import Navigation from "../../../../../partials/Navigation";
 import BreadCrumbs from "../../../../../partials/Breadcrumbs";
 import { setIsAdd } from "../../../../../../store/StoreAction";
-import RolesTable from "./RolesTable";
 
 const Roles = () => {
   const [itemEdit, setItemEdit] = React.useState(null);
@@ -32,7 +31,7 @@ const Roles = () => {
               Add
             </button>
           </div>
-          <div>{/* <RolesTable setItemEdit={setItemEdit} /> */}</div>
+          <div></div>
         </main>
       </section>
 

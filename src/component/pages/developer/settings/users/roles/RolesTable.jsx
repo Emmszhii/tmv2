@@ -20,7 +20,7 @@ const RolesTable = ({ setItemEdit }) => {
     error,
     data: roles,
   } = useQueryData(
-    `/v1/controllers/developer/settings/users/roles/roles.php`, // endpoint
+    `/v2/controllers/developer/settings/users/roles/roles.php`, // endpoint
     "get", // method
     "settings-roles" // key
   );
