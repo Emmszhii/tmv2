@@ -1,7 +1,12 @@
 import React from "react";
+import { BsGear, BsPersonVcard } from "react-icons/bs";
+import { LiaToolsSolid, LiaBusinessTimeSolid } from "react-icons/lia";
+import { BiUserCircle } from "react-icons/bi";
 import { setIsSettingsOpen, setIsToolsOpen } from "../../store/StoreAction";
+import { PiCaretRight } from "react-icons/pi";
 import { devNavUrl } from "../helpers/functions-general";
 import { StoreContext } from "../../store/StoreContext";
+import { Link } from "react-router-dom";
 
 const Navigation = ({ menu, submenu = null, val }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -28,7 +33,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
           >
             <div className="flex justify-between items-center w-full">
               <div className="flex gap-3 items-center ">
-                <BsGear className="text-lg" /> Tools
+                <LiaToolsSolid className="text-lg" /> Tools
               </div>
               <PiCaretRight
                 className={!store.setIsToolsOpen ? "rotate-0" : "rotate-90"}
@@ -95,7 +100,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
           >
             <div className="flex justify-between items-center w-full">
               <div className="flex gap-3 items-center ">
-                <BsGear className="text-lg" /> Time Entry
+                <LiaBusinessTimeSolid className="text-lg" /> Time Entry
               </div>
               {/* <PiCaretRight
                 className={!store.isTimeEntryOpen ? "rotate-0" : "rotate-90"}
@@ -110,7 +115,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
           >
             <div className="flex justify-between items-center w-full">
               <div className="flex gap-3 items-center ">
-                <BsGear className="text-lg" /> Staff
+                <BiUserCircle className="text-lg" /> Staff
               </div>
               {/* <PiCaretRight
                 className={!store.isTimeEntryOpen ? "rotate-0" : "rotate-90"}
@@ -125,7 +130,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
           >
             <div className="flex justify-between items-center w-full">
               <div className="flex gap-3 items-center ">
-                <BsGear className="text-lg" /> Client
+                <BsPersonVcard className="text-lg" /> Client
               </div>
               {/* <PiCaretRight
                 className={!store.isClientOpen ? "rotate-0" : "rotate-90"}
