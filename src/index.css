@@ -283,11 +283,21 @@
   }
 
   .main__grid {
-    @apply grid grid-cols-[0px_1fr] lg:grid-cols-[200px_1fr] min-h-[calc(100vh_-_66px)] lg:min-h-[calc(100vh_-_80px)] gap-0 lg:gap-8 transition-all;
+    @apply grid grid-cols-[0px_1fr] lg:grid-cols-[200px_1fr] min-h-[calc(100vh_-_80px)] lg:min-h-[calc(100vh_-_80px)] gap-0 lg:gap-8 transition-all;
   }
 
   .main__grid.open {
     @apply grid-cols-[200px_1fr] overflow-x-hidden;
+  }
+
+  .breadcrumbs {
+    @apply flex items-center gap-6;
+  }
+  .breadcrumbs li {
+    @apply relative before:absolute before:content-['>'] before:-right-4;
+  }
+  .breadcrumbs li:last-child {
+    @apply before:content-[''];
   }
 
   header .toggle__btn {
