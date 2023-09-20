@@ -1,9 +1,9 @@
 import React from "react";
-import Logo from "../svg/Logo";
 import { BiSolidUserCircle } from "react-icons/bi";
+import { StoreContext } from "../../store/StoreContext.jsx";
+import Logo from "../svg/Logo";
 
 const Header = () => {
-
   return (
     <>
       <header className="flex py-4 px-2 items-center justify-between">
