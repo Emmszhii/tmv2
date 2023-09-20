@@ -19,13 +19,13 @@ const ModalRestore = ({ item }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        `/v2/controllers/developer/settings/system/active.php?systemId=${item.settings_system_aid}`,
+        `/v2/controllers/developer/settings/other/active.php?otherId=${item.settings_other_aid}`,
         "put",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: `settings-system` });
+      queryClient.invalidateQueries({ queryKey: `settings-other` });
       //   dispatch(setIsRestore(false));
 
       if (data.success) {
@@ -66,7 +66,7 @@ const ModalRestore = ({ item }) => {
             Are you sure you want to Restore?
           </h3>
           <p className="text-primary mt-5 uppercase">
-            {item.settings_system_name}
+            {item.settings_other_name}
           </p>
 
           <div className="modal__action flex justify-end mt-6 gap-2">

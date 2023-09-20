@@ -29,18 +29,19 @@ import Toast from "../../../../../partials/Toast";
 import ModalDelete from "./modals/ModalDelete";
 import Loadmore from "../../../../../partials/Loadmore";
 
-const SystemTable = ({ setItemEdit }) => {
+const OtherTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [item, setItem] = React.useState(null);
+  const [id, setId] = React.useState(null);
+  const [isDel, setDel] = React.useState(false);
 
-  // Loadmore
   const [page, setPage] = React.useState(1);
   const search = React.useRef(null);
   const { ref, inView } = useInView();
 
-  let counter = 1,
-    active = 0,
-    inactive = 0;
+  let counter = 0;
+  let active = 0;
+  let inactive = 0;
 
   // use if with loadmore button and search bar
   const {
@@ -52,11 +53,11 @@ const SystemTable = ({ setItemEdit }) => {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["settings-system", store.isSearch],
+    queryKey: ["settings-other", store.isSearch],
     queryFn: async ({ pageParam = 1 }) =>
       await queryDataInfinite(
-        `/v2/controllers/developer/settings/system/search.php`, // search endpoint
-        `/v2/controllers/developer/settings/system/page.php?start=${pageParam}`, // list endpoint // list endpoint
+        `/v2/controllers/developer/settings/other/search.php`, // search endpoint
+        `/v2/controllers/developer/settings/other/page.php?start=${pageParam}`, // list endpoint // list endpoint
         store.isSearch, // search boolean
         "post",
         { search: search.current.value }
@@ -96,7 +97,7 @@ const SystemTable = ({ setItemEdit }) => {
     dispatch(setIsDelete(true));
     setItem(item);
   };
-  console.log(result);
+
   return (
     <>
       <Searchbar
@@ -106,11 +107,8 @@ const SystemTable = ({ setItemEdit }) => {
         result={result?.pages}
         isFetching={isFetching}
       />
-      <Footer
-        record={result?.pages[0].total}
-        active={active}
-        inactive={inactive}
-      />
+
+      <Footer record={counter} active={active} inactive={inactive} />
       <div className="table__wrapper relative rounded-md shadow-md overflow-auto mb-8">
         {isFetching && status !== "loading" && <TableSpinner />}
         <table>
@@ -146,26 +144,26 @@ const SystemTable = ({ setItemEdit }) => {
             {result?.pages.map((page, key) => (
               <React.Fragment key={key}>
                 {page.data.map((item, key) => {
-                  active += item.settings_system_is_active === 1;
-                  inactive += item.settings_system_is_active === 0;
+                  active += item.settings_other_is_active === 1;
+                  inactive += item.settings_other_is_active === 0;
                   return (
                     <tr key={key}>
                       <td>{counter++}.</td>
                       <td>
-                        {item.settings_system_is_active === 1 ? (
+                        {item.settings_other_is_active === 1 ? (
                           <Pills label="Active" bgc="bg-success" />
                         ) : (
                           <Pills label="Inactive" bgc="bg-archive" />
                         )}
                       </td>
-                      <td>{item.settings_system_name}</td>
-                      <td>{item.settings_system_email}</td>
-                      <td>{item.settings_system_role}</td>
+                      <td>{item.settings_other_name}</td>
+                      <td>{item.settings_other_email}</td>
+                      <td>{item.settings_other_role}</td>
                       <td
                         className="table__action top-0 right-5 "
                         data-ellipsis=". . ."
                       >
-                        {item.settings_system_is_active === 1 ? (
+                        {item.settings_other_is_active === 1 ? (
                           <ul className=" flex items-center  gap-4 bg-">
                             <li>
                               <button
@@ -234,4 +232,4 @@ const SystemTable = ({ setItemEdit }) => {
   );
 };
 
-export default SystemTable;
+export default OtherTable;

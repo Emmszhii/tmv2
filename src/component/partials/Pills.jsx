@@ -1,9 +1,9 @@
 import React from "react";
 
-const Pills = ({ label = "Active", bgc = "bg-green-800" }) => {
+const Pills = ({ tc = "text-success", label = "active" }) => {
   return (
     <span
-      className={`${bgc} text-[10px]  text-center rounded-full py-1 px-3 text-white`}
+      className={`${tc} text-sm  text-center rounded-full py-1 px-3 uppercase font-bold`}
     >
       {label}
     </span>

@@ -1,16 +1,16 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
-import { handleEscape } from "../../../../../../helpers/functions-general";
+import { HiInformationCircle } from "react-icons/hi";
 import {
-  setIsDelete,
+  setIsArchive,
   setMessage,
   setSuccess,
   setValidate,
 } from "../../../../../../../store/StoreAction";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { StoreContext } from "../../../../../../../store/StoreContext";
-import { AiOutlineQuestionCircle } from "react-icons/ai";
-import ButtonSpinner from "../../../../../../partials/spinners/ButtonSpinner";
+import { handleEscape } from "../../../../../../helpers/functions-general";
 import { queryData } from "../../../../../../helpers/queryData";
+import ButtonSpinner from "../../../../../../partials/spinners/ButtonSpinner";
 
 const ModalArchive = ({ item }) => {
   const { dispatch } = React.useContext(StoreContext);
@@ -18,13 +18,13 @@ const ModalArchive = ({ item }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        `/v1/controllers/developer/settings/account/active.php?clientAccountId=${item.settings_system_aid}`,
+        `/v2/controllers/developer/settings/system/active.php?systemId=${item.settings_system_aid}`,
         "put",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: `client-account` });
+      queryClient.invalidateQueries({ queryKey: `settings-system` });
       //   dispatch(setIsRestore(false));
 
       if (data.success) {
@@ -58,11 +58,15 @@ const ModalArchive = ({ item }) => {
           className={`modal__main absolute mx-1 bg-white border border-gray-200 rounded-md py-8 px-5 max-w-[420px] w-full shadow-xl`}
         >
           <div className="modal__header flex gap-2">
-            <AiOutlineQuestionCircle className="fill-primary text-5xl" />
-            <h3 className="mt-3 text-[16px]">{isDel ? "Delete" : "Restore"}</h3>
+            <HiInformationCircle className="fill-primary text-5xl" />
+            <h3 className="mt-3 text-[16px]">Archive</h3>
           </div>
-          <h3 className="mt-3 text-[14px] mb-0 font-normal ">{msg}</h3>
-          <p className="text-primary mt-5 uppercase">{item}</p>
+          <h3 className="mt-3 text-[14px] mb-0 font-normal ">
+            Are you sure you want to Archive?
+          </h3>
+          <p className="text-primary mt-5 uppercase">
+            {item.settings_system_name}
+          </p>
 
           <div className="modal__action flex justify-end mt-6 gap-2">
             <button

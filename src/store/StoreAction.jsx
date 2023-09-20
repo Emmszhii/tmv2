@@ -201,7 +201,7 @@ export const setIsDelete = (val) => {
 };
 export const setIsArchive = (val) => {
   return {
-    type: "IS_DELETE",
+    type: "IS_ARCHIVE",
     payload: val,
   };
 };

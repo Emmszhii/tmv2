@@ -7,13 +7,14 @@ import SystemTable from "./SystemTable";
 import { setIsAdd } from "../../../../../../store/StoreAction";
 import Modal from "../../../../../partials/structure/Modal";
 import ModalAddSystem from "./modals/ModalAddSystem";
+import ModalArchive from "./modals/ModalArchive";
 
 const System = () => {
   const [itemEdit, setItemEdit] = React.useState(null);
   const { store, dispatch } = React.useContext(StoreContext);
   const handleAdd = () => {
-    dispatch(setIsAdd(true));
     setItemEdit(null);
+    dispatch(setIsAdd(true));
   };
   return (
     <>
