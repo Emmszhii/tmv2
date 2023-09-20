@@ -3,21 +3,23 @@
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$department = new Department($conn);
+$enagagementCategory = new EngagementCategory($conn);
 // get $_GET data
 $error = [];
 $returnData = [];
-if (array_key_exists("departmentId", $_GET)) {
+if (array_key_exists("engagementCategoryId", $_GET)) {
     // check data
     checkPayload($data);
     // get data
-    $department->department_aid = $_GET['departmentId'];
-    $department->department_name = checkIndex($data, "department_name");
-    $department->department_datetime = date("Y-m-d H:i:s");
-    checkId($department->department_aid);
+    $enagagementCategory->engagement_category_aid = $_GET['engagementCategoryId'];
+    $enagagementCategory->engagement_category_id = checkIndex($data, "engagement_category_id");
+    $enagagementCategory->engagement_category_description = checkIndex($data, "engagement_category_description");
+    $enagagementCategory->engagement_category_invoice_description = checkIndex($data, "engagement_category_invoice_description");
+    $enagagementCategory->engagement_category_updated_at = date("Y-m-d H:i:s");
+    checkId($enagagementCategory->engagement_category_aid);
     // update
-    $query = checkUpdate($department);
-    returnSuccess($department, "Department", $query);
+    $query = checkUpdate($enagagementCategory);
+    returnSuccess($enagagementCategory, "EngagementCategory", $query);
 }
 
 // return 404 error if endpoint not available

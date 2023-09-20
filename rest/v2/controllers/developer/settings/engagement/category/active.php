@@ -1,30 +1,30 @@
 <?php
 // set http header
-require '../../../../core/header.php';
+require '../../../../../core/header.php';
 // use needed functions
-require '../../../../core/functions.php';
+require '../../../../../core/functions.php';
 // use needed classes
-require '../../../../models/developer/settings/department/Department.php';
+require '../../../../../models/developer/settings/engagement/category/Category.php';
 // check database connection
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$department = new Department($conn);
+$enagagementCategory = new EngagementCategory($conn);
 // // get payload
 $body = file_get_contents("php://input");
 $data = json_decode($body, true);
 // get $_GET data
 // validate api key 
-if (array_key_exists("departmentId", $_GET)) {
+if (array_key_exists("engagementCategoryId", $_GET)) {
     // check data
     checkPayload($data);
-    $department->department_aid = $_GET['departmentId'];
-    $department->department_is_active = trim($data["isActive"]);
-    // $department->department_datetime = date("Y-m-d H:i:s");
-    checkId($department->department_aid);
-    $query = checkActive($department);
+    $enagagementCategory->engagement_category_aid = $_GET['departmengagementCategoryIdentId'];
+    $enagagementCategory->engagement_category_is_active = trim($data["isActive"]);
+    // $enagagementCategory->department_datetime = date("Y-m-d H:i:s");
+    checkId($enagagementCategory->engagement_category_aid);
+    $query = checkActive($enagagementCategory);
     http_response_code(200);
-    returnSuccess($department, "Department", $query);
+    returnSuccess($enagagementCategory, "EngagementCategory", $query);
 }
 // return 404 error if endpoint not available
 checkEndpoint();

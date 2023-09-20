@@ -32,6 +32,11 @@ import {
   setIsRestore,
 } from "../../../../../../store/StoreAction";
 import Searchbar from "../../../../../partials/Searchbar";
+import TableLoading from "../../../../../partials/TableLoading";
+import Nodata from "../../../../../partials/Nodata";
+import ServerError from "../../../../../partials/ServerError";
+import Loadmore from "../../../../../partials/Loadmore";
+import Footer from "../../../../../partials/Footer";
 
 const CategoryTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -118,7 +123,7 @@ const CategoryTable = ({ setItemEdit }) => {
         result={result?.pages}
         isFetching={isFetching}
       />
-
+      <Footer />
       <div className="table__wrapper relative rounded-md shadow-md overflow-auto mb-8">
         {isFetching && status !== "loading" && <TableSpinner />}
 
@@ -140,7 +145,7 @@ const CategoryTable = ({ setItemEdit }) => {
                   {status === "loading" ? (
                     <TableLoading count={20} cols={3} />
                   ) : (
-                    <NoData />
+                    <Nodata />
                   )}
                 </td>
               </tr>

@@ -3,21 +3,23 @@
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$department = new Department($conn);
+$enagagementCategory = new EngagementCategory($conn);
 // get should not be present
-if (array_key_exists("departmentId", $_GET)) {
+if (array_key_exists("engagementCategoryId", $_GET)) {
     checkEndpoint();
 }
 // check data
 checkPayload($data);
 // get data
-$department->department_name = checkIndex($data, "department_name");
+$enagagementCategory->engagement_category_id = checkIndex($data, "engagement_category_id");
+$enagagementCategory->engagement_category_description = checkIndex($data, "engagement_category_description");
+$enagagementCategory->engagement_category_invoice_description = checkIndex($data, "engagement_category_invoice_description");
 
-$department->department_is_active = 1;
-$department->department_created = date("Y-m-d H:i:s");
-$department->department_datetime = date("Y-m-d H:i:s");
+$enagagementCategory->engagement_category_is_active = 1;
+$enagagementCategory->engagement_category_created_at = date("Y-m-d H:i:s");
+$enagagementCategory->engagement_category_updated_at = date("Y-m-d H:i:s");
 // // check name
-// isNameExist($department, $department->department_name);
+// isNameExist($enagagementCategory, $enagagementCategory->department_name);
 // create
-$query = checkCreate($department);
-returnSuccess($department, "Department", $query);
+$query = checkCreate($enagagementCategory);
+returnSuccess($enagagementCategory, "EngagementCategory", $query);

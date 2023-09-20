@@ -1,32 +1,32 @@
 <?php
 // set http header
-require '../../../../core/header.php';
+require '../../../../../core/header.php';
 // use needed functions
-require '../../../../core/functions.php';
+require '../../../../../core/functions.php';
 // use needed classes
-require '../../../../models/developer/settings/department/Department.php';
+require '../../../../../models/developer/settings/engagement/category/Category.php';
 // check database connection
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$department = new Department($conn); 
+$enagagementCategory = new EngagementCategory($conn); 
 // validate api key 
 if (array_key_exists("start", $_GET)) {
     
-    $department->department_start = $_GET['start'];
-    $department->department_total = 5;
+    $enagagementCategory->engagement_category_start = $_GET['start'];
+    $enagagementCategory->engagement_category_total = 10;
 
     //check to see if task id in query string is not empty and is number, if not return json error
-    checkLimitId($department->department_start, $department->department_total);
+    checkLimitId($enagagementCategory->engagement_category_start, $enagagementCategory->engagement_category_total);
 
-    $query = checkReadLimit($department);
-    $total_result = checkReadAll($department);
+    $query = checkReadLimit($enagagementCategory);
+    $total_result = checkReadAll($enagagementCategory);
     http_response_code(200);
     checkReadQuery(
             $query,
             $total_result,
-            $department->department_total,
-            $department->department_start
+            $enagagementCategory->engagement_category_total,
+            $enagagementCategory->engagement_category_start
         );
 }
 // return 404 error if endpoint not available
