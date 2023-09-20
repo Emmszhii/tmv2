@@ -4,6 +4,7 @@ import { StoreContext } from "../../../../../store/StoreContext";
 import BreadCrumbs from "../../../../partials/Breadcrumbs";
 import Header from "../../../../partials/Header";
 import Navigation from "../../../../partials/Navigation";
+import { Link } from "react-router-dom";
 const Engagement = () => {
   const { store, dispatch } = React.useContext(StoreContext);
 
@@ -21,14 +22,32 @@ const Engagement = () => {
           </div>
           <div>
             <ul>
-              <li className="flex items-center justify-between border-t-2">
-                <div>
-                  <h4 className="mb-1 text-base">Category</h4>
-                  <span>View list of roles on the system</span>
-                </div>
-                <FiChevronRight className="text-2xl" />
+              <li className="hover:bg-gray-100">
+                <Link to={`/settings/engagement/category`}>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="mb-1 text-base">Category</h4>
+                      <p>View list of roles used on the system</p>
+                    </div>
+                    <div className="p-4 text-2xl">
+                      <FiChevronRight />
+                    </div>
+                  </div>
+                </Link>
               </li>
-             
+              <li className="hover:bg-gray-100">
+                <Link to={`/settings/engagement/template`}>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="mb-1 text-base">Template</h4>
+                      <p>View list of roles used on the system</p>
+                    </div>
+                    <div className="p-4 text-2xl">
+                      <FiChevronRight />
+                    </div>
+                  </div>
+                </Link>
+              </li>
             </ul>
           </div>
         </main>

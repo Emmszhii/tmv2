@@ -23,6 +23,14 @@ function App() {
               <Route path={`/settings/activities`} element={<Test />} />
               <Route path={`/settings/rates`} element={<Test />} />
               <Route path={`/settings/engagement`} element={<Engagement />} />
+              <Route
+                path={`/settings/engagement/category`}
+                element={<Engagement />}
+              />
+              <Route
+                path={`/settings/engagement/template`}
+                element={<Engagement />}
+              />
               <Route path={`/settings/offices`} element={<Test />} />
               <Route path={`/settings/department`} element={<Test />} />
               <Route path={`/settings/entities`} element={<Test />} />
