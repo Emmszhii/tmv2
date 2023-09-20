@@ -1,11 +1,9 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { StoreContext } from "../../store/StoreContext";
-import { devNavUrl } from "../helpers/functions-general";
 import { setIsSearch, setStartIndex } from "../../store/StoreAction";
-import { array } from "yup";
+import { StoreContext } from "../../store/StoreContext";
 
-const Breadcrumbs = ({ param = "" }) => {
+const BreadCrumbs = ({ param = "" }) => {
   const { dispatch } = React.useContext(StoreContext);
   const location = useLocation();
 
@@ -14,31 +12,40 @@ const Breadcrumbs = ({ param = "" }) => {
     dispatch(setStartIndex(0));
     dispatch(setIsSearch(false));
   };
+
   const crumbs = location.pathname
     .replace("-", " ")
     .split("/")
     .filter((crumb) => crumb !== "");
-  const isMain = crumbs[0];
 
   return (
     <>
-      <ul className="breadcrumbs">
-        {crumbs.map((link, key, arr) => {
-          currentLink += `/${link.replace(" ", "-")}`;
-          return (
-            <li key={key}>
-              <Link
-                to={`${devNavUrl}${currentLink}${isMain === link ? "" : param}`}
-                onClick={handleClick}
+      <div className="breadcrumbs">
+        <ul className="flex items-center gap-6">
+          {crumbs.map((link, key) => {
+            currentLink += `/${link.replace(" ", "-")}`;
+            return (
+              <li
+                className={`text-[12px] opacity-70 hover:underline relative after:content-['/'] after:absolute after:top-0 after:-right-[15px] last:after:hidden last:opacity-100  last:pointer-events-none ${
+                  (link === "settings" || link === "tools") &&
+                  "pointer-events-none"
+                }`}
+                key={key}
               >
-                {link.replace("-", " ").replace("_", "/")}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+                <Link
+                  to={`${currentLink}${param}`}
+                  className="capitalize"
+                  onClick={handleClick}
+                >
+                  {link.replace("-", " ").replace("_", "/")}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
     </>
   );
 };
 
-export default Breadcrumbs;
+export default BreadCrumbs;

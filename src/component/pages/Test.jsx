@@ -12,7 +12,7 @@ const Test = () => {
       <Header />
       <section className={`main__grid ${store.isShow ? "open" : ""}`}>
         <aside className={`${store.isShow ? "open " : ""}   `}>
-          {/* <Navigation menu="settings" /> */}
+          <Navigation menu="settings" />
         </aside>
         <main className="px-2 lg:pr-10">
           <Breadcrumbs param={location.search} />
