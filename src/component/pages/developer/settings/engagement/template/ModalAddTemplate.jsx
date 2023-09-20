@@ -15,7 +15,7 @@ import ButtonSpinner from "../../../../../partials/spinners/ButtonSpinner";
 import { InputText, InputTextArea } from "../../../../../helpers/FormInputs";
 import { handleEscape } from "../../../../../helpers/functions-general";
 
-const ModalAddCategory = ({ itemEdit }) => {
+const ModalAddTemplate = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -23,14 +23,14 @@ const ModalAddCategory = ({ itemEdit }) => {
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v2/controllers/developer/settings/engagement/category/category.php?engagementCategoryId=${itemEdit.engagement_category_aid}` //update
-          : "/v2/controllers/developer/settings/engagement/category/category.php", //add
+          ? `/v2/controllers/developer/settings/engagement/template/template.php?engagementTemplateId=${itemEdit.engagement_template_aid}` //update
+          : "/v2/controllers/developer/settings/engagement/template/template.php", //add
         itemEdit ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["engagement-category"] });
+      queryClient.invalidateQueries({ queryKey: ["engagement-template"] });
       if (data.success) {
         dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
@@ -45,20 +45,20 @@ const ModalAddCategory = ({ itemEdit }) => {
   });
 
   const initVal = {
-    engagement_category_aid: itemEdit ? itemEdit.engagement_category_aid : "",
-    engagement_category_id: itemEdit ? itemEdit.engagement_category_id : "",
-    engagement_category_description: itemEdit
-      ? itemEdit.engagement_category_description
+    engagement_template_aid: itemEdit ? itemEdit.engagement_template_aid : "",
+    engagement_template_id: itemEdit ? itemEdit.engagement_template_id : "",
+    engagement_template_description: itemEdit
+      ? itemEdit.engagement_template_description
       : "",
-    engagement_category_invoice_description: itemEdit
-      ? itemEdit.engagement_category_invoice_description
+    engagement_template_invoice_description: itemEdit
+      ? itemEdit.engagement_template_invoice_description
       : "",
   };
 
   const yupSchema = Yup.object({
-    engagement_category_id: Yup.string().required("Required"),
-    engagement_category_description: Yup.string().required("Required"),
-    engagement_category_invoice_description: Yup.string().required("Required"),
+    engagement_template_id: Yup.string().required("Required"),
+    engagement_template_description: Yup.string().required("Required"),
+    engagement_template_invoice_description: Yup.string().required("Required"),
   });
 
   const handleClose = () => {
@@ -74,7 +74,7 @@ const ModalAddCategory = ({ itemEdit }) => {
           className={`modal__main absolute mx-1 bg-white border border-gray-200 rounded-md py-8 px-5 max-w-[420px] w-full shadow-xl`}
         >
           <div className="modal__header relative">
-            <h3> {itemEdit ? "Update" : "Add"} Engagement Category </h3>
+            <h3> {itemEdit ? "Update" : "Add"} Engagement Template </h3>
             <button className="absolute -top-4 right-0 " onClick={handleClose}>
               <FaTimes className="text-gray-700 text-base" />
             </button>
@@ -96,7 +96,7 @@ const ModalAddCategory = ({ itemEdit }) => {
                         <InputText
                           label="ID"
                           type="text"
-                          name="engagement_category_id"
+                          name="engagement_template_id"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -104,7 +104,7 @@ const ModalAddCategory = ({ itemEdit }) => {
                         <InputTextArea
                           label="Description"
                           type="text"
-                          name="engagement_category_description"
+                          name="engagement_template_description"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -112,7 +112,7 @@ const ModalAddCategory = ({ itemEdit }) => {
                         <InputTextArea
                           label="Invoice Description"
                           type="text"
-                          name="engagement_category_invoice_description"
+                          name="engagement_template_invoice_description"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -152,4 +152,4 @@ const ModalAddCategory = ({ itemEdit }) => {
   );
 };
 
-export default ModalAddCategory;
+export default ModalAddTemplate;

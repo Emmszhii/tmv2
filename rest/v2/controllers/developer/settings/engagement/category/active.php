@@ -18,7 +18,7 @@ $data = json_decode($body, true);
 if (array_key_exists("engagementCategoryId", $_GET)) {
     // check data
     checkPayload($data);
-    $enagagementCategory->engagement_category_aid = $_GET['departmengagementCategoryIdentId'];
+    $enagagementCategory->engagement_category_aid = $_GET['engagementCategoryId'];
     $enagagementCategory->engagement_category_is_active = trim($data["isActive"]);
     // $enagagementCategory->department_datetime = date("Y-m-d H:i:s");
     checkId($enagagementCategory->engagement_category_aid);

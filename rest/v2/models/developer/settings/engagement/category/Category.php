@@ -80,7 +80,7 @@ class EngagementCategory
         try {
             $sql = "select ";
             $sql .= "* ";
-            $sql .= "from {$this->engagement_category_is_active} ";
+            $sql .= "from {$this->tblEngagementCategory} ";
             $sql .= "order by engagement_category_is_active desc, ";
             $sql .= "engagement_category_id asc ";
             $sql .= "limit :start, ";
@@ -141,14 +141,14 @@ class EngagementCategory
             $sql .= "engagement_category_description = :engagement_category_description, ";
             $sql .= "engagement_category_invoice_description = :engagement_category_invoice_description, ";
             $sql .= "engagement_category_updated_at = :engagement_category_updated_at ";
-            $sql .= "where engagement_category_updated_at = :engagement_category_updated_at ";
+            $sql .= "where engagement_category_aid = :engagement_category_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "engagement_category_id" => $this->engagement_category_id,
                 "engagement_category_description" => $this->engagement_category_description,
                 "engagement_category_invoice_description" => $this->engagement_category_invoice_description,
                 "engagement_category_updated_at" => $this->engagement_category_updated_at,
-                "engagement_category_updated_at" => $this->engagement_category_updated_at,
+                "engagement_category_aid" => $this->engagement_category_aid,
             ]);
         } catch (PDOException $ex) {
             $query = false;

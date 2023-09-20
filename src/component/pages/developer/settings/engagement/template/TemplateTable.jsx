@@ -23,7 +23,7 @@ import ModalDeleteAndRestore from "../../../../../partials/modals/ModalDeleteAnd
 import TableSpinner from "../../../../../partials/spinners/TableSpinner";
 import Pills from "../../../../../partials/Pills";
 
-const CategoryTable = ({ setItemEdit }) => {
+const TemplateTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);
   const [id, setId] = React.useState(null);
@@ -47,11 +47,11 @@ const CategoryTable = ({ setItemEdit }) => {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["engagement-category", store.isSearch],
+    queryKey: ["engagement-template", store.isSearch],
     queryFn: async ({ pageParam = 1 }) =>
       await queryDataInfinite(
-        `/v2/controllers/developer/settings/engagement/category/search.php`, // search endpoint
-        `/v2/controllers/developer/settings/engagement/category/page.php?start=${pageParam}`, // list endpoint // list endpoint
+        `/v2/controllers/developer/settings/engagement/template/search.php`, // search endpoint
+        `/v2/controllers/developer/settings/engagement/template/page.php?start=${pageParam}`, // list endpoint // list endpoint
         store.isSearch, // search boolean
         "post",
         { search: search.current.value }
@@ -79,21 +79,21 @@ const CategoryTable = ({ setItemEdit }) => {
 
   const handleArchive = (item) => {
     dispatch(setIsConfirm(true));
-    setId(item.engagement_category_aid);
+    setId(item.engagement_template_aid);
     setData(item);
     setDel(null);
   };
 
   const handleRestore = (item) => {
     dispatch(setIsRestore(true));
-    setId(item.engagement_category_aid);
+    setId(item.engagement_template_aid);
     setData(item);
     setDel(null);
   };
 
   const handleDelete = (item) => {
     dispatch(setIsRestore(true));
-    setId(item.engagement_category_aid);
+    setId(item.engagement_template_aid);
     setData(item);
     setDel(true);
   };
@@ -107,7 +107,7 @@ const CategoryTable = ({ setItemEdit }) => {
         result={result?.pages}
         isFetching={isFetching}
       />
-      <Footer record={counter} active={active} inactive={inactive} />
+      <Footer />
       <div className="table__wrapper relative rounded-md shadow-md overflow-auto mb-8">
         {isFetching && status !== "loading" && <TableSpinner />}
 
@@ -146,27 +146,27 @@ const CategoryTable = ({ setItemEdit }) => {
             {result?.pages.map((page, key) => (
               <React.Fragment key={key}>
                 {page.data.map((item, key) => {
-                  active += item.engagement_category_is_active === 1;
-                  inactive += item.engagement_category_is_active === 0;
+                  active += item.engagement_template_is_active === 1;
+                  inactive += item.engagement_template_is_active === 0;
                   return (
                     <tr key={key}>
                       <td>{counter++}.</td>
                       <td>
-                        {item.engagement_category_is_active === 1 ? (
+                        {item.engagement_template_is_active === 1 ? (
                           <Pills label="Active" tc="text-success" />
                         ) : (
                           <Pills label="Inactive" tc="text-archive" />
                         )}
                       </td>
-                      <td>{item.engagement_category_id}</td>
-                      <td>{item.engagement_category_description}</td>
-                      <td>{item.engagement_category_invoice_description}</td>
+                      <td>{item.engagement_template_id}</td>
+                      <td>{item.engagement_template_description}</td>
+                      <td>{item.engagement_template_invoice_description}</td>
 
                       <td
                         className="table__action top-0 right-5 "
                         data-ellipsis=". . ."
                       >
-                        {item.engagement_category_is_active === 1 ? (
+                        {item.engagement_template_is_active === 1 ? (
                           <ul className=" flex items-center  gap-4 bg-">
                             <li>
                               <button
@@ -232,10 +232,10 @@ const CategoryTable = ({ setItemEdit }) => {
 
       {store.isConfirm && (
         <ModalConfirm
-          mysqlApiArchive={`/v2/controllers/developer/settings/engagement/category/active.php?engagementCategoryId=${id}`}
-          msg={"Are you sure you want to archive this engagement category?"}
-          item={dataItem.engagement_category_id}
-          queryKey={"engagement-category"}
+          mysqlApiArchive={`/v2/controllers/developer/settings/engagement/template/active.php?engagementTemplateId=${id}`}
+          msg={"Are you sure you want to archive this engagement template?"}
+          item={dataItem.engagement_template_id}
+          queryKey={"engagement-template"}
         />
       )}
 
@@ -243,19 +243,19 @@ const CategoryTable = ({ setItemEdit }) => {
         <ModalDeleteAndRestore
           id={id}
           isDel={isDel}
-          mysqlApiDelete={`/v2/controllers/developer/settings/engagement/category/category.php?engagementCategoryId=${id}`}
-          mysqlApiRestore={`/v2/controllers/developer/settings/engagement/category/active.php?engagementCategoryId=${id}`}
+          mysqlApiDelete={`/v2/controllers/developer/settings/engagement/template/template.php?engagementTemplateId=${id}`}
+          mysqlApiRestore={`/v2/controllers/developer/settings/engagement/template/active.php?engagementTemplateId=${id}`}
           msg={
             isDel
-              ? "Are you sure you want to delete this engagement category??"
-              : "Are you sure you want to restore this engagement category??"
+              ? "Are you sure you want to delete this engagement template?"
+              : "Are you sure you want to restore this engagement template?"
           }
-          item={dataItem.engagement_category_id}
-          queryKey={"engagement-category"}
+          item={dataItem.engagement_template_id}
+          queryKey={"engagement-template"}
         />
       )}
     </>
   );
 };
 
-export default CategoryTable;
+export default TemplateTable;
