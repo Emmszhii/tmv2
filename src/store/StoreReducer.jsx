@@ -54,12 +54,6 @@ export const StoreReducer = (state, action) => {
         isRestore: action.payload,
       };
 
-    case "IS_ADD":
-      return {
-        ...state,
-        isAdd: action.payload,
-      };
-
     case "IS_FEEDBACK":
       return {
         ...state,
@@ -70,6 +64,12 @@ export const StoreReducer = (state, action) => {
       return {
         ...state,
         isEdit: action.payload,
+      };
+
+    case "IS_ADD":
+      return {
+        ...state,
+        isAdd: action.payload,
       };
 
     case "IS_VIEW":
@@ -154,38 +154,6 @@ export const StoreReducer = (state, action) => {
       return {
         ...state,
         isSettingsOpen: action.payload,
-      };
-
-    case "IS_CLIENT_OPEN":
-      return {
-        ...state,
-        isClientOpen: action.payload,
-      };
-
-    case "IS_MENU_OPEN":
-      return {
-        ...state,
-        isMenuOpen: action.payload,
-      };
-    case "IS_INFO_OPEN":
-      return {
-        ...state,
-        isInfoOpen: action.payload,
-      };
-    case "IS_ARCHIVE":
-      return {
-        ...state,
-        isArchive: action.payload,
-      };
-    case "IS_TIMEENTRY_OPEN":
-      return {
-        ...state,
-        isTimeEntryOpen: action.payload,
-      };
-    case "IS_STAFF_OPEN":
-      return {
-        ...state,
-        isStaffOpen: action.payload,
       };
 
     default:

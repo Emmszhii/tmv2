@@ -1,12 +1,7 @@
 import React from "react";
-import { StoreContext } from "../../store/StoreContext";
-import {
-  setIsSettingsOpen,
-  setIsStaffOpen,
-  setIsTimeEntryOpen,
-  setIsToolsOpen,
-} from "../../store/StoreAction";
+import { setIsSettingsOpen, setIsToolsOpen } from "../../store/StoreAction";
 import { devNavUrl } from "../helpers/functions-general";
+import { StoreContext } from "../../store/StoreContext";
 
 const Navigation = ({ menu, submenu = null, val }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -155,22 +150,6 @@ const Navigation = ({ menu, submenu = null, val }) => {
         </li>
         <div className={store.isSettingsOpen ? "showdropdown" : "hidden"}>
           <ul className="ml-9 ">
-            <li
-              className={` ${
-                submenu === "toolsWorkLoadChart"
-                  ? "bg-[#436c8a]/80 rounded-md"
-                  : ""
-              }`}
-            >
-              <Link
-                to={`${urlRolePath}/tools/workloadchart`}
-                className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
-                  submenu === "toolsWorkLoadChart" ? "active__submenu" : ""
-                }`}
-              >
-                WorkLoad Chart
-              </Link>
-            </li>
             <li
               className={` ${
                 submenu === "settingsAccessLevel"
