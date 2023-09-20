@@ -4,6 +4,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Test from "./component/pages/Test";
 import { StoreProvider } from "./store/StoreContext";
 import Users from "./component/pages/developer/settings/users/Users";
+import System from "./component/pages/developer/settings/users/system/System";
 
 function App() {
   const queryClient = new QueryClient();
@@ -16,7 +17,7 @@ function App() {
               <Route path={`*`} element={<Test />} />
               <Route path={`/settings/accesslevel`} element={<Test />} />
               <Route path={`/settings/users`} element={<Users />} />
-              <Route path={`/settings/users/system`} element={<Users />} />
+              <Route path={`/settings/users/system`} element={<System />} />
               <Route path={`/settings/users/other`} element={<Users />} />
               <Route path={`/settings/users/roles`} element={<Users />} />
               <Route path={`/settings/activities`} element={<Test />} />
