@@ -9,7 +9,7 @@ const initVal = {
   isSave: false,
   isShow: false,
   isConfirm: false,
-  isRestore: false, 
+  isRestore: false,
   isEdit: false,
   isAdd: false,
   isView: false,
@@ -27,6 +27,7 @@ const initVal = {
   isRefresh: false,
   isToolsOpen: false,
   isSettingsOpen: false,
+  isMenuOpen: false,
 };
 
 const StoreContext = React.createContext();

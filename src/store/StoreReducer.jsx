@@ -155,6 +155,11 @@ export const StoreReducer = (state, action) => {
         ...state,
         isSettingsOpen: action.payload,
       };
+    case "IS_MENU_OPEN":
+      return {
+        ...state,
+        isMenuOpen: action.payload,
+      };
 
     default:
       return state;
