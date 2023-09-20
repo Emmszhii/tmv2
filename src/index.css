@@ -289,6 +289,22 @@
   .main__grid.open {
     @apply grid-cols-[200px_1fr] overflow-x-hidden;
   }
+
+  header .toggle__btn {
+    @apply md:hidden;
+  }
+  header .toggle__btn span {
+    @apply block w-8 h-1 bg-gray-400 m-1 transition-all rounded-sm;
+  }
+  header .toggle__bt.open span:first-child {
+    @apply rotate-45 translate-y-2;
+  }
+  header .toggle__btn.open span:nth-child(2) {
+    @apply opacity-0;
+  }
+  header .toggle__btn.open span:last-child {
+    @apply -rotate-45 -translate-y-2;
+  }
 }
 
 @layer utilities {
