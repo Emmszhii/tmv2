@@ -151,9 +151,9 @@ const OtherTable = ({ setItemEdit }) => {
                       <td>{counter++}.</td>
                       <td>
                         {item.settings_other_is_active === 1 ? (
-                          <Pills label="Active" bgc="bg-success" />
+                          <Pills label="Active" />
                         ) : (
-                          <Pills label="Inactive" bgc="bg-archive" />
+                          <Pills label="Inactive" tc="text-archive" />
                         )}
                       </td>
                       <td>{item.settings_other_name}</td>

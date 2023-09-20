@@ -153,9 +153,9 @@ const SystemTable = ({ setItemEdit }) => {
                       <td>{counter++}.</td>
                       <td>
                         {item.settings_system_is_active === 1 ? (
-                          <Pills label="Active" bgc="bg-success" />
+                          <Pills label="Active" />
                         ) : (
-                          <Pills label="Inactive" bgc="bg-archive" />
+                          <Pills label="Inactive" tc="text-archive" />
                         )}
                       </td>
                       <td>{item.settings_system_name}</td>
