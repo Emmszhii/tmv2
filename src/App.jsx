@@ -16,6 +16,9 @@ function App() {
               <Route path={`*`} element={<Test />} />
               <Route path={`/settings/accesslevel`} element={<Test />} />
               <Route path={`/settings/users`} element={<Users />} />
+              <Route path={`/settings/users/system`} element={<Users />} />
+              <Route path={`/settings/users/other`} element={<Users />} />
+              <Route path={`/settings/users/roles`} element={<Users />} />
               <Route path={`/settings/activities`} element={<Test />} />
               <Route path={`/settings/rates`} element={<Test />} />
               <Route path={`/settings/engagement`} element={<Test />} />
