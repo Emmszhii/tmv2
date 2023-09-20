@@ -1,3 +1,5 @@
+import Header from "./component/partials/Header";
+
 function App() {
   return (
     <>
