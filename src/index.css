@@ -290,7 +290,7 @@
     @apply grid-cols-[200px_1fr] overflow-x-hidden;
   }
 
-  .breadcrumbs {
+  /* .breadcrumbs {
     @apply flex items-center gap-6;
   }
   .breadcrumbs li {
@@ -298,7 +298,7 @@
   }
   .breadcrumbs li:last-child {
     @apply before:content-[''];
-  }
+  } */
 
   header .toggle__btn {
     @apply cursor-pointer;

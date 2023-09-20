@@ -4,6 +4,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Test from "./component/pages/Test";
 import { StoreProvider } from "./store/StoreContext";
 import Users from "./component/pages/developer/settings/users/Users";
+import Engagement from "./component/pages/developer/settings/engagement/Engagement";
 
 function App() {
   const queryClient = new QueryClient();
@@ -18,7 +19,7 @@ function App() {
               <Route path={`/settings/users`} element={<Users />} />
               <Route path={`/settings/activities`} element={<Test />} />
               <Route path={`/settings/rates`} element={<Test />} />
-              <Route path={`/settings/engagement`} element={<Test />} />
+              <Route path={`/settings/engagement`} element={<Engagement />} />
               <Route path={`/settings/offices`} element={<Test />} />
               <Route path={`/settings/department`} element={<Test />} />
               <Route path={`/settings/entities`} element={<Test />} />
