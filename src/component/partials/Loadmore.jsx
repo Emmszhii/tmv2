@@ -14,7 +14,10 @@ const Loadmore = ({
     return (
       <>
         {isFetchingNextPage ? (
-          <button type="button" className="w-full text-primary mx-auto mt-5">
+          <button
+            type="button"
+            className="w-full bg-primary text-primary mx-auto mt-5"
+          >
             {isFetchingNextPage ? (
               <ButtonSpinner color="primary" />
             ) : (
@@ -29,7 +32,7 @@ const Loadmore = ({
       </>
     );
   }
-   
+
   if (hasNextPage) {
     return (
       <button
@@ -47,7 +50,6 @@ const Loadmore = ({
           <ButtonSpinner color="stroke-accent" />
         )}
       </button>
-
     );
   }
 };

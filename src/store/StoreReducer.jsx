@@ -71,6 +71,16 @@ export const StoreReducer = (state, action) => {
         ...state,
         isAdd: action.payload,
       };
+    case "IS_DELETE":
+      return {
+        ...state,
+        isDelete: action.payload,
+      };
+    case "IS_ARCHIVE":
+      return {
+        ...state,
+        isArchive: action.payload,
+      };
 
     case "IS_VIEW":
       return {
