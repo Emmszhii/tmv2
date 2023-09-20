@@ -1,5 +1,9 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
+import { FaRegEye } from "react-icons/fa";
+import { FiArchive, FiEdit3 } from "react-icons/fi";
+import { RiDeleteBinLine } from "react-icons/ri";
+import { MdRestore } from "react-icons/md";
 import { useInView } from "react-intersection-observer";
 import {
   setIsAdd,
@@ -7,7 +11,16 @@ import {
   setIsRestore,
 } from "../../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../../store/StoreContext";
+import { queryDataInfinite } from "../../../../../helpers/queryDataInfinite";
+import Footer from "../../../../../partials/Footer";
 import Searchbar from "../../../../../partials/Searchbar";
+import TableLoading from "../../../../../partials/TableLoading";
+import TableSpinner from "../../../../../partials/spinners/TableSpinner";
+import ServerError from "../../../../../partials/ServerError";
+import Nodata from "../../../../../partials/Nodata";
+import Pills from "../../../../../partials/Pills";
+import { Link } from "react-router-dom";
+import { devNavUrl } from "../../../../../helpers/functions-general";
 
 const SystemTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -35,8 +48,8 @@ const SystemTable = ({ setItemEdit }) => {
     queryKey: ["settings-system", store.isSearch],
     queryFn: async ({ pageParam = 1 }) =>
       await queryDataInfinite(
-        `/v1/controllers/developer/settings/department/search.php`, // search endpoint
-        `/v1/controllers/developer/settings/department/page.php?start=${pageParam}`, // list endpoint // list endpoint
+        `/v2/controllers/developer/settings/system/search.php`, // search endpoint
+        `/v2/controllers/developer/settings/system/page.php?start=${pageParam}`, // list endpoint // list endpoint
         store.isSearch, // search boolean
         "post",
         { search: search.current.value }
@@ -64,21 +77,21 @@ const SystemTable = ({ setItemEdit }) => {
 
   const handleArchive = (item) => {
     dispatch(setIsConfirm(true));
-    setId(item.department_aid);
+    setId(item.settings_system_aid);
     setData(item);
     setDel(null);
   };
 
   const handleRestore = (item) => {
     dispatch(setIsRestore(true));
-    setId(item.department_aid);
+    setId(item.settings_system_aid);
     setData(item);
     setDel(null);
   };
 
   const handleDelete = (item) => {
     dispatch(setIsRestore(true));
-    setId(item.department_aid);
+    setId(item.settings_system_aid);
     setData(item);
     setDel(true);
   };
@@ -92,6 +105,120 @@ const SystemTable = ({ setItemEdit }) => {
         result={result?.pages}
         isFetching={isFetching}
       />
+      <Footer record={counter} active={active} inactive={inactive} />
+      <div className="table__wrapper relative rounded-md shadow-md overflow-auto mb-8">
+        {isFetching && status !== "loading" && <TableSpinner />}
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Status</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th className="action lg:hidden"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {(status === "loading" || result?.pages[0].data.length === 0) && (
+              <tr className="text-center ">
+                <td colSpan="100%" className="p-10">
+                  {status === "loading" ? (
+                    <TableLoading count={20} cols={3} />
+                  ) : (
+                    <Nodata />
+                  )}
+                </td>
+              </tr>
+            )}
+            {error && (
+              <tr className="text-center ">
+                <td colSpan="100%" className="p-10">
+                  <ServerError />
+                </td>
+              </tr>
+            )}
+            {result?.pages.map((page, key) => (
+              <React.Fragment key={key}>
+                {page.data.map((item, key) => {
+                  active += item.settings_system_is_active === 1;
+                  inactive += item.settings_system_is_active === 0;
+                  return (
+                    <tr key={key}>
+                      <td>{counter++}.</td>
+                      <td>
+                        {item.settings_system_is_active === 1 ? (
+                          <Pills label="Active" bgc="bg-success" />
+                        ) : (
+                          <Pills label="Inactive" bgc="bg-archive" />
+                        )}
+                      </td>
+                      <td>{item.settings_system_name}</td>
+                      <td>{item.settings_system_email}</td>
+                      <td>{item.settings_system_role}</td>
+                      <td
+                        className="table__action top-0 right-5 "
+                        data-ellipsis=". . ."
+                      >
+                        {item.settings_system_is_active === 1 ? (
+                          <ul className=" flex items-center  gap-4 bg-">
+                            <Link
+                              to={`${devNavUrl}/settings/department/view?departmentId=${item.settings_system_aid}`}
+                            >
+                              <button className="tooltip" data-tooltip="view">
+                                <FaRegEye />
+                              </button>
+                            </Link>
+                            <li>
+                              <button
+                                className="tooltip"
+                                data-tooltip="Edit"
+                                onClick={() => handleEdit(item)}
+                              >
+                                <FiEdit3 />
+                              </button>
+                            </li>
+                            <li>
+                              <button
+                                className="tooltip"
+                                data-tooltip="Archive"
+                                onClick={() => handleArchive(item)}
+                              >
+                                <FiArchive />
+                              </button>
+                            </li>
+                          </ul>
+                        ) : (
+                          <ul className="flex items-center gap-4">
+                            <li>
+                              <button
+                                className="tooltip"
+                                data-tooltip="Delete"
+                                onClick={() => handleDelete(item)}
+                              >
+                                <RiDeleteBinLine />
+                              </button>
+                            </li>
+                            <li>
+                              <button
+                                className="tooltip"
+                                data-tooltip="Restore"
+                                onClick={() => handleRestore(item)}
+                              >
+                                <MdRestore />
+                              </button>
+                            </li>
+                          </ul>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </React.Fragment>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </>
   );
 };

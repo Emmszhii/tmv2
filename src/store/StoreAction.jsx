@@ -193,3 +193,15 @@ export const setIsMenuOpen = (val) => {
     payload: val,
   };
 };
+export const setIsDelete = (val) => {
+  return {
+    type: "IS_DELETE",
+    payload: val,
+  };
+};
+export const setIsArchive = (val) => {
+  return {
+    type: "IS_DELETE",
+    payload: val,
+  };
+};
