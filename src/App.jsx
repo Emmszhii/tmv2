@@ -8,6 +8,7 @@ import System from "./component/pages/developer/settings/users/system/System";
 import Engagement from "./component/pages/developer/settings/engagement/Engagement";
 import Other from "./component/pages/developer/settings/users/other/Other";
 import Roles from "./component/pages/developer/settings/users/roles/Roles";
+import Category from "./component/pages/developer/settings/engagement/category/Category";
 
 function App() {
   const queryClient = new QueryClient();
@@ -28,7 +29,7 @@ function App() {
               <Route path={`/settings/engagement`} element={<Engagement />} />
               <Route
                 path={`/settings/engagement/category`}
-                element={<Engagement />}
+                element={<Category />}
               />
               <Route
                 path={`/settings/engagement/template`}
