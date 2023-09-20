@@ -61,8 +61,8 @@ const SystemTable = ({ setItemEdit }) => {
     queryKey: ["settings-system", store.isSearch],
     queryFn: async ({ pageParam = 1 }) =>
       await queryDataInfinite(
-        `/v2/controllers/developer/settings/system/search.php`, // search endpoint
-        `/v2/controllers/developer/settings/system/page.php?start=${pageParam}`, // list endpoint // list endpoint
+        `/v2/controllers/developer/settings/users/system/search.php`, // search endpoint
+        `/v2/controllers/developer/settings/users/system/page.php?start=${pageParam}`, // list endpoint // list endpoint
         store.isSearch, // search boolean
         "post",
         { search: search.current.value }

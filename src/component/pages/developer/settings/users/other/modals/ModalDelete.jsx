@@ -18,7 +18,7 @@ const ModalDelete = ({ item }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        `/v2/controllers/developer/settings/other/other.php?otherId=${item.settings_other_aid}`,
+        `/v2/controllers/developer/settings/users/other/other.php?otherId=${item.settings_other_aid}`,
         "delete",
         values
       ),

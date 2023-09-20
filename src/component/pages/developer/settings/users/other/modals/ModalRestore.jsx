@@ -19,7 +19,7 @@ const ModalRestore = ({ item }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        `/v2/controllers/developer/settings/other/active.php?otherId=${item.settings_other_aid}`,
+        `/v2/controllers/developer/settings/users/other/active.php?otherId=${item.settings_other_aid}`,
         "put",
         values
       ),

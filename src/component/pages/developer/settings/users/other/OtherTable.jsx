@@ -56,8 +56,8 @@ const OtherTable = ({ setItemEdit }) => {
     queryKey: ["settings-other", store.isSearch],
     queryFn: async ({ pageParam = 1 }) =>
       await queryDataInfinite(
-        `/v2/controllers/developer/settings/other/search.php`, // search endpoint
-        `/v2/controllers/developer/settings/other/page.php?start=${pageParam}`, // list endpoint // list endpoint
+        `/v2/controllers/developer/settings/users/other/search.php`, // search endpoint
+        `/v2/controllers/developer/settings/users/other/page.php?start=${pageParam}`, // list endpoint // list endpoint
         store.isSearch, // search boolean
         "post",
         { search: search.current.value }

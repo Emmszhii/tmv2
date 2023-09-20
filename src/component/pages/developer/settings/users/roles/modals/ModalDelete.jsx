@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { HiInformationCircle } from "react-icons/hi";
 import {
-  setIsArchive,
+  setIsDelete,
   setMessage,
   setSuccess,
   setValidate,
@@ -12,25 +12,25 @@ import { handleEscape } from "../../../../../../helpers/functions-general";
 import { queryData } from "../../../../../../helpers/queryData";
 import ButtonSpinner from "../../../../../../partials/spinners/ButtonSpinner";
 
-const ModalArchive = ({ item }) => {
+const ModalDelete = ({ item }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        `/v2/controllers/developer/settings/users/other/active.php?otherId=${item.settings_other_aid}`,
-        "put",
+        `/v2/controllers/developer/settings/roles/roles.php?rolesId=${item.settings_roles_aid}`,
+        "delete",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: `settings-other` });
+      queryClient.invalidateQueries({ queryKey: `settings-roles` });
       //   dispatch(setIsRestore(false));
 
       if (data.success) {
-        dispatch(setIsArchive(false));
+        dispatch(setIsDelete(false));
         dispatch(setSuccess(true));
-        dispatch(setMessage(`Archive succesfully.`));
+        dispatch(setMessage(`Delete succesfully.`));
       }
       if (!data.success) {
         dispatch(setValidate(true));
@@ -41,13 +41,11 @@ const ModalArchive = ({ item }) => {
 
   const handleYes = async () => {
     // // mutate data
-    mutation.mutate({
-      isActive: 0,
-    });
+    mutation.mutate({});
   };
 
   const handleClose = () => {
-    dispatch(setIsArchive(false));
+    dispatch(setIsDelete(false));
   };
 
   handleEscape(() => handleClose());
@@ -58,19 +56,19 @@ const ModalArchive = ({ item }) => {
           className={`modal__main absolute mx-1 bg-white border border-gray-200 rounded-md py-8 px-5 max-w-[420px] w-full shadow-xl`}
         >
           <div className="modal__header flex gap-2">
-            <HiInformationCircle className="fill-primary text-5xl" />
-            <h3 className="mt-3 text-[16px]">Archive</h3>
+            <HiInformationCircle className="fill-alert text-5xl" />
+            <h3 className="mt-3 text-[16px]">Delete</h3>
           </div>
           <h3 className="mt-3 text-[14px] mb-0 font-normal ">
-            Are you sure you want to Archive?
+            Are you sure you want to Delete?
           </h3>
-          <p className="text-primary mt-5 uppercase">
-            {item.settings_other_name}
+          <p className="text-alert mt-5 uppercase">
+            {item.settings_roles_name}
           </p>
 
           <div className="modal__action flex justify-end mt-6 gap-2">
             <button
-              className="btn btn--primary"
+              className="btn btn--alert"
               disabled={mutation.isLoading}
               onClick={handleYes}
               type="submit"
@@ -92,4 +90,4 @@ const ModalArchive = ({ item }) => {
   );
 };
 
-export default ModalArchive;
+export default ModalDelete;
