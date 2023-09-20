@@ -1,9 +1,10 @@
 import React from "react";
 import { BiSolidUserCircle } from "react-icons/bi";
-import { StoreContext } from "../../store/StoreContext.jsx";
+import { StoreContext } from "../../store/StoreContext";
 import Logo from "../svg/Logo";
 
 const Header = () => {
+  const { store, dispatch } = React.useState(StoreContext);
   return (
     <>
       <header className="flex py-4 px-2 items-center justify-between">
