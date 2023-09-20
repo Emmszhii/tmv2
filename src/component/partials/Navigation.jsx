@@ -1,6 +1,9 @@
 import React from "react";
+import { StoreContext } from "../../store/StoreContext";
 
 const Navigation = ({ menu, submenu = null, val }) => {
+  const { store, dispatch } = React.useContext(StoreContext);
+
   return (
     <div className="px-2 py-4 bg-tm-gradient h-full">
       <ul className="custom__scroll">
@@ -11,7 +14,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
           >
             <div className="flex justify-between items-center w-full">
               <div className="flex gap-3 items-center ">
-                <BsGear className="text-lg" /> Settings
+                <BsGear className="text-lg" /> Tools
               </div>
               <PiCaretRight
                 className={!store.isSettingsOpen ? "rotate-0" : "rotate-90"}
