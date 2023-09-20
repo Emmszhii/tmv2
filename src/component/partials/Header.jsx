@@ -3,13 +3,24 @@ import Logo from "../svg/Logo";
 import { BiSolidUserCircle } from "react-icons/bi";
 
 const Header = () => {
+
   return (
     <>
-      <header className="flex p-4 items-center justify-between">
-        <Logo />
-        <div className="flex items-center gap-2">
-          <div className="m-0">
-            <p className="m-0 font-bold">Emms</p>
+      <header className="flex py-4 px-2 items-center justify-between">
+        <div className="flex items-center gap-4">
+          <div className="toggle__btn">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div>
+            <Logo />
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 text-right">
+          <div className="m-0 text-sm">
+            <p className="m-0 leading-none font-bold">Emms</p>
             <p className="m-0">Developer</p>
           </div>
           <div className="">
