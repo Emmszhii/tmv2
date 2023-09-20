@@ -1,10 +1,8 @@
-import Header from "./component/partials/Header";
-import React from "react";
-import Navigation from "./component/partials/Navigation";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { StoreProvider } from "./store/StoreContext";
+import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Test from "./component/pages/Test";
+import { StoreProvider } from "./store/StoreContext";
 
 function App() {
   const queryClient = new QueryClient();
