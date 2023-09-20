@@ -24,7 +24,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
   //   };
 
   return (
-    <div className="px-2 py-4 bg-tm-gradient h-full ">
+    <div className="px-2 py-4 bg-tm-gradient h-full">
       <ul className="custom__scroll">
         <li className="nav__link  has__dropdown">
           <button

@@ -5,6 +5,9 @@ import Test from "./component/pages/Test";
 import { StoreProvider } from "./store/StoreContext";
 import Users from "./component/pages/developer/settings/users/Users";
 import System from "./component/pages/developer/settings/users/system/System";
+import Engagement from "./component/pages/developer/settings/engagement/Engagement";
+import Other from "./component/pages/developer/settings/users/other/Other";
+import Roles from "./component/pages/developer/settings/users/roles/Roles";
 
 function App() {
   const queryClient = new QueryClient();
@@ -18,11 +21,19 @@ function App() {
               <Route path={`/settings/accesslevel`} element={<Test />} />
               <Route path={`/settings/users`} element={<Users />} />
               <Route path={`/settings/users/system`} element={<System />} />
-              <Route path={`/settings/users/other`} element={<Users />} />
-              <Route path={`/settings/users/roles`} element={<Users />} />
+              <Route path={`/settings/users/other`} element={<Other />} />
+              <Route path={`/settings/users/roles`} element={<Roles />} />
               <Route path={`/settings/activities`} element={<Test />} />
               <Route path={`/settings/rates`} element={<Test />} />
-              <Route path={`/settings/engagement`} element={<Test />} />
+              <Route path={`/settings/engagement`} element={<Engagement />} />
+              <Route
+                path={`/settings/engagement/category`}
+                element={<Engagement />}
+              />
+              <Route
+                path={`/settings/engagement/template`}
+                element={<Engagement />}
+              />
               <Route path={`/settings/offices`} element={<Test />} />
               <Route path={`/settings/department`} element={<Test />} />
               <Route path={`/settings/entities`} element={<Test />} />
