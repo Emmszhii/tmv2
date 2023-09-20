@@ -18,13 +18,13 @@ const ModalArchive = ({ item }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        `/v2/controllers/developer/settings/users/other/active.php?otherId=${item.settings_other_aid}`,
+        `/v2/controllers/developer/settings/roles/active.php?rolesId=${item.settings_roles_aid}`,
         "put",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: `settings-other` });
+      queryClient.invalidateQueries({ queryKey: `settings-roles` });
       //   dispatch(setIsRestore(false));
 
       if (data.success) {
@@ -65,7 +65,7 @@ const ModalArchive = ({ item }) => {
             Are you sure you want to Archive?
           </h3>
           <p className="text-primary mt-5 uppercase">
-            {item.settings_other_name}
+            {item.settings_system_name}
           </p>
 
           <div className="modal__action flex justify-end mt-6 gap-2">

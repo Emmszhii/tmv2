@@ -23,14 +23,14 @@ const ModalAddSystem = ({ itemEdit }) => {
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v2/controllers/developer/settings/users/system/system.php?systemId=${itemEdit.settings_system_aid}` //update
-          : "/v2/controllers/developer/settings/users/system/system.php", //add
+          ? `/v2/controllers/developer/settings/roles/roles.php?rolesId=${itemEdit.settings_roles_aid}` //update
+          : "/v2/controllers/developer/settings/roles/roles.php", //add
         itemEdit ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["settings-system"] });
+      queryClient.invalidateQueries({ queryKey: ["settings-roles"] });
       if (data.success) {
         dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
@@ -45,16 +45,17 @@ const ModalAddSystem = ({ itemEdit }) => {
   });
 
   const initVal = {
-    settings_system_name: itemEdit ? itemEdit.settings_system_name : "",
-    settings_system_email: itemEdit ? itemEdit.settings_system_email : "",
-    settings_system_role: itemEdit ? itemEdit.settings_system_role : "",
-    settings_system_name_old: itemEdit ? itemEdit.settings_system_name : "",
+    settings_roles_name: itemEdit ? itemEdit.settings_roles_name : "",
+    settings_roles_description: itemEdit
+      ? itemEdit.settings_roles_description
+      : "",
+
+    settings_roles_name_old: itemEdit ? itemEdit.settings_roles_name : "",
   };
 
   const yupSchema = Yup.object({
-    settings_system_name: Yup.string().required("Required"),
-    settings_system_email: Yup.string().required("Required"),
-    settings_system_role: Yup.string().required("Required"),
+    settings_roles_name: Yup.string().required("Required"),
+    settings_roles_description: Yup.string().required("Required"),
   });
 
   const handleClose = () => {
@@ -92,23 +93,15 @@ const ModalAddSystem = ({ itemEdit }) => {
                         <InputText
                           label="Name"
                           type="text"
-                          name="settings_system_name"
+                          name="settings_roles_name"
                           disabled={mutation.isLoading}
                         />
                       </div>
                       <div className="form__wrap">
                         <InputText
-                          label="Email"
+                          label="Description"
                           type="text"
-                          name="settings_system_email"
-                          disabled={mutation.isLoading}
-                        />
-                      </div>
-                      <div className="form__wrap">
-                        <InputText
-                          label="Role"
-                          type="text"
-                          name="settings_system_role"
+                          name="settings_roles_description"
                           disabled={mutation.isLoading}
                         />
                       </div>

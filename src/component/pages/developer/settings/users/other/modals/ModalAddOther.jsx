@@ -23,8 +23,8 @@ const ModalAddOther = ({ itemEdit }) => {
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v2/controllers/developer/settings/other/other.php?otherId=${itemEdit.settings_other_aid}` //update
-          : "/v2/controllers/developer/settings/other/other.php", //add
+          ? `/v2/controllers/developer/settings/users/other/other.php?otherId=${itemEdit.settings_other_aid}` //update
+          : "/v2/controllers/developer/settings/users/other/other.php", //add
         itemEdit ? "put" : "post",
         values
       ),

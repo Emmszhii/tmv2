@@ -149,17 +149,6 @@
     @apply text-[#3e6fa5];
   }
 
-  main {
-    @apply overflow-x-hidden;
-  }
-
-  aside {
-    @apply -translate-x-40 h-[calc(100vh_-_66px)] lg:h-full hover:overflow-auto lg:translate-x-0  transition-all z-20;
-  }
-
-  aside.open {
-    @apply translate-x-0 h-full;
-  }
   ::-webkit-backface-visibility {
     @apply invisible;
   }
@@ -283,12 +272,17 @@
   }
 
   .main__grid {
-    @apply grid grid-cols-[0px_1fr] lg:grid-cols-[200px_1fr] min-h-[calc(100vh_-_80px)] lg:min-h-[calc(100vh_-_80px)] gap-0 lg:gap-8 transition-all;
+    @apply grid lg:grid-cols-[200px_1fr] max-h-[calc(100vh_-_80px)] lg:min-h-[calc(100vh_-_80px)] gap-0 lg:gap-8 transition-all overflow-y-auto;
   }
-
-  .main__grid.open {
+  .main__grid aside {
+    @apply absolute lg:static w-60 md:w-64 lg:w-auto z-50 overflow-y-auto h-full max-h-[calc(100vh_-_80px)] -left-full transition-all;
+  }
+  .main__grid aside.open {
+    @apply left-0;
+  }
+  /* .main__grid.open {
     @apply grid-cols-[200px_1fr] overflow-x-hidden;
-  }
+  } */
 
   /* .breadcrumbs {
     @apply flex items-center gap-6;

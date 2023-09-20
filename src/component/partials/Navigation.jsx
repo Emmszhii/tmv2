@@ -24,9 +24,9 @@ const Navigation = ({ menu, submenu = null, val }) => {
   //   };
 
   return (
-    <div className="px-2 py-4 bg-tm-gradient h-full">
-      <ul className="custom__scroll">
-        <li className="nav__link  has__dropdown">
+    <div className="px-2 py-4 bg-tm-gradient h-full custom__scroll overflow-y-auto">
+      <ul className="">
+        <li className="nav__link has__dropdown">
           <button
             className={`${menu === "tools" ? "bg-[#436c8a]" : ""}`}
             onClick={() => handleDropDownTools()}

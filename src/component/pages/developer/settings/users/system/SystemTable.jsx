@@ -28,6 +28,12 @@ import ModalRestore from "./modals/ModalRestore";
 import Toast from "../../../../../partials/Toast";
 import ModalDelete from "./modals/ModalDelete";
 import Loadmore from "../../../../../partials/Loadmore";
+import RecordCount from "../../../../../partials/RecordCount";
+import {
+  getStatusCountRecord,
+  getSystemCountRecord,
+  readAllSystem,
+} from "./functions-general";
 
 const SystemTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -55,8 +61,8 @@ const SystemTable = ({ setItemEdit }) => {
     queryKey: ["settings-system", store.isSearch],
     queryFn: async ({ pageParam = 1 }) =>
       await queryDataInfinite(
-        `/v2/controllers/developer/settings/system/search.php`, // search endpoint
-        `/v2/controllers/developer/settings/system/page.php?start=${pageParam}`, // list endpoint // list endpoint
+        `/v2/controllers/developer/settings/users/system/search.php`, // search endpoint
+        `/v2/controllers/developer/settings/users/system/page.php?start=${pageParam}`, // list endpoint // list endpoint
         store.isSearch, // search boolean
         "post",
         { search: search.current.value }
@@ -96,7 +102,7 @@ const SystemTable = ({ setItemEdit }) => {
     dispatch(setIsDelete(true));
     setItem(item);
   };
-  console.log(result);
+
   return (
     <>
       <Searchbar
@@ -106,10 +112,11 @@ const SystemTable = ({ setItemEdit }) => {
         result={result?.pages}
         isFetching={isFetching}
       />
-      <Footer
-        record={result?.pages[0].total}
-        active={active}
-        inactive={inactive}
+      <RecordCount
+        record={
+          store.isSearch ? result?.pages[0].count : result?.pages[0].total
+        }
+        status={getStatusCountRecord(result)}
       />
       <div className="table__wrapper relative rounded-md shadow-md overflow-auto mb-8">
         {isFetching && status !== "loading" && <TableSpinner />}

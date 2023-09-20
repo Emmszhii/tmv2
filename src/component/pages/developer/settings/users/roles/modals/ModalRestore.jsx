@@ -1,36 +1,37 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
-import { HiInformationCircle } from "react-icons/hi";
+import { StoreContext } from "../../../../../../../store/StoreContext";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { queryData } from "../../../../../../helpers/queryData";
 import {
   setIsArchive,
+  setIsRestore,
   setMessage,
   setSuccess,
   setValidate,
 } from "../../../../../../../store/StoreAction";
-import { StoreContext } from "../../../../../../../store/StoreContext";
 import { handleEscape } from "../../../../../../helpers/functions-general";
-import { queryData } from "../../../../../../helpers/queryData";
+import { HiInformationCircle } from "react-icons/hi";
 import ButtonSpinner from "../../../../../../partials/spinners/ButtonSpinner";
 
-const ModalArchive = ({ item }) => {
+const ModalRestore = ({ item }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        `/v2/controllers/developer/settings/users/other/active.php?otherId=${item.settings_other_aid}`,
+        `/v2/controllers/developer/settings/roles/active.php?rolesId=${item.settings_roles_aid}`,
         "put",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: `settings-other` });
+      queryClient.invalidateQueries({ queryKey: `settings-roles` });
       //   dispatch(setIsRestore(false));
 
       if (data.success) {
-        dispatch(setIsArchive(false));
+        dispatch(setIsRestore(false));
         dispatch(setSuccess(true));
-        dispatch(setMessage(`Archive succesfully.`));
+        dispatch(setMessage(`Restore succesfully.`));
       }
       if (!data.success) {
         dispatch(setValidate(true));
@@ -42,12 +43,12 @@ const ModalArchive = ({ item }) => {
   const handleYes = async () => {
     // // mutate data
     mutation.mutate({
-      isActive: 0,
+      isActive: 1,
     });
   };
 
   const handleClose = () => {
-    dispatch(setIsArchive(false));
+    dispatch(setIsRestore(false));
   };
 
   handleEscape(() => handleClose());
@@ -59,13 +60,13 @@ const ModalArchive = ({ item }) => {
         >
           <div className="modal__header flex gap-2">
             <HiInformationCircle className="fill-primary text-5xl" />
-            <h3 className="mt-3 text-[16px]">Archive</h3>
+            <h3 className="mt-3 text-[16px]">Restore</h3>
           </div>
           <h3 className="mt-3 text-[14px] mb-0 font-normal ">
-            Are you sure you want to Archive?
+            Are you sure you want to Restore?
           </h3>
           <p className="text-primary mt-5 uppercase">
-            {item.settings_other_name}
+            {item.settings_roles_name}
           </p>
 
           <div className="modal__action flex justify-end mt-6 gap-2">
@@ -92,4 +93,4 @@ const ModalArchive = ({ item }) => {
   );
 };
 
-export default ModalArchive;
+export default ModalRestore;
