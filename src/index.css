@@ -291,12 +291,12 @@
   }
 
   header .toggle__btn {
-    @apply md:hidden;
+    @apply cursor-pointer;
   }
   header .toggle__btn span {
     @apply block w-8 h-1 bg-gray-400 m-1 transition-all rounded-sm;
   }
-  header .toggle__bt.open span:first-child {
+  header .toggle__btn.open span:first-child {
     @apply rotate-45 translate-y-2;
   }
   header .toggle__btn.open span:nth-child(2) {

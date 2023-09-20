@@ -2,14 +2,25 @@ import React from "react";
 import { BiSolidUserCircle } from "react-icons/bi";
 import { StoreContext } from "../../store/StoreContext";
 import Logo from "../svg/Logo";
+import { setIsMenuOpen } from "../../store/StoreAction";
 
 const Header = () => {
-  const { store, dispatch } = React.useState(StoreContext);
+  const { store, dispatch } = React.useContext(StoreContext);
+
+  const handleBurgerBtn = () => dispatch(setIsMenuOpen(!store.isMenuOpen));
   return (
     <>
-      <header className="flex py-4 px-2 items-center justify-between">
+      {store.isMenuOpen && (
+        <div className="absolute lg:static top-0 left-0 right-0 bottom-0 z-40 bg-black/50"></div>
+      )}
+      <header className="flex py-4 px-2 items-center justify-between relative z-50 bg-white">
         <div className="flex items-center gap-4">
-          <div className="toggle__btn">
+          <div
+            className={`toggle__btn lg:hidden ${
+              store.isMenuOpen ? "open" : ""
+            }`}
+            onClick={handleBurgerBtn}
+          >
             <span></span>
             <span></span>
             <span></span>
