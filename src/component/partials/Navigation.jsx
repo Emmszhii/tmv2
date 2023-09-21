@@ -108,7 +108,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
             </div>
           </button>
         </li>
-        <li className="nav__link  has__dropdown">
+        <Link className="nav__link" to={`${urlRolePath}/staff`}>
           <button
             className={`${menu === "staff" ? "bg-[#436c8a]" : ""}`}
             // onClick={() => handleDropDownStaff()}
@@ -122,8 +122,8 @@ const Navigation = ({ menu, submenu = null, val }) => {
               /> */}
             </div>
           </button>
-        </li>
-        <li className="nav__link  has__dropdown">
+        </Link>
+        <Link className="nav__link" to={`${urlRolePath}/client`}>
           <button
             className={`${menu === "client" ? "bg-[#436c8a]" : ""}`}
             // onClick={() => handleDropDownClient()}
@@ -137,7 +137,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
               /> */}
             </div>
           </button>
-        </li>
+        </Link>
         <li className="nav__link  has__dropdown">
           <button
             className={`${menu === "settings" ? "bg-[#436c8a]" : ""}`}
@@ -233,9 +233,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
             </li>
             <li
               className={` ${
-                submenu === "settingsOffice"
-                  ? "bg-[#436c8a]/80 rounded-md"
-                  : ""
+                submenu === "settingsOffice" ? "bg-[#436c8a]/80 rounded-md" : ""
               }`}
             >
               <Link

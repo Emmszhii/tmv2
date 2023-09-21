@@ -32,6 +32,8 @@ function App() {
           <Router>
             <Routes>
               <Route path={`*`} element={<Test />} />
+              <Route path={`/staff`} element={<Test />} />
+              <Route path={`/client`} element={<Test />} />
               <Route path={`/settings/accesslevel`} element={<Test />} />
               <Route path={`/settings/users`} element={<Users />} />
               <Route path={`/settings/users/system`} element={<System />} />
