@@ -1,15 +1,13 @@
 import React from "react";
-import Header from "../../../../../partials/Header";
-import Navigation from "../../../../../partials/Navigation";
+import { setIsAdd } from "../../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../../store/StoreContext";
 import BreadCrumbs from "../../../../../partials/Breadcrumbs";
-import SystemTable from "./SystemTable";
-import { setIsAdd } from "../../../../../../store/StoreAction";
-import Modal from "../../../../../partials/structure/Modal";
-import ModalAddSystem from "./modals/ModalAddSystem";
-import ModalArchive from "./modals/ModalArchive";
-import ModalValidate from "../../../../../partials/modals/ModalValidate";
+import Header from "../../../../../partials/Header";
+import Navigation from "../../../../../partials/Navigation";
 import Toast from "../../../../../partials/Toast";
+import ModalValidate from "../../../../../partials/modals/ModalValidate";
+import SystemTable from "./SystemTable";
+import ModalAddSystem from "./modals/ModalAddSystem";
 
 const System = () => {
   const [itemEdit, setItemEdit] = React.useState(null);
@@ -18,6 +16,9 @@ const System = () => {
     setItemEdit(null);
     dispatch(setIsAdd(true));
   };
+  React.useEffect(() => {
+    dispatch(setIsSettingsOpen(true));
+  }, []);
   return (
     <>
       <Header />
@@ -25,7 +26,7 @@ const System = () => {
         <aside
           className={`${store.isMenuOpen ? "open " : ""} overflow-y-auto `}
         >
-          <Navigation menu="settings" />
+          <Navigation menu="settings" submenu={`settingsUsers`} />
         </aside>
         <main className="p-3 lg:p-0 lg:pr-10">
           <BreadCrumbs />

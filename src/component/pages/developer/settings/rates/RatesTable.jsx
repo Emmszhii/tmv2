@@ -6,30 +6,27 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { useInView } from "react-intersection-observer";
 import {
   setIsAdd,
-  setIsArchive,
-  setIsDelete,
+  setIsConfirm,
   setIsRestore,
-} from "../../../../../../store/StoreAction";
-import { StoreContext } from "../../../../../../store/StoreContext";
-import { queryDataInfinite } from "../../../../../helpers/queryDataInfinite";
-import Loadmore from "../../../../../partials/Loadmore";
-import Nodata from "../../../../../partials/Nodata";
-import Pills from "../../../../../partials/Pills";
-import RecordCount from "../../../../../partials/RecordCount";
-import Searchbar from "../../../../../partials/Searchbar";
-import ServerError from "../../../../../partials/ServerError";
-import TableLoading from "../../../../../partials/TableLoading";
-import Toast from "../../../../../partials/Toast";
-import TableSpinner from "../../../../../partials/spinners/TableSpinner";
-import ModalArchive from "./modals/ModalArchive";
-import ModalDelete from "./modals/ModalDelete";
-import ModalRestore from "./modals/ModalRestore";
-import { getOtherCountRecord } from "./functions-other";
-import useQueryData from "../../../../../custom-hooks/useQueryData";
+} from "../../../../../store/StoreAction";
+import { StoreContext } from "../../../../../store/StoreContext";
+import useQueryData from "../../../../custom-hooks/useQueryData";
+import { queryDataInfinite } from "../../../../helpers/queryDataInfinite";
+import Loadmore from "../../../../partials/Loadmore";
+import Nodata from "../../../../partials/Nodata";
+import Pills from "../../../../partials/Pills";
+import RecordCount from "../../../../partials/RecordCount";
+import Searchbar from "../../../../partials/Searchbar";
+import ServerError from "../../../../partials/ServerError";
+import TableLoading from "../../../../partials/TableLoading";
+import ModalConfirm from "../../../../partials/modals/ModalConfirm";
+import ModalDeleteAndRestore from "../../../../partials/modals/ModalDeleteAndRestore";
+import TableSpinner from "../../../../partials/spinners/TableSpinner";
+import { getRatesCountRecord } from "./functions-rates";
 
-const OtherTable = ({ setItemEdit }) => {
+const RatesTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
-  const [item, setItem] = React.useState(null);
+  const [dataItem, setData] = React.useState(null);
   const [id, setId] = React.useState(null);
   const [isDel, setDel] = React.useState(false);
 
@@ -51,11 +48,11 @@ const OtherTable = ({ setItemEdit }) => {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["settings-other", store.isSearch],
+    queryKey: ["settings-rates", store.isSearch],
     queryFn: async ({ pageParam = 1 }) =>
       await queryDataInfinite(
-        `/v2/controllers/developer/settings/users/other/search.php`, // search endpoint
-        `/v2/controllers/developer/settings/users/other/page.php?start=${pageParam}`, // list endpoint // list endpoint
+        `/v2/controllers/developer/settings/rates/search.php`, // search endpoint
+        `/v2/controllers/developer/settings/rates/page.php?start=${pageParam}`, // list endpoint // list endpoint
         store.isSearch, // search boolean
         "post",
         { search: search.current.value }
@@ -69,10 +66,10 @@ const OtherTable = ({ setItemEdit }) => {
     refetchOnWindowFocus: true,
   });
 
-  const { data: other } = useQueryData(
-    `/v2/controllers/developer/settings/users/other/other.php`,
+  const { data: rates } = useQueryData(
+    `/v2/controllers/developer/settings/rates/rates.php`,
     "get",
-    "settings-others"
+    "settings-rates"
   );
 
   React.useEffect(() => {
@@ -88,18 +85,24 @@ const OtherTable = ({ setItemEdit }) => {
   };
 
   const handleArchive = (item) => {
-    dispatch(setIsArchive(true));
-    setItem(item);
+    dispatch(setIsConfirm(true));
+    setId(item.settings_rates_aid);
+    setData(item);
+    setDel(null);
   };
 
   const handleRestore = (item) => {
     dispatch(setIsRestore(true));
-    setItem(item);
+    setId(item.settings_rates_aid);
+    setData(item);
+    setDel(null);
   };
 
   const handleDelete = (item) => {
-    dispatch(setIsDelete(true));
-    setItem(item);
+    dispatch(setIsRestore(true));
+    setId(item.settings_rates_aid);
+    setData(item);
+    setDel(true);
   };
 
   return (
@@ -116,7 +119,7 @@ const OtherTable = ({ setItemEdit }) => {
         record={
           store.isSearch ? result?.pages[0].count : result?.pages[0].total
         }
-        status={getOtherCountRecord(store.isSearch ? result?.pages[0] : other)}
+        status={getRatesCountRecord(store.isSearch ? result?.pages[0] : rates)}
       />
       <div className="table__wrapper relative rounded-md shadow-md overflow-auto mb-8">
         {isFetching && status !== "loading" && <TableSpinner />}
@@ -125,9 +128,7 @@ const OtherTable = ({ setItemEdit }) => {
             <tr>
               <th>#</th>
               <th>Status</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
+              <th>Description</th>
               <th className="action lg:hidden"></th>
             </tr>
           </thead>
@@ -153,26 +154,25 @@ const OtherTable = ({ setItemEdit }) => {
             {result?.pages.map((page, key) => (
               <React.Fragment key={key}>
                 {page.data.map((item, key) => {
-                  active += item.settings_other_is_active === 1;
-                  inactive += item.settings_other_is_active === 0;
+                  active += item.settings_rates_is_active === 1;
+                  inactive += item.settings_rates_is_active === 0;
                   return (
                     <tr key={key}>
                       <td>{counter++}.</td>
                       <td>
-                        {item.settings_other_is_active === 1 ? (
+                        {item.settings_rates_is_active === 1 ? (
                           <Pills label="Active" />
                         ) : (
                           <Pills label="Inactive" tc="text-archive" />
                         )}
                       </td>
-                      <td>{item.settings_other_name}</td>
-                      <td>{item.settings_other_email}</td>
-                      <td>{item.settings_other_role}</td>
+                      <td>{item.settings_rates_description}</td>
+
                       <td
                         className="table__action top-0 right-5 "
                         data-ellipsis=". . ."
                       >
-                        {item.settings_other_is_active === 1 ? (
+                        {item.settings_rates_is_active === 1 ? (
                           <ul className=" flex items-center  gap-4 bg-">
                             <li>
                               <button
@@ -233,12 +233,31 @@ const OtherTable = ({ setItemEdit }) => {
           refView={ref}
         />
       </div>
-      {store.isArchive && <ModalArchive item={item} />}
-      {store.isRestore && <ModalRestore item={item} />}
-      {store.isDelete && <ModalDelete item={item} />}
-      {store.success && <Toast />}
+      {store.isConfirm && (
+        <ModalConfirm
+          mysqlApiArchive={`/v2/controllers/developer/settings/rates/active.php?ratesId=${id}`}
+          msg={`Are you sure you want to archive this rates?`}
+          item={dataItem.settings_rates_description}
+          queryKey={"settings-rates"}
+        />
+      )}
+      {store.isRestore && (
+        <ModalDeleteAndRestore
+          id={id}
+          isDel={isDel}
+          mysqlApiDelete={`/v2/controllers/developer/settings/rates/rates.php?ratesId=${id}`}
+          mysqlApiRestore={`/v2/controllers/developer/settings/rates/active.php?ratesId=${id}`}
+          msg={
+            isDel
+              ? "Are you sure you want to delete this rates?"
+              : "Are you sure you want to restore this rates?"
+          }
+          item={dataItem.settings_rates_description}
+          queryKey={"settings-rates"}
+        />
+      )}
     </>
   );
 };
 
-export default OtherTable;
+export default RatesTable;

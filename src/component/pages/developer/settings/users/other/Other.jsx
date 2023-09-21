@@ -16,6 +16,9 @@ const Other = () => {
     setItemEdit(null);
     dispatch(setIsAdd(true));
   };
+  React.useEffect(() => {
+    dispatch(setIsSettingsOpen(true));
+  }, []);
   return (
     <>
       <Header />
@@ -23,7 +26,7 @@ const Other = () => {
         <aside
           className={`${store.isMenuOpen ? "open " : ""} overflow-y-auto `}
         >
-          <Navigation menu="settings" submenu={`settingsOther`} />
+          <Navigation menu="settings" submenu={`settingsUsers`} />
         </aside>
         <main className="px-2 lg:pr-10">
           <BreadCrumbs />

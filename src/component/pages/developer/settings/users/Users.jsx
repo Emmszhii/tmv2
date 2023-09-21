@@ -17,7 +17,7 @@ const Users = () => {
         ${store.isMenuOpen ? "open" : ""} `}
       >
         <aside className={`${store.isMenuOpen ? "open " : ""} `}>
-          <Navigation menu="settings" />
+          <Navigation menu="settings" submenu={`settingsUsers`} />
         </aside>
         <main className="p-3 lg:p-0 lg:pr-10">
           <Breadcrumbs />

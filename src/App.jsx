@@ -11,7 +11,7 @@ import Roles from "./component/pages/developer/settings/users/roles/Roles";
 import Category from "./component/pages/developer/settings/engagement/category/Category";
 import Template from "./component/pages/developer/settings/engagement/template/Template";
 import Entities from "./component/pages/developer/settings/entities/Entities";
-import Activities from "./component/pages/developer/settings/activities/Activities";
+import Activity from "./component/pages/developer/settings/activity/Activity";
 import Rates from "./component/pages/developer/settings/rates/Rates";
 import Offices from "./component/pages/developer/settings/offices/Offices";
 import Department from "./component/pages/developer/settings/department/Department";
@@ -30,7 +30,7 @@ function App() {
               <Route path={`/settings/users/system`} element={<System />} />
               <Route path={`/settings/users/other`} element={<Other />} />
               <Route path={`/settings/users/roles`} element={<Roles />} />
-              <Route path={`/settings/activities`} element={<Activities />} />
+              <Route path={`/settings/activity`} element={<Activity />} />
               <Route path={`/settings/rates`} element={<Rates />} />
               <Route path={`/settings/engagement`} element={<Engagement />} />
               <Route
@@ -41,7 +41,6 @@ function App() {
                 path={`/settings/engagement/template`}
                 element={<Template />}
               />
-              <Route path={`/settings/offices`} element={<Test />} />
               <Route path={`/settings/department`} element={<Test />} />
               <Route path={`/settings/entities`} element={<Entities />} />
               <Route path={`/settings/offices`} element={<Offices />} />

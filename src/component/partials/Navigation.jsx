@@ -187,15 +187,15 @@ const Navigation = ({ menu, submenu = null, val }) => {
             </li>
             <li
               className={` ${
-                submenu === "settingsActivities"
+                submenu === "settingsActivity"
                   ? "bg-[#436c8a]/80 rounded-md"
                   : ""
               }`}
             >
               <Link
-                to={`${urlRolePath}/settings/activities`}
+                to={`${urlRolePath}/settings/activity`}
                 className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
-                  submenu === "settingsActivities" ? "active__submenu" : ""
+                  submenu === "settingsActivity" ? "active__submenu" : ""
                 }`}
               >
                 Activities

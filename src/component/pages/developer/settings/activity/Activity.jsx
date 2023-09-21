@@ -1,19 +1,25 @@
 import React from "react";
 import { StoreContext } from "../../../../../store/StoreContext";
+import BreadCrumbs from "../../../../partials/Breadcrumbs";
 import Header from "../../../../partials/Header";
 import Navigation from "../../../../partials/Navigation";
-import BreadCrumbs from "../../../../partials/Breadcrumbs";
-import ModalAddSystem from "../users/system/modals/ModalAddSystem";
-import ModalValidate from "../../../../partials/modals/ModalValidate";
 import Toast from "../../../../partials/Toast";
+import ModalValidate from "../../../../partials/modals/ModalValidate";
+import ModalAddSystem from "../users/system/modals/ModalAddSystem";
+import ActivitiesTable from "./ActivityTable";
+import { setIsAdd, setIsSettingsOpen } from "../../../../../store/StoreAction";
+import ModalAddActivities from "./modals/ModalAddActivities";
 
-const Department = () => {
+const Activities = () => {
   const [itemEdit, setItemEdit] = React.useState(null);
   const { store, dispatch } = React.useContext(StoreContext);
   const handleAdd = () => {
     setItemEdit(null);
     dispatch(setIsAdd(true));
   };
+  React.useEffect(() => {
+    dispatch(setIsSettingsOpen(true));
+  }, []);
   return (
     <>
       <Header />
@@ -21,25 +27,27 @@ const Department = () => {
         <aside
           className={`${store.isMenuOpen ? "open " : ""} overflow-y-auto `}
         >
-          <Navigation menu="settings" />
+          <Navigation menu="settings" submenu={`settingsActivity`} />
         </aside>
         <main className="p-3 lg:p-0 lg:pr-10">
           <BreadCrumbs />
           <div className="flex justify-between items-center my-5">
-            <h1 className="mb-0">Department</h1>
+            <h1 className="mb-0">Activity</h1>
             <button className="btn btn--accent btn--sm" onClick={handleAdd}>
               Add
             </button>
           </div>
-          <div></div>
+          <div>
+            <ActivitiesTable setItemEdit={setItemEdit} />
+          </div>
         </main>
       </section>
 
-      {store.isAdd && <ModalAddSystem itemEdit={itemEdit} />}
+      {store.isAdd && <ModalAddActivities itemEdit={itemEdit} />}
       {store.validate && <ModalValidate />}
       {store.success && <Toast />}
     </>
   );
 };
 
-export default Department;
+export default Activities;

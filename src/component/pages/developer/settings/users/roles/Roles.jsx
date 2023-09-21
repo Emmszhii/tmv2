@@ -18,6 +18,9 @@ const Roles = () => {
     setItemEdit(null);
     dispatch(setIsAdd(true));
   };
+  React.useEffect(() => {
+    dispatch(setIsSettingsOpen(true));
+  }, []);
 
   return (
     <>
@@ -26,7 +29,7 @@ const Roles = () => {
         <aside
           className={`${store.isMenuOpen ? "open " : ""} overflow-y-auto `}
         >
-          <Navigation menu="settings" />
+          <Navigation menu="settings" submenu={`settingsUsers`} />
         </aside>
         <main className="p-3 lg:p-0 lg:pr-10 custom__scroll">
           <BreadCrumbs />
