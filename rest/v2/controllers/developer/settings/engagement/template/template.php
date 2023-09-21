@@ -4,7 +4,7 @@ require '../../../../../core/header.php';
 // use needed functions
 require '../../../../../core/functions.php';
 // use needed classes
-require '../../../../../models/developer/settings/users/roles/SettingsRoles.php';
+require '../../../../../models/developer/settings/engagement/template/Template.php';
 // get payload
 $body = file_get_contents("php://input");
 $data = json_decode($body, true);
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $result = require 'update.php';
     sendResponse($result);
     exit;
-}
+} 
 // DELETE
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     $result = require 'delete.php';

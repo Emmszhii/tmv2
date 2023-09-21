@@ -8,6 +8,9 @@ import System from "./component/pages/developer/settings/users/system/System";
 import Engagement from "./component/pages/developer/settings/engagement/Engagement";
 import Other from "./component/pages/developer/settings/users/other/Other";
 import Roles from "./component/pages/developer/settings/users/roles/Roles";
+import Category from "./component/pages/developer/settings/engagement/category/Category";
+import Template from "./component/pages/developer/settings/engagement/template/Template";
+import Entities from "./component/pages/developer/settings/entities/Entities";
 
 function App() {
   const queryClient = new QueryClient();
@@ -28,15 +31,15 @@ function App() {
               <Route path={`/settings/engagement`} element={<Engagement />} />
               <Route
                 path={`/settings/engagement/category`}
-                element={<Engagement />}
+                element={<Category />}
               />
               <Route
                 path={`/settings/engagement/template`}
-                element={<Engagement />}
+                element={<Template />}
               />
               <Route path={`/settings/offices`} element={<Test />} />
               <Route path={`/settings/department`} element={<Test />} />
-              <Route path={`/settings/entities`} element={<Test />} />
+              <Route path={`/settings/entities`} element={<Entities />} />
               <Route path={`/settings/referraltype`} element={<Test />} />
               <Route path={`/settings/referralsource`} element={<Test />} />
               <Route path={`/settings/lostreason`} element={<Test />} />
