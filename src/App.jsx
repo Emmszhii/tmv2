@@ -19,6 +19,9 @@ import ReferrralType from "./component/pages/developer/settings/referral-type/Re
 import ReferrralSource from "./component/pages/developer/settings/referral-source/ReferralSource";
 import LostReason from "./component/pages/developer/settings/lost-reason/LostReason";
 import LostTo from "./component/pages/developer/settings/lost-to/LostTo";
+import WonReason from "./component/pages/developer/settings/won-reason/WonReason";
+import ClientClass from "./component/pages/developer/settings/client-class/ClientClass";
+import SpecialCharacter from "./component/pages/developer/settings/1099-special-character/1099SpecialCharacter";
 
 function App() {
   const queryClient = new QueryClient();
@@ -59,11 +62,11 @@ function App() {
               />
               <Route path={`/settings/lostreason`} element={<LostReason />} />
               <Route path={`/settings/lostto`} element={<LostTo />} />
-              <Route path={`/settings/wonreason`} element={<Test />} />
-              <Route path={`/settings/clientclass`} element={<Test />} />
+              <Route path={`/settings/wonreason`} element={<WonReason />} />
+              <Route path={`/settings/clientclass`} element={<ClientClass />} />
               <Route
                 path={`/settings/form1099special-character`}
-                element={<Test />}
+                element={<SpecialCharacter />}
               />
             </Routes>
           </Router>
