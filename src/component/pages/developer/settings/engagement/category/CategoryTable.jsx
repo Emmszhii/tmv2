@@ -232,17 +232,17 @@ const CategoryTable = ({ setItemEdit }) => {
             ))}
           </tbody>
         </table>
-        <div className="loadmore flex justify-center flex-col items-center my-5">
-          <Loadmore
-            fetchNextPage={fetchNextPage}
-            isFetchingNextPage={isFetchingNextPage}
-            hasNextPage={hasNextPage}
-            result={result?.pages[0]}
-            setPage={setPage}
-            page={page}
-            refView={ref}
-          />
-        </div>
+      </div>
+      <div className="loadmore flex justify-center flex-col items-center my-5">
+        <Loadmore
+          fetchNextPage={fetchNextPage}
+          isFetchingNextPage={isFetchingNextPage}
+          hasNextPage={hasNextPage}
+          result={result?.pages[0]}
+          setPage={setPage}
+          page={page}
+          refView={ref}
+        />
       </div>
 
       {store.isConfirm && (
