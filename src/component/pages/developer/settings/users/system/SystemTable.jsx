@@ -1,39 +1,31 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
-import { FaRegEye } from "react-icons/fa";
 import { FiArchive, FiEdit3 } from "react-icons/fi";
-import { RiDeleteBinLine } from "react-icons/ri";
 import { MdRestore } from "react-icons/md";
+import { RiDeleteBinLine } from "react-icons/ri";
 import { useInView } from "react-intersection-observer";
 import {
   setIsAdd,
   setIsArchive,
-  setIsConfirm,
   setIsDelete,
   setIsRestore,
 } from "../../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../../store/StoreContext";
 import { queryDataInfinite } from "../../../../../helpers/queryDataInfinite";
-import Footer from "../../../../../partials/Footer";
-import Searchbar from "../../../../../partials/Searchbar";
-import TableLoading from "../../../../../partials/TableLoading";
-import TableSpinner from "../../../../../partials/spinners/TableSpinner";
-import ServerError from "../../../../../partials/ServerError";
+import Loadmore from "../../../../../partials/Loadmore";
 import Nodata from "../../../../../partials/Nodata";
 import Pills from "../../../../../partials/Pills";
-import { Link } from "react-router-dom";
-import { devNavUrl } from "../../../../../helpers/functions-general";
-import ModalArchive from "./modals/ModalArchive";
-import ModalRestore from "./modals/ModalRestore";
-import Toast from "../../../../../partials/Toast";
-import ModalDelete from "./modals/ModalDelete";
-import Loadmore from "../../../../../partials/Loadmore";
 import RecordCount from "../../../../../partials/RecordCount";
-import {
-  getStatusCountRecord,
-  getSystemCountRecord,
-  readAllSystem,
-} from "./functions-general";
+import Searchbar from "../../../../../partials/Searchbar";
+import ServerError from "../../../../../partials/ServerError";
+import TableLoading from "../../../../../partials/TableLoading";
+import Toast from "../../../../../partials/Toast";
+import TableSpinner from "../../../../../partials/spinners/TableSpinner";
+import { getSystemCountRecord } from "./functions-system";
+import ModalArchive from "./modals/ModalArchive";
+import ModalDelete from "./modals/ModalDelete";
+import ModalRestore from "./modals/ModalRestore";
+import useQueryData from "../../../../../custom-hooks/useQueryData";
 
 const SystemTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -73,8 +65,14 @@ const SystemTable = ({ setItemEdit }) => {
       }
       return;
     },
-    refetchOnWindowFocus: true,
+    refetchOnWindowFocus: false,
   });
+
+  const { data: system } = useQueryData(
+    `/v2/controllers/developer/settings/users/system/system.php`,
+    "get",
+    "settings-systems"
+  );
 
   React.useEffect(() => {
     if (inView) {
@@ -102,7 +100,7 @@ const SystemTable = ({ setItemEdit }) => {
     dispatch(setIsDelete(true));
     setItem(item);
   };
-
+  console.log(system);
   return (
     <>
       <Searchbar
@@ -116,7 +114,9 @@ const SystemTable = ({ setItemEdit }) => {
         record={
           store.isSearch ? result?.pages[0].count : result?.pages[0].total
         }
-        status={getStatusCountRecord(result)}
+        status={getSystemCountRecord(
+          store.isSearch ? result?.pages[0] : system
+        )}
       />
       <div className="table__wrapper relative rounded-md shadow-md overflow-auto mb-8">
         {isFetching && status !== "loading" && <TableSpinner />}

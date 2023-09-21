@@ -17,6 +17,7 @@ import { MdRestore } from "react-icons/md";
 import ModalDeleteAndRestore from "../../../../../partials/modals/ModalDeleteAndRestore";
 import ModalConfirm from "../../../../../partials/modals/ModalConfirm";
 import RecordCount from "../../../../../partials/RecordCount";
+import { getRolesCountRecord } from "./functions-roles";
 
 const RolesTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -63,15 +64,17 @@ const RolesTable = ({ setItemEdit }) => {
     setData(item);
     setDel(true);
   };
+  console.log(roles);
 
   return (
     <>
       <div className="table__wrapper relative rounded-md shadow-md overflow-auto mb-8">
         {isFetching && !isLoading && <TableSpinner />}
-        <RecordCount
+        {/* <RecordCount
           record={roles?.data.length}
-          status={{ inactive, active }}
-        />
+          status={getRolesCountRecord(roles)}
+        /> */}
+
         <table>
           <thead>
             <tr>
