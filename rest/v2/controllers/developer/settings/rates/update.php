@@ -15,6 +15,7 @@ if (array_key_exists("ratesId", $_GET)) {
     $settingsRates->settings_rates_description = checkIndex($data, "settings_rates_description");
     $settingsRates->settings_rates_updated_at = date("Y-m-d H:i:s");
     checkId($settingsRates->settings_rates_aid);
+    isNameExist($settingsRates, $settingsRates->settings_rates_description);
     // update
     $query = checkUpdate($settingsRates);
     returnSuccess($settingsRates, "Settings Rates", $query);

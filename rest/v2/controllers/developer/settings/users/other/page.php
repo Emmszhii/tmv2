@@ -14,7 +14,7 @@ $settingsOther = new SettingsOther($conn);
 if (array_key_exists("start", $_GET)) {
 
     $settingsOther->settings_other_start = $_GET['start'];
-    $settingsOther->settings_other_total = 3;
+    $settingsOther->settings_other_total = 5;
 
     //check to see if task id in query string is not empty and is number, if not return json error
     checkLimitId($settingsOther->settings_other_start, $settingsOther->settings_other_total);

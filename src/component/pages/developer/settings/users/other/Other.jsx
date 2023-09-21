@@ -1,6 +1,6 @@
 import React from "react";
 import { StoreContext } from "../../../../../../store/StoreContext";
-import { setIsAdd } from "../../../../../../store/StoreAction";
+import { setIsAdd, setIsSettingsOpen } from "../../../../../../store/StoreAction";
 import Header from "../../../../../partials/Header";
 import Navigation from "../../../../../partials/Navigation";
 import BreadCrumbs from "../../../../../partials/Breadcrumbs";

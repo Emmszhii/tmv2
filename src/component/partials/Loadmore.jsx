@@ -14,10 +14,7 @@ const Loadmore = ({
     return (
       <>
         {isFetchingNextPage ? (
-          <button
-            type="button"
-            className="w-full bg-primary text-primary mx-auto mt-5"
-          >
+          <button type="button" className="btn mx-auto mt-5">
             {isFetchingNextPage ? (
               <ButtonSpinner color="primary" />
             ) : (
@@ -42,7 +39,7 @@ const Loadmore = ({
           setPage((prev) => prev + 1);
           fetchNextPage();
         }}
-        className=" w-full text-primary mx-auto mt-5"
+        className="btn mx-auto mt-5 mb-3"
       >
         {!isFetchingNextPage ? (
           <span>Load more</span>
