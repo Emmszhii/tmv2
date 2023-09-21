@@ -15,6 +15,8 @@ import Activity from "./component/pages/developer/settings/activity/Activity";
 import Rates from "./component/pages/developer/settings/rates/Rates";
 import Offices from "./component/pages/developer/settings/offices/Offices";
 import Department from "./component/pages/developer/settings/department/Department";
+import ReferrralType from "./component/pages/developer/settings/referral-type/ReferralType";
+import ReferrralSource from "./component/pages/developer/settings/referral-source/ReferralSource";
 
 function App() {
   const queryClient = new QueryClient();
@@ -46,8 +48,11 @@ function App() {
               <Route path={`/settings/offices`} element={<Offices />} />
               <Route path={`/settings/department`} element={<Department />} />
               <Route path={`/settings/entities`} element={<Test />} />
-              <Route path={`/settings/referraltype`} element={<Test />} />
-              <Route path={`/settings/referralsource`} element={<Test />} />
+              <Route
+                path={`/settings/referraltype`}
+                element={<ReferrralType />}
+              />
+              <Route path={`/settings/referralsource`} element={<ReferrralSource />} />
               <Route path={`/settings/lostreason`} element={<Test />} />
               <Route path={`/settings/lostto`} element={<Test />} />
               <Route path={`/settings/wonreason`} element={<Test />} />
