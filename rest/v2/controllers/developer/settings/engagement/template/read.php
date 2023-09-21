@@ -3,7 +3,7 @@
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$engagementTemplate = new EngagementCategory($conn);
+$engagementTemplate = new EngagementTemplate($conn);
 // get $_GET data 
 
 if (array_key_exists("engagementTemplateId", $_GET) ) {

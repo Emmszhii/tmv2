@@ -21,6 +21,9 @@ import ModalConfirm from "../../../../partials/modals/ModalConfirm";
 import ModalDeleteAndRestore from "../../../../partials/modals/ModalDeleteAndRestore";
 import Pills from "../../../../partials/Pills";
 import TableSpinner from "../../../../partials/spinners/TableSpinner";
+import useQueryData from "../../../../custom-hooks/useQueryData";
+import { getEntitiesCountRecord } from "./functions-entities";
+import RecordCount from "../../../../partials/RecordCount";
 
 // import {
 //   setIsAdd,
@@ -82,6 +85,12 @@ const EntitiesTable = ({ setItemEdit }) => {
     refetchOnWindowFocus: true,
   });
 
+  const { data: entities } = useQueryData(
+    `/v2/controllers/developer/settings/entities/entities.php`,
+    "get",
+    "settings-entities"
+  );
+
   React.useEffect(() => {
     if (inView) {
       setPage((prev) => prev + 1);
@@ -124,7 +133,14 @@ const EntitiesTable = ({ setItemEdit }) => {
         result={result?.pages}
         isFetching={isFetching}
       />
-      <Footer record={counter} active={active} inactive={inactive} />
+      <RecordCount
+        record={
+          store.isSearch ? result?.pages[0].count : result?.pages[0].total
+        }
+        status={getEntitiesCountRecord(
+          store.isSearch ? result?.pages[0] : entities
+        )}
+      />
       <div className="table__wrapper relative rounded-md shadow-md overflow-auto mb-8">
         {isFetching && status !== "loading" && <TableSpinner />}
 

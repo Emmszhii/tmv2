@@ -25,7 +25,7 @@ const Entities = () => {
         <aside className={`${store.isShow ? "open " : ""}   `}>
           <Navigation menu="settings" submenu="settingsEntities" />
         </aside>
-        <main className="px-2 lg:pr-10">
+        <main className="px-2 lg:pr-10 custom-scroll">
           <BreadCrumbs />
           <div className="flex justify-between items-center my-5">
             <h1 className="mb-0">Client Entities</h1>

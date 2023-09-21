@@ -11,17 +11,19 @@ import {
   setIsRestore,
 } from "../../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../../store/StoreContext";
+import useQueryData from "../../../../../custom-hooks/useQueryData";
 import { queryDataInfinite } from "../../../../../helpers/queryDataInfinite";
-import Footer from "../../../../../partials/Footer";
 import Loadmore from "../../../../../partials/Loadmore";
 import Nodata from "../../../../../partials/Nodata";
+import Pills from "../../../../../partials/Pills";
+import RecordCount from "../../../../../partials/RecordCount";
 import Searchbar from "../../../../../partials/Searchbar";
 import ServerError from "../../../../../partials/ServerError";
 import TableLoading from "../../../../../partials/TableLoading";
 import ModalConfirm from "../../../../../partials/modals/ModalConfirm";
 import ModalDeleteAndRestore from "../../../../../partials/modals/ModalDeleteAndRestore";
 import TableSpinner from "../../../../../partials/spinners/TableSpinner";
-import Pills from "../../../../../partials/Pills";
+import { getCategoryCountRecord } from "./funtions-category";
 
 const CategoryTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -65,6 +67,12 @@ const CategoryTable = ({ setItemEdit }) => {
     refetchOnWindowFocus: true,
   });
 
+  const { data: category } = useQueryData(
+    `/v2/controllers/developer/settings/engagement/category/category.php`,
+    "get",
+    "engagement-category"
+  );
+
   React.useEffect(() => {
     if (inView) {
       setPage((prev) => prev + 1);
@@ -107,7 +115,14 @@ const CategoryTable = ({ setItemEdit }) => {
         result={result?.pages}
         isFetching={isFetching}
       />
-      <Footer record={counter} active={active} inactive={inactive} />
+      <RecordCount
+        record={
+          store.isSearch ? result?.pages[0].count : result?.pages[0].total
+        }
+        status={getCategoryCountRecord(
+          store.isSearch ? result?.pages[0] : category
+        )}
+      />
       <div className="table__wrapper relative rounded-md shadow-md overflow-auto mb-8">
         {isFetching && status !== "loading" && <TableSpinner />}
 

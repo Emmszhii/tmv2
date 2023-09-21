@@ -6,6 +6,8 @@ import Navigation from "../../../../../partials/Navigation";
 import BreadCrumbs from "../../../../../partials/Breadcrumbs";
 import ModalAddOther from "./modals/ModalAddOther";
 import OtherTable from "./OtherTable";
+import ModalValidate from "../../../../../partials/modals/ModalValidate";
+import Toast from "../../../../../partials/Toast";
 
 const Other = () => {
   const [itemEdit, setItemEdit] = React.useState(null);
@@ -38,6 +40,8 @@ const Other = () => {
       </section>
 
       {store.isAdd && <ModalAddOther itemEdit={itemEdit} />}
+      {store.validate && <ModalValidate />}
+      {store.success && <Toast />}
     </>
   );
 };

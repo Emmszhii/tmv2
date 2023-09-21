@@ -22,6 +22,9 @@ import ModalConfirm from "../../../../../partials/modals/ModalConfirm";
 import ModalDeleteAndRestore from "../../../../../partials/modals/ModalDeleteAndRestore";
 import TableSpinner from "../../../../../partials/spinners/TableSpinner";
 import Pills from "../../../../../partials/Pills";
+import useQueryData from "../../../../../custom-hooks/useQueryData";
+import RecordCount from "../../../../../partials/RecordCount";
+import { getTemplateCountRecord } from "./funtions-template";
 
 const TemplateTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -65,6 +68,12 @@ const TemplateTable = ({ setItemEdit }) => {
     refetchOnWindowFocus: true,
   });
 
+  const { data: template } = useQueryData(
+    `/v2/controllers/developer/settings/engagement/template/template.php`,
+    "get",
+    "engagement-template"
+  );
+
   React.useEffect(() => {
     if (inView) {
       setPage((prev) => prev + 1);
@@ -107,7 +116,14 @@ const TemplateTable = ({ setItemEdit }) => {
         result={result?.pages}
         isFetching={isFetching}
       />
-      <Footer />
+      <RecordCount
+        record={
+          store.isSearch ? result?.pages[0].count : result?.pages[0].total
+        }
+        status={getTemplateCountRecord(
+          store.isSearch ? result?.pages[0] : template
+        )}
+      />
       <div className="table__wrapper relative rounded-md shadow-md overflow-auto mb-8">
         {isFetching && status !== "loading" && <TableSpinner />}
 
