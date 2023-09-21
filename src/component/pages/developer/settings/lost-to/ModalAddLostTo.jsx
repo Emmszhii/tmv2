@@ -15,7 +15,7 @@ import { handleEscape } from "../../../../helpers/functions-general";
 import { InputText } from "../../../../helpers/FormInputs";
 import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
 
-const ModalAddLostReason = ({ itemEdit }) => {
+const ModalAddLostTo = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -23,14 +23,14 @@ const ModalAddLostReason = ({ itemEdit }) => {
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v2/controllers/developer/settings/lost-reason/lost-reason.php?lostReasonId=${itemEdit.lost_reason_aid}` //update
-          : "/v2/controllers/developer/settings/lost-reason/lost-reason.php", //add
+          ? `/v2/controllers/developer/settings/lost-to/lost-to.php?lostToId=${itemEdit.lost_to_aid}` //update
+          : "/v2/controllers/developer/settings/lost-to/lost-to.php", //add
         itemEdit ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["settings-lost-reason"] });
+      queryClient.invalidateQueries({ queryKey: ["settings-lost-to"] });
       if (data.success) {
         dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
@@ -45,12 +45,12 @@ const ModalAddLostReason = ({ itemEdit }) => {
   });
 
   const initVal = {
-    lost_reason_aid: itemEdit ? itemEdit.lost_reason_aid : "",
-    lost_reason_description: itemEdit ? itemEdit.lost_reason_description : "",
+    lost_to_aid: itemEdit ? itemEdit.lost_to_aid : "",
+    lost_to_description: itemEdit ? itemEdit.lost_to_description : "",
   };
 
   const yupSchema = Yup.object({
-    lost_reason_description: Yup.string().required("Required"),
+    lost_to_description: Yup.string().required("Required"),
   });
 
   const handleClose = () => {
@@ -66,7 +66,7 @@ const ModalAddLostReason = ({ itemEdit }) => {
           className={`modal__main absolute mx-1 bg-white border border-gray-200 rounded-md py-8 px-5 max-w-[420px] w-full shadow-xl`}
         >
           <div className="modal__header relative">
-            <h3> {itemEdit ? "Update" : "Add"} Lost Reason </h3>
+            <h3> {itemEdit ? "Update" : "Add"} Lost To </h3>
             <button className="absolute -top-4 right-0 " onClick={handleClose}>
               <FaTimes className="text-gray-700 text-base" />
             </button>
@@ -88,7 +88,7 @@ const ModalAddLostReason = ({ itemEdit }) => {
                         <InputText
                           label="Name"
                           type="text"
-                          name="lost_reason_description"
+                          name="lost_to_description"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -128,4 +128,4 @@ const ModalAddLostReason = ({ itemEdit }) => {
   );
 };
 
-export default ModalAddLostReason;
+export default ModalAddLostTo;

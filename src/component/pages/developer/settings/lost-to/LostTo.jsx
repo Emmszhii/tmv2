@@ -6,10 +6,10 @@ import Header from "../../../../partials/Header";
 import Navigation from "../../../../partials/Navigation";
 import Toast from "../../../../partials/Toast";
 import ModalValidate from "../../../../partials/modals/ModalValidate";
-import LostReasonTable from "./LostReasonTable";
-import ModalAddLostReason from "./ModalAddLostReason";
+import LostToTable from "./LostToTable";
+import ModalAddLostTo from "./ModalAddLostTo";
 
-const LostReason = () => {
+const LostTo = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [itemEdit, setItemEdit] = React.useState(null);
 
@@ -23,26 +23,26 @@ const LostReason = () => {
       <Header />
       <section className={`main__grid ${store.isShow ? "open" : ""}`}>
         <aside className={`${store.isShow ? "open " : ""}   `}>
-          <Navigation menu="settings" submenu="settingsLostReason" />
+          <Navigation menu="settings" submenu="settingsLostTo" />
         </aside>
         <main className="px-2 lg:pr-10 custom-scroll">
           <BreadCrumbs />
           <div className="flex justify-between items-center my-5">
-            <h1 className="mb-0">Lost Reason</h1>
+            <h1 className="mb-0">Lost To</h1>
             <button className="btn btn--accent btn--sm" onClick={handleAdd}>
               Add
             </button>
           </div>
 
-          <LostReasonTable setItemEdit={setItemEdit} />
+          <LostToTable setItemEdit={setItemEdit} />
         </main>
       </section>
 
-      {store.isAdd && <ModalAddLostReason itemEdit={itemEdit} />}
+      {store.isAdd && <ModalAddLostTo itemEdit={itemEdit} />}
       {store.validate && <ModalValidate />}
       {store.success && <Toast />}
     </>
   );
 };
 
-export default LostReason;
+export default LostTo;

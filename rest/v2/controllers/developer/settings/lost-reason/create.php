@@ -3,21 +3,21 @@
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$referralSource = new ReferralSource($conn);
+$lostReason = new LostReason($conn);
 // get should not be present
-if (array_key_exists("referralSourceId", $_GET)) {
+if (array_key_exists("lostReasonId", $_GET)) {
     checkEndpoint();
 }
 // check data
 checkPayload($data);
 // get data
-$referralSource->referral_source_name = checkIndex($data, "referral_source_name");
+$lostReason->lost_reason_description = checkIndex($data, "lost_reason_description");
 
-$referralSource->referral_source_is_active = 1;
-$referralSource->referral_source_created_at = date("Y-m-d H:i:s");
-$referralSource->referral_source_updated_at = date("Y-m-d H:i:s");
+$lostReason->lost_reason_is_active = 1;
+$lostReason->lost_reason_created_at = date("Y-m-d H:i:s");
+$lostReason->lost_reason_updated_at = date("Y-m-d H:i:s");
 // // check name
-// isNameExist($referralSource, $referralSource->department_name);
+// isNameExist($lostReason, $lostReason->department_name);
 // create
-$query = checkCreate($referralSource);
-returnSuccess($referralSource, "ReferralSource", $query);
+$query = checkCreate($lostReason);
+returnSuccess($lostReason, "LostReason", $query);

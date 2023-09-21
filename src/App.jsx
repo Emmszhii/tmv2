@@ -18,6 +18,7 @@ import Department from "./component/pages/developer/settings/department/Departme
 import ReferrralType from "./component/pages/developer/settings/referral-type/ReferralType";
 import ReferrralSource from "./component/pages/developer/settings/referral-source/ReferralSource";
 import LostReason from "./component/pages/developer/settings/lost-reason/LostReason";
+import LostTo from "./component/pages/developer/settings/lost-to/LostTo";
 
 function App() {
   const queryClient = new QueryClient();
@@ -58,7 +59,7 @@ function App() {
                 element={<ReferrralSource />}
               />
               <Route path={`/settings/lostreason`} element={<LostReason />} />
-              <Route path={`/settings/lostto`} element={<Test />} />
+              <Route path={`/settings/lostto`} element={<LostTo />} />
               <Route path={`/settings/wonreason`} element={<Test />} />
               <Route path={`/settings/clientclass`} element={<Test />} />
               <Route

@@ -3,17 +3,17 @@
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$referralSource = new ReferralSource($conn);
+$lostReason = new LostReason($conn);
 // get $_GET data
 $error = [];
 $returnData = [];
-if (array_key_exists("referralSourceId", $_GET)) {
+if (array_key_exists("lostReasonId", $_GET)) {
     // get data
-    $referralSource->referral_source_aid = $_GET['referralSourceId'];
-    checkId($referralSource->referral_source_aid);
+    $lostReason->lost_reason_aid = $_GET['lostReasonId'];
+    checkId($lostReason->lost_reason_aid);
 
-    $query = checkDelete($referralSource);
-    returnSuccess($referralSource, "ReferralSource", $query);
+    $query = checkDelete($lostReason);
+    returnSuccess($lostReason, "LostReason", $query);
 }
 
 // return 404 error if endpoint not available

@@ -3,21 +3,21 @@
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$referralSource = new ReferralSource($conn);
+$lostReason = new LostReason($conn);
 // get $_GET data
 $error = [];
 $returnData = [];
-if (array_key_exists("referralSourceId", $_GET)) {
+if (array_key_exists("lostReasonId", $_GET)) {
     // check data
     checkPayload($data);
     // get data
-    $referralSource->referral_source_aid = $_GET['referralSourceId'];
-    $referralSource->referral_source_name = checkIndex($data, "referral_source_name");
-    $referralSource->referral_source_updated_at = date("Y-m-d H:i:s");
-    checkId($referralSource->referral_source_aid);
+    $lostReason->lost_reason_aid = $_GET['lostReasonId'];
+    $lostReason->lost_reason_description = checkIndex($data, "lost_reason_description");
+    $lostReason->lost_reason_updated_at = date("Y-m-d H:i:s");
+    checkId($lostReason->lost_reason_aid );
     // update
-    $query = checkUpdate($referralSource);
-    returnSuccess($referralSource, "ReferralSource", $query);
+    $query = checkUpdate($lostReason);
+    returnSuccess($lostReason, "LostReason", $query);
 }
 
 // return 404 error if endpoint not available

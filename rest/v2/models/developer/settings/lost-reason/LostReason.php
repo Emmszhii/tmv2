@@ -3,7 +3,7 @@ class LostReason
 {
     public $lost_reason_aid;
     public $lost_reason_is_active;
-    public $lost_reason_name; 
+    public $lost_reason_description; 
     public $lost_reason_created_at;
     public $lost_reason_updated_at;
 
@@ -28,17 +28,17 @@ class LostReason
     {
         try {
             $sql = "insert into {$this->tblLostReason} ";
-            $sql .= "( lost_reason_name, "; 
+            $sql .= "( lost_reason_description, "; 
             $sql .= "lost_reason_is_active, ";
             $sql .= "lost_reason_created_at, ";
             $sql .= "lost_reason_updated_at ) values ( ";
-            $sql .= ":lost_reason_name, "; 
+            $sql .= ":lost_reason_description, "; 
             $sql .= ":lost_reason_is_active, ";
             $sql .= ":lost_reason_created_at, ";
             $sql .= ":lost_reason_updated_at ) ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "lost_reason_name" => $this->lost_reason_name,
+                "lost_reason_description" => $this->lost_reason_description,
                 "lost_reason_is_active" => $this->lost_reason_is_active,
                 "lost_reason_created_at" => $this->lost_reason_created_at,
                 "lost_reason_updated_at" => $this->lost_reason_updated_at,
@@ -58,7 +58,7 @@ class LostReason
             $sql .= "* ";
             $sql .= "from {$this->tblLostReason} ";
             $sql .= "order by lost_reason_is_active desc, ";
-            $sql .= "lost_reason_name asc ";
+            $sql .= "lost_reason_description asc ";
             $query = $this->connection->query($sql);
         } catch (PDOException $ex) {
             $query = false;
@@ -74,7 +74,7 @@ class LostReason
             $sql .= "* ";
             $sql .= "from {$this->tblLostReason} ";
             $sql .= "order by lost_reason_is_active desc, ";
-            $sql .= "lost_reason_name asc ";
+            $sql .= "lost_reason_description asc ";
             $sql .= "limit :start, ";
             $sql .= ":total ";
             $query = $this->connection->prepare($sql);
@@ -94,9 +94,9 @@ class LostReason
             $sql = "select ";
             $sql .= "* ";
             $sql .= "from {$this->tblLostReason} ";
-            $sql .= "where lost_reason_name like :search ";  
+            $sql .= "where lost_reason_description like :search ";  
             $sql .= "order by lost_reason_is_active desc, ";
-            $sql .= "lost_reason_name asc ";
+            $sql .= "lost_reason_description asc ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "search" => "%{$this->lost_reason_search}%",  
@@ -113,7 +113,7 @@ class LostReason
         try {
             $sql = "select * from {$this->tblLostReason} ";
             $sql .= "where lost_reason_aid = :lost_reason_aid ";
-            $sql .= "order by lost_reason_name asc ";
+            $sql .= "order by lost_reason_description asc ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "lost_reason_aid" => $this->lost_reason_aid,
@@ -129,12 +129,12 @@ class LostReason
     {
         try {
             $sql = "update {$this->tblLostReason} set ";
-            $sql .= "lost_reason_name = :lost_reason_name, ";
+            $sql .= "lost_reason_description = :lost_reason_description, ";
             $sql .= "lost_reason_updated_at = :lost_reason_updated_at ";
             $sql .= "where lost_reason_aid = :lost_reason_aid  ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "lost_reason_name" => $this->lost_reason_name,
+                "lost_reason_description" => $this->lost_reason_description,
                 "lost_reason_updated_at" => $this->lost_reason_updated_at,
                 "lost_reason_aid" => $this->lost_reason_aid,
             ]);
@@ -185,11 +185,11 @@ class LostReason
     public function checkName()
     {
         try {
-            $sql = "select lost_reason_name from {$this->tblLostReason} ";
-            $sql .= "where lost_reason_name = :lost_reason_name ";
+            $sql = "select lost_reason_description from {$this->tblLostReason} ";
+            $sql .= "where lost_reason_description = :lost_reason_description ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "lost_reason_name" => "{$this->lost_reason_name}",
+                "lost_reason_description" => "{$this->lost_reason_description}",
             ]);
         } catch (PDOException $ex) {
             $query = false;

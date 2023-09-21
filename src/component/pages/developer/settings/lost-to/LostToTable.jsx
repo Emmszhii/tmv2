@@ -18,9 +18,9 @@ import TableLoading from "../../../../partials/TableLoading";
 import ModalConfirm from "../../../../partials/modals/ModalConfirm";
 import ModalDeleteAndRestore from "../../../../partials/modals/ModalDeleteAndRestore";
 import TableSpinner from "../../../../partials/spinners/TableSpinner";
-import { getLostReasonCountRecord } from "./functions-lost-reason";
+import { getLostToRecordCount } from "./functions-lost-to";
 
-const LostReasonTable = ({ setItemEdit }) => {
+const LostToTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);
   const [id, setId] = React.useState(null);
@@ -33,11 +33,11 @@ const LostReasonTable = ({ setItemEdit }) => {
     isLoading,
     isFetching,
     error,
-    data: lostReason,
+    data: lostTo,
   } = useQueryData(
-    `/v2/controllers/developer/settings/lost-reason/lost-reason.php`,
+    `/v2/controllers/developer/settings/lost-to/lost-to.php`,
     "get",
-    "settings-lost-reason"
+    "settings-lost-to"
   );
 
   const handleEdit = (item) => {
@@ -47,21 +47,21 @@ const LostReasonTable = ({ setItemEdit }) => {
 
   const handleArchive = (item) => {
     dispatch(setIsConfirm(true));
-    setId(item.lost_reason_aid);
+    setId(item.lost_to_aid);
     setData(item);
     setDel(null);
   };
 
   const handleRestore = (item) => {
     dispatch(setIsRestore(true));
-    setId(item.lost_reason_aid);
+    setId(item.lost_to_aid);
     setData(item);
     setDel(null);
   };
 
   const handleDelete = (item) => {
     dispatch(setIsRestore(true));
-    setId(item.lost_reason_aid);
+    setId(item.lost_to_aid);
     setData(item);
     setDel(true);
   };
@@ -71,8 +71,8 @@ const LostReasonTable = ({ setItemEdit }) => {
       <div className="table__wrapper relative rounded-md shadow-md overflow-auto mb-8">
         {isFetching && !isLoading && <TableSpinner />}
         <RecordCount
-          record={lostReason?.data.length}
-          status={getLostReasonCountRecord(lostReason)}
+          record={lostTo?.data.length}
+          status={getLostToRecordCount(lostTo)}
         />
         <table>
           <thead>
@@ -84,7 +84,7 @@ const LostReasonTable = ({ setItemEdit }) => {
             </tr>
           </thead>
           <tbody>
-            {(isLoading || lostReason?.data.length === 0) && (
+            {(isLoading || lostTo?.data.length === 0) && (
               <tr className="text-center ">
                 <td colSpan="100%" className="p-10">
                   {isLoading ? (
@@ -102,25 +102,25 @@ const LostReasonTable = ({ setItemEdit }) => {
                 </td>
               </tr>
             )}
-            {lostReason?.data.map((item, key) => {
-              active += item.lost_reason_is_active === 1;
-              inactive += item.lost_reason_is_active === 0;
+            {lostTo?.data.map((item, key) => {
+              active += item.lost_to_is_active === 1;
+              inactive += item.lost_to_is_active === 0;
               return (
                 <tr key={key}>
                   <td>{counter++}</td>
                   <td>
-                    {item.lost_reason_is_active === 1 ? (
+                    {item.lost_to_is_active === 1 ? (
                       <Pills />
                     ) : (
                       <Pills label="inactive" tc="text-archive" />
                     )}
                   </td>
-                  <td>{item.lost_reason_description}</td>
+                  <td>{item.lost_to_description}</td>
                   <td
                     className="table__action top-0 right-5 "
                     data-ellipsis=". . ."
                   >
-                    {item.lost_reason_is_active === 1 ? (
+                    {item.lost_to_is_active === 1 ? (
                       <ul className=" flex items-center  gap-4 bg-">
                         <li>
                           <button
@@ -172,29 +172,29 @@ const LostReasonTable = ({ setItemEdit }) => {
       </div>
       {store.isConfirm && (
         <ModalConfirm
-          mysqlApiArchive={`/v2/controllers/developer/settings/lost-reason/active.php?lostReasonId=${id}`}
-          msg={`Are you sure you want to archive this lost reason?`}
-          item={dataItem.lost_reason_description}
-          queryKey={"settings-lost-reason"}
+          mysqlApiArchive={`/v2/controllers/developer/settings/lost-to/active.php?lostToId=${id}`}
+          msg={`Are you sure you want to archive this lost to?`}
+          item={dataItem.lost_to_description}
+          queryKey={"settings-lost-to"}
         />
       )}
       {store.isRestore && (
         <ModalDeleteAndRestore
           id={id}
           isDel={isDel}
-          mysqlApiDelete={`/v2/controllers/developer/settings/lost-reason/lost-reason.php?lostReasonId=${id}`}
-          mysqlApiRestore={`/v2/controllers/developer/settings/lost-reason/active.php?lostReasonId=${id}`}
+          mysqlApiDelete={`/v2/controllers/developer/settings/lost-to/lost-to.php?lostToId=${id}`}
+          mysqlApiRestore={`/v2/controllers/developer/settings/lost-to/active.php?lostToId=${id}`}
           msg={
             isDel
-              ? "Are you sure you want to delete this lost reason?"
-              : "Are you sure you want to restore this lost reason?"
+              ? "Are you sure you want to delete this lost to?"
+              : "Are you sure you want to restore this lost to?"
           }
-          item={dataItem.lost_reason_description}
-          queryKey={"settings-lost-reason"}
+          item={dataItem.lost_to_description}
+          queryKey={"settings-lost-to"}
         />
       )}
     </>
   );
 };
 
-export default LostReasonTable;
+export default LostToTable;
