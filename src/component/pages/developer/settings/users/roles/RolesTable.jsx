@@ -77,8 +77,8 @@ const RolesTable = ({ setItemEdit }) => {
           <thead>
             <tr>
               <th>#</th>
-              <th>Status</th>
-              <th>Name</th>
+              <th width={`80px`}>Status</th>
+              <th width={`200px`}>Name</th>
               <th>Description</th>
               <th className="action lg:hidden"></th>
             </tr>

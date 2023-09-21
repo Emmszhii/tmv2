@@ -12,7 +12,7 @@ if (array_key_exists("systemId", $_GET)) {
     checkPayload($data);
     // get data
     $settingsSystem->settings_system_aid = $_GET['systemId'];
-    $settingsSystem->settings_system_name = checkIndex($data, "settings_system_name");
+    $settingsSystem->settings_system_name = strtoupper(checkIndex($data, "settings_system_name"));
     $settingsSystem->settings_system_email = checkIndex($data, "settings_system_email");
     $settingsSystem->settings_system_role = checkIndex($data, "settings_system_role");
     $settingsSystem->settings_system_updated_at = date("Y-m-d H:i:s");

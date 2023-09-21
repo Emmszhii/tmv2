@@ -11,7 +11,7 @@ if (array_key_exists("departmentId", $_GET)) {
 // check data
 checkPayload($data);
 // get data
-$settingsSystem->settings_system_name = checkIndex($data, "settings_system_name");
+$settingsSystem->settings_system_name = strtoupper(checkIndex($data, "settings_system_name"));
 $settingsSystem->settings_system_email = checkIndex($data, "settings_system_email");
 $settingsSystem->settings_system_role = checkIndex($data, "settings_system_role");
 $settingsSystem->settings_system_is_active = 1;

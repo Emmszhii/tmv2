@@ -11,7 +11,7 @@ if (array_key_exists("otherId", $_GET)) {
 // check data
 checkPayload($data);
 // get data
-$settingsOther->settings_other_name = checkIndex($data, "settings_other_name");
+$settingsOther->settings_other_name = strtoupper(checkIndex($data, "settings_other_name"));
 $settingsOther->settings_other_email = checkIndex($data, "settings_other_email");
 $settingsOther->settings_other_role = checkIndex($data, "settings_other_role");
 $settingsOther->settings_other_is_active = 1;
