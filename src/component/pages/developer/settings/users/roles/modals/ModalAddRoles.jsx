@@ -15,7 +15,7 @@ import {
 } from "../../../../../../../store/StoreAction";
 import { queryData } from "../../../../../../helpers/queryData";
 
-const ModalAddSystem = ({ itemEdit }) => {
+const ModalAddRoles = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -23,8 +23,8 @@ const ModalAddSystem = ({ itemEdit }) => {
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v2/controllers/developer/settings/roles/roles.php?rolesId=${itemEdit.settings_roles_aid}` //update
-          : "/v2/controllers/developer/settings/roles/roles.php", //add
+          ? `/v2/controllers/developer/settings/users/roles/roles.php?rolesId=${itemEdit.settings_roles_aid}` //update
+          : "/v2/controllers/developer/settings/users/roles/roles.php", //add
         itemEdit ? "put" : "post",
         values
       ),
@@ -141,4 +141,4 @@ const ModalAddSystem = ({ itemEdit }) => {
   );
 };
 
-export default ModalAddSystem;
+export default ModalAddRoles;

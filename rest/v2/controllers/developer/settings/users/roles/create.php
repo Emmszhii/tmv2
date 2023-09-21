@@ -5,7 +5,7 @@ $conn = checkDbConnection();
 // make instance of classes
 $settingsRoles = new SettingsRoles($conn);
 // get should not be present
-if (array_key_exists("otherId", $_GET)) {
+if (array_key_exists("rolesId", $_GET)) {
     checkEndpoint();
 }
 // check data
