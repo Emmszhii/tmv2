@@ -64,7 +64,6 @@ const RolesTable = ({ setItemEdit }) => {
     setData(item);
     setDel(true);
   };
-  console.log(roles);
 
   return (
     <>

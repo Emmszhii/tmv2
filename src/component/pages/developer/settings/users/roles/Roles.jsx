@@ -1,14 +1,13 @@
 import React from "react";
-import Header from "../../../../../partials/Header";
-import { StoreContext } from "../../../../../../store/StoreContext";
-import Navigation from "../../../../../partials/Navigation";
-import BreadCrumbs from "../../../../../partials/Breadcrumbs";
 import { setIsAdd, setIsSettingsOpen } from "../../../../../../store/StoreAction";
+import { StoreContext } from "../../../../../../store/StoreContext";
+import BreadCrumbs from "../../../../../partials/Breadcrumbs";
+import Header from "../../../../../partials/Header";
+import Navigation from "../../../../../partials/Navigation";
+import Toast from "../../../../../partials/Toast";
+import ModalValidate from "../../../../../partials/modals/ModalValidate";
 import RolesTable from "./RolesTable";
 import ModalAddRoles from "./modals/ModalAddRoles";
-import ModalConfirm from "../../../../../partials/modals/ModalConfirm";
-import ModalValidate from "../../../../../partials/modals/ModalValidate";
-import Toast from "../../../../../partials/Toast";
 
 const Roles = () => {
   const [itemEdit, setItemEdit] = React.useState(null);

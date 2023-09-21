@@ -1,5 +1,8 @@
 import React from "react";
-import { setIsAdd, setIsSettingsOpen } from "../../../../../../store/StoreAction";
+import {
+  setIsAdd,
+  setIsSettingsOpen,
+} from "../../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../../store/StoreContext";
 import BreadCrumbs from "../../../../../partials/Breadcrumbs";
 import Header from "../../../../../partials/Header";
@@ -28,7 +31,7 @@ const System = () => {
         >
           <Navigation menu="settings" submenu={`settingsUsers`} />
         </aside>
-        <main className="p-3 lg:p-0 lg:pr-10">
+        <main className="p-3 lg:p-0 lg:pr-10 custom__scroll">
           <BreadCrumbs />
           <div className="flex justify-between items-center my-5">
             <h1 className="mb-0">System</h1>
