@@ -4,7 +4,7 @@ class SettingsRoles
     public $settings_roles_aid;
     public $settings_roles_name;
     public $settings_roles_description;
-    public $settings_system_role;
+
     public $settings_roles_is_active;
     public $settings_roles_created_at;
     public $settings_roles_updated_at;
