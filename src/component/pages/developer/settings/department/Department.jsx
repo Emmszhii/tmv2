@@ -1,11 +1,13 @@
 import React from "react";
+import { setIsAdd } from "../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../store/StoreContext";
+import BreadCrumbs from "../../../../partials/Breadcrumbs";
 import Header from "../../../../partials/Header";
 import Navigation from "../../../../partials/Navigation";
-import BreadCrumbs from "../../../../partials/Breadcrumbs";
-import ModalAddSystem from "../users/system/modals/ModalAddSystem";
-import ModalValidate from "../../../../partials/modals/ModalValidate";
 import Toast from "../../../../partials/Toast";
+import ModalValidate from "../../../../partials/modals/ModalValidate";
+import DepartmentTable from "./DepartmentTable";
+import ModalAddDepartment from "./ModalAddDepartment";
 
 const Department = () => {
   const [itemEdit, setItemEdit] = React.useState(null);
@@ -31,11 +33,13 @@ const Department = () => {
               Add
             </button>
           </div>
-          <div></div>
+          <div>
+            <DepartmentTable setItemEdit={setItemEdit} />
+          </div>
         </main>
       </section>
 
-      {store.isAdd && <ModalAddSystem itemEdit={itemEdit} />}
+      {store.isAdd && <ModalAddDepartment itemEdit={itemEdit} />}
       {store.validate && <ModalValidate />}
       {store.success && <Toast />}
     </>
