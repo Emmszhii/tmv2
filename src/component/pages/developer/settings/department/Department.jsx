@@ -21,7 +21,7 @@ const Department = () => {
         <aside
           className={`${store.isMenuOpen ? "open " : ""} overflow-y-auto `}
         >
-          <Navigation menu="settings" />
+          <Navigation menu="settings" submenu={`settingsDepartment`} />
         </aside>
         <main className="p-3 lg:p-0 lg:pr-10">
           <BreadCrumbs />

@@ -12,7 +12,7 @@ if (array_key_exists("activityId", $_GET)) {
     checkPayload($data);
     // get data
     $settingsActivity->settings_activity_aid = $_GET['activityId'];
-    $settingsActivity->settings_activity_description = checkIndex($data, "settings_activity_description");
+    $settingsActivity->settings_activity_description = strtoupper(checkIndex($data, "settings_activity_description"));
     $settingsActivity->settings_activity_invoice_description = checkIndex($data, "settings_activity_invoice_description");
     $settingsActivity->settings_activity_updated_at = date("Y-m-d H:i:s");
     checkId($settingsActivity->settings_activity_aid);

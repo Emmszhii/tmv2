@@ -15,11 +15,7 @@ const Loadmore = ({
       <>
         {isFetchingNextPage ? (
           <button type="button" className="btn mx-auto mt-5">
-            {isFetchingNextPage ? (
-              <ButtonSpinner color="primary" />
-            ) : (
-              "Load More"
-            )}
+            {isFetchingNextPage ? <ButtonSpinner /> : "Load More"}
           </button>
         ) : (
           <div className="loadmore mt-8 mb-0 p-1.5 text-center">
@@ -41,11 +37,7 @@ const Loadmore = ({
         }}
         className="btn mx-auto mt-5 mb-3"
       >
-        {!isFetchingNextPage ? (
-          <span>Load more</span>
-        ) : (
-          <ButtonSpinner color="stroke-accent" />
-        )}
+        {!isFetchingNextPage ? <span>Load more</span> : <ButtonSpinner />}
       </button>
     );
   }

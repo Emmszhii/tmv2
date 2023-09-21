@@ -12,7 +12,7 @@ if (array_key_exists("ratesId", $_GET)) {
     checkPayload($data);
     // get data
     $settingsRates->settings_rates_aid = $_GET['ratesId'];
-    $settingsRates->settings_rates_description = checkIndex($data, "settings_rates_description");
+    $settingsRates->settings_rates_description = strtoupper(checkIndex($data, "settings_rates_description"));
     $settingsRates->settings_rates_updated_at = date("Y-m-d H:i:s");
     checkId($settingsRates->settings_rates_aid);
     isNameExist($settingsRates, $settingsRates->settings_rates_description);

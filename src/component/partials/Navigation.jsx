@@ -233,18 +233,18 @@ const Navigation = ({ menu, submenu = null, val }) => {
             </li>
             <li
               className={` ${
-                submenu === "settingsOffices"
+                submenu === "settingsOffice"
                   ? "bg-[#436c8a]/80 rounded-md"
                   : ""
               }`}
             >
               <Link
-                to={`${urlRolePath}/settings/offices`}
+                to={`${urlRolePath}/settings/office`}
                 className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
-                  submenu === "settingsOffices" ? "active__submenu" : ""
+                  submenu === "settingsOffice" ? "active__submenu" : ""
                 }`}
               >
-                Offices
+                Office
               </Link>
             </li>
             <li

@@ -223,16 +223,16 @@ const RatesTable = ({ setItemEdit }) => {
             ))}
           </tbody>
         </table>
-        <Loadmore
-          fetchNextPage={fetchNextPage}
-          isFetchingNextPage={isFetchingNextPage}
-          hasNextPage={hasNextPage}
-          result={result?.pages[0]}
-          setPage={setPage}
-          page={page}
-          refView={ref}
-        />
       </div>
+      <Loadmore
+        fetchNextPage={fetchNextPage}
+        isFetchingNextPage={isFetchingNextPage}
+        hasNextPage={hasNextPage}
+        result={result?.pages[0]}
+        setPage={setPage}
+        page={page}
+        refView={ref}
+      />
       {store.isConfirm && (
         <ModalConfirm
           mysqlApiArchive={`/v2/controllers/developer/settings/rates/active.php?ratesId=${id}`}

@@ -13,7 +13,7 @@ import Template from "./component/pages/developer/settings/engagement/template/T
 import Entities from "./component/pages/developer/settings/entities/Entities";
 import Activity from "./component/pages/developer/settings/activity/Activity";
 import Rates from "./component/pages/developer/settings/rates/Rates";
-import Offices from "./component/pages/developer/settings/offices/Offices";
+import Office from "./component/pages/developer/settings/office/Office";
 import Department from "./component/pages/developer/settings/department/Department";
 import ReferrralType from "./component/pages/developer/settings/referral-type/ReferralType";
 import ReferrralSource from "./component/pages/developer/settings/referral-source/ReferralSource";
@@ -43,16 +43,19 @@ function App() {
                 path={`/settings/engagement/template`}
                 element={<Template />}
               />
-              <Route path={`/settings/department`} element={<Test />} />
+
               <Route path={`/settings/entities`} element={<Entities />} />
-              <Route path={`/settings/offices`} element={<Offices />} />
+              <Route path={`/settings/office`} element={<Office />} />
               <Route path={`/settings/department`} element={<Department />} />
               <Route path={`/settings/entities`} element={<Test />} />
               <Route
                 path={`/settings/referraltype`}
                 element={<ReferrralType />}
               />
-              <Route path={`/settings/referralsource`} element={<ReferrralSource />} />
+              <Route
+                path={`/settings/referralsource`}
+                element={<ReferrralSource />}
+              />
               <Route path={`/settings/lostreason`} element={<Test />} />
               <Route path={`/settings/lostto`} element={<Test />} />
               <Route path={`/settings/wonreason`} element={<Test />} />

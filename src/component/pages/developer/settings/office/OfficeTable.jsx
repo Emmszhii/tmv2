@@ -1,35 +1,32 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
-import { FiArchive, FiEdit3 } from "react-icons/fi";
-import { MdRestore } from "react-icons/md";
-import { RiDeleteBinLine } from "react-icons/ri";
+import ModalDeleteAndRestore from "../../../../partials/modals/ModalDeleteAndRestore";
+import ModalConfirm from "../../../../partials/modals/ModalConfirm";
+import TableSpinner from "../../../../partials/spinners/TableSpinner";
+import { getOfficeCountRecord } from "./functions-office";
+import Searchbar from "../../../../partials/Searchbar";
+import { StoreContext } from "../../../../../store/StoreContext";
 import { useInView } from "react-intersection-observer";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { queryDataInfinite } from "../../../../helpers/queryDataInfinite";
+import useQueryData from "../../../../custom-hooks/useQueryData";
 import {
   setIsAdd,
-  setIsArchive,
-  setIsDelete,
+  setIsConfirm,
   setIsRestore,
-} from "../../../../../../store/StoreAction";
-import { StoreContext } from "../../../../../../store/StoreContext";
-import { queryDataInfinite } from "../../../../../helpers/queryDataInfinite";
-import Loadmore from "../../../../../partials/Loadmore";
-import Nodata from "../../../../../partials/Nodata";
-import Pills from "../../../../../partials/Pills";
-import RecordCount from "../../../../../partials/RecordCount";
-import Searchbar from "../../../../../partials/Searchbar";
-import ServerError from "../../../../../partials/ServerError";
-import TableLoading from "../../../../../partials/TableLoading";
-import Toast from "../../../../../partials/Toast";
-import TableSpinner from "../../../../../partials/spinners/TableSpinner";
-import ModalArchive from "./modals/ModalArchive";
-import ModalDelete from "./modals/ModalDelete";
-import ModalRestore from "./modals/ModalRestore";
-import { getOtherCountRecord } from "./functions-other";
-import useQueryData from "../../../../../custom-hooks/useQueryData";
+} from "../../../../../store/StoreAction";
+import RecordCount from "../../../../partials/RecordCount";
+import TableLoading from "../../../../partials/TableLoading";
+import Nodata from "../../../../partials/Nodata";
+import ServerError from "../../../../partials/ServerError";
+import Pills from "../../../../partials/Pills";
+import { FiArchive, FiEdit3 } from "react-icons/fi";
+import { RiDeleteBinLine } from "react-icons/ri";
+import { MdRestore } from "react-icons/md";
+import Loadmore from "../../../../partials/Loadmore";
 
-const OtherTable = ({ setItemEdit }) => {
+const OfficeTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
-  const [item, setItem] = React.useState(null);
+  const [dataItem, setData] = React.useState(null);
   const [id, setId] = React.useState(null);
   const [isDel, setDel] = React.useState(false);
 
@@ -51,11 +48,11 @@ const OtherTable = ({ setItemEdit }) => {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["settings-other", store.isSearch],
+    queryKey: ["settings-office", store.isSearch],
     queryFn: async ({ pageParam = 1 }) =>
       await queryDataInfinite(
-        `/v2/controllers/developer/settings/users/other/search.php`, // search endpoint
-        `/v2/controllers/developer/settings/users/other/page.php?start=${pageParam}`, // list endpoint // list endpoint
+        `/v2/controllers/developer/settings/office/search.php`, // search endpoint
+        `/v2/controllers/developer/settings/office/page.php?start=${pageParam}`, // list endpoint // list endpoint
         store.isSearch, // search boolean
         "post",
         { search: search.current.value }
@@ -69,10 +66,10 @@ const OtherTable = ({ setItemEdit }) => {
     refetchOnWindowFocus: true,
   });
 
-  const { data: other } = useQueryData(
-    `/v2/controllers/developer/settings/users/other/other.php`,
+  const { data: office } = useQueryData(
+    `/v2/controllers/developer/settings/office/office.php`,
     "get",
-    "settings-others"
+    "settings-office"
   );
 
   React.useEffect(() => {
@@ -88,18 +85,24 @@ const OtherTable = ({ setItemEdit }) => {
   };
 
   const handleArchive = (item) => {
-    dispatch(setIsArchive(true));
-    setItem(item);
+    dispatch(setIsConfirm(true));
+    setId(item.settings_office_aid);
+    setData(item);
+    setDel(null);
   };
 
   const handleRestore = (item) => {
     dispatch(setIsRestore(true));
-    setItem(item);
+    setId(item.settings_office_aid);
+    setData(item);
+    setDel(null);
   };
 
   const handleDelete = (item) => {
-    dispatch(setIsDelete(true));
-    setItem(item);
+    dispatch(setIsRestore(true));
+    setId(item.settings_office_aid);
+    setData(item);
+    setDel(true);
   };
 
   return (
@@ -116,7 +119,9 @@ const OtherTable = ({ setItemEdit }) => {
         record={
           store.isSearch ? result?.pages[0].count : result?.pages[0].total
         }
-        status={getOtherCountRecord(store.isSearch ? result?.pages[0] : other)}
+        status={getOfficeCountRecord(
+          store.isSearch ? result?.pages[0] : office
+        )}
       />
       <div className="table__wrapper relative rounded-md shadow-md overflow-auto mb-8">
         {isFetching && status !== "loading" && <TableSpinner />}
@@ -126,8 +131,7 @@ const OtherTable = ({ setItemEdit }) => {
               <th>#</th>
               <th>Status</th>
               <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
+              <th>Description</th>
               <th className="action lg:hidden"></th>
             </tr>
           </thead>
@@ -153,26 +157,26 @@ const OtherTable = ({ setItemEdit }) => {
             {result?.pages.map((page, key) => (
               <React.Fragment key={key}>
                 {page.data.map((item, key) => {
-                  active += item.settings_other_is_active === 1;
-                  inactive += item.settings_other_is_active === 0;
+                  active += item.settings_office_is_active === 1;
+                  inactive += item.settings_office_is_active === 0;
                   return (
                     <tr key={key}>
                       <td>{counter++}.</td>
                       <td>
-                        {item.settings_other_is_active === 1 ? (
+                        {item.settings_office_is_active === 1 ? (
                           <Pills label="Active" />
                         ) : (
                           <Pills label="Inactive" tc="text-archive" />
                         )}
                       </td>
-                      <td>{item.settings_other_name}</td>
-                      <td>{item.settings_other_email}</td>
-                      <td>{item.settings_other_role}</td>
+                      <td>{item.settings_office_name}</td>
+                      <td>{item.settings_office_description}</td>
+
                       <td
                         className="table__action top-0 right-5 "
                         data-ellipsis=". . ."
                       >
-                        {item.settings_other_is_active === 1 ? (
+                        {item.settings_office_is_active === 1 ? (
                           <ul className=" flex items-center  gap-4 bg-">
                             <li>
                               <button
@@ -233,12 +237,31 @@ const OtherTable = ({ setItemEdit }) => {
         page={page}
         refView={ref}
       />
-      {store.isArchive && <ModalArchive item={item} />}
-      {store.isRestore && <ModalRestore item={item} />}
-      {store.isDelete && <ModalDelete item={item} />}
-      {store.success && <Toast />}
+      {store.isConfirm && (
+        <ModalConfirm
+          mysqlApiArchive={`/v2/controllers/developer/settings/office/active.php?officeId=${id}`}
+          msg={`Are you sure you want to archive this office?`}
+          item={dataItem.settings_office_description}
+          queryKey={"settings-office"}
+        />
+      )}
+      {store.isRestore && (
+        <ModalDeleteAndRestore
+          id={id}
+          isDel={isDel}
+          mysqlApiDelete={`/v2/controllers/developer/settings/office/office.php?officeId=${id}`}
+          mysqlApiRestore={`/v2/controllers/developer/settings/office/active.php?officeId=${id}`}
+          msg={
+            isDel
+              ? "Are you sure you want to delete this office?"
+              : "Are you sure you want to restore this office?"
+          }
+          item={dataItem.settings_office_description}
+          queryKey={"settings-office"}
+        />
+      )}
     </>
   );
 };
 
-export default OtherTable;
+export default OfficeTable;
