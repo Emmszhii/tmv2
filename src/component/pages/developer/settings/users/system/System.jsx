@@ -8,6 +8,8 @@ import { setIsAdd } from "../../../../../../store/StoreAction";
 import Modal from "../../../../../partials/structure/Modal";
 import ModalAddSystem from "./modals/ModalAddSystem";
 import ModalArchive from "./modals/ModalArchive";
+import ModalValidate from "../../../../../partials/modals/ModalValidate";
+import Toast from "../../../../../partials/Toast";
 
 const System = () => {
   const [itemEdit, setItemEdit] = React.useState(null);
@@ -40,6 +42,8 @@ const System = () => {
       </section>
 
       {store.isAdd && <ModalAddSystem itemEdit={itemEdit} />}
+      {store.validate && <ModalValidate />}
+      {store.success && <Toast />}
     </>
   );
 };

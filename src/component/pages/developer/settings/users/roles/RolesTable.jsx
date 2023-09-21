@@ -70,11 +70,10 @@ const RolesTable = ({ setItemEdit }) => {
     <>
       <div className="table__wrapper relative rounded-md shadow-md overflow-auto mb-8">
         {isFetching && !isLoading && <TableSpinner />}
-        {/* <RecordCount
+        <RecordCount
           record={roles?.data.length}
           status={getRolesCountRecord(roles)}
-        /> */}
-
+        />
         <table>
           <thead>
             <tr>

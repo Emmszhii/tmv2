@@ -1,33 +1,31 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
-import { FaRegEye } from "react-icons/fa";
 import { FiArchive, FiEdit3 } from "react-icons/fi";
-import { RiDeleteBinLine } from "react-icons/ri";
 import { MdRestore } from "react-icons/md";
+import { RiDeleteBinLine } from "react-icons/ri";
 import { useInView } from "react-intersection-observer";
 import {
   setIsAdd,
   setIsArchive,
-  setIsConfirm,
   setIsDelete,
   setIsRestore,
 } from "../../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../../store/StoreContext";
 import { queryDataInfinite } from "../../../../../helpers/queryDataInfinite";
-import Footer from "../../../../../partials/Footer";
-import Searchbar from "../../../../../partials/Searchbar";
-import TableLoading from "../../../../../partials/TableLoading";
-import TableSpinner from "../../../../../partials/spinners/TableSpinner";
-import ServerError from "../../../../../partials/ServerError";
+import Loadmore from "../../../../../partials/Loadmore";
 import Nodata from "../../../../../partials/Nodata";
 import Pills from "../../../../../partials/Pills";
-import { Link } from "react-router-dom";
-import { devNavUrl } from "../../../../../helpers/functions-general";
-import ModalArchive from "./modals/ModalArchive";
-import ModalRestore from "./modals/ModalRestore";
+import RecordCount from "../../../../../partials/RecordCount";
+import Searchbar from "../../../../../partials/Searchbar";
+import ServerError from "../../../../../partials/ServerError";
+import TableLoading from "../../../../../partials/TableLoading";
 import Toast from "../../../../../partials/Toast";
+import TableSpinner from "../../../../../partials/spinners/TableSpinner";
+import ModalArchive from "./modals/ModalArchive";
 import ModalDelete from "./modals/ModalDelete";
-import Loadmore from "../../../../../partials/Loadmore";
+import ModalRestore from "./modals/ModalRestore";
+import { getOtherCountRecord } from "./functions-other";
+import useQueryData from "../../../../../custom-hooks/useQueryData";
 
 const OtherTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -71,6 +69,12 @@ const OtherTable = ({ setItemEdit }) => {
     refetchOnWindowFocus: true,
   });
 
+  const { data: other } = useQueryData(
+    `/v2/controllers/developer/settings/users/other/other.php`,
+    "get",
+    "settings-others"
+  );
+
   React.useEffect(() => {
     if (inView) {
       setPage((prev) => prev + 1);
@@ -108,7 +112,12 @@ const OtherTable = ({ setItemEdit }) => {
         isFetching={isFetching}
       />
 
-      <Footer record={counter} active={active} inactive={inactive} />
+      <RecordCount
+        record={
+          store.isSearch ? result?.pages[0].count : result?.pages[0].total
+        }
+        status={getOtherCountRecord(store.isSearch ? result?.pages[0] : other)}
+      />
       <div className="table__wrapper relative rounded-md shadow-md overflow-auto mb-8">
         {isFetching && status !== "loading" && <TableSpinner />}
         <table>
