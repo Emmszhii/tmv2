@@ -16,7 +16,7 @@ $settingsRates->settings_rates_is_active = 1;
 $settingsRates->settings_rates_created_at = date("Y-m-d H:i:s");
 $settingsRates->settings_rates_updated_at = date("Y-m-d H:i:s");
 // // check name
-// isNameExist($settingsRates, $settingsRates->department_name);
+isNameExist($settingsRates, $settingsRates->settings_rates_description);
 // create
 $query = checkCreate($settingsRates);
 returnSuccess($settingsRates, "Settings Rates", $query);

@@ -10,7 +10,7 @@ const ModalValidate = () => {
     dispatch(setValidate(false));
   };
 
-  //   handleEscape(() => handleClose());
+  // handleEscape(() => handleClose());
 
   return (
     <>

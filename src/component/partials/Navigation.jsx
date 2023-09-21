@@ -198,7 +198,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
                   submenu === "settingsActivity" ? "active__submenu" : ""
                 }`}
               >
-                Activities
+                Activity
               </Link>
             </li>
             <li

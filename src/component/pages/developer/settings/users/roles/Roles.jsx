@@ -3,7 +3,7 @@ import Header from "../../../../../partials/Header";
 import { StoreContext } from "../../../../../../store/StoreContext";
 import Navigation from "../../../../../partials/Navigation";
 import BreadCrumbs from "../../../../../partials/Breadcrumbs";
-import { setIsAdd } from "../../../../../../store/StoreAction";
+import { setIsAdd, setIsSettingsOpen } from "../../../../../../store/StoreAction";
 import RolesTable from "./RolesTable";
 import ModalAddRoles from "./modals/ModalAddRoles";
 import ModalConfirm from "../../../../../partials/modals/ModalConfirm";
