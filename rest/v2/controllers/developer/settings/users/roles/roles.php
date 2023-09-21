@@ -5,6 +5,7 @@ require '../../../../../core/header.php';
 require '../../../../../core/functions.php';
 // use needed classes
 require '../../../../../models/developer/settings/users/roles/SettingsRoles.php';
+
 // get payload
 $body = file_get_contents("php://input");
 $data = json_decode($body, true);

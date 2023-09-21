@@ -32,7 +32,9 @@ const Roles = () => {
               Add
             </button>
           </div>
-          <div>{/* <RolesTable setItemEdit={setItemEdit} /> */}</div>
+          <div>
+            <RolesTable setItemEdit={setItemEdit} />
+          </div>
         </main>
       </section>
 
