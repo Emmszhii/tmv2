@@ -208,4 +208,19 @@ class SettingsOther
         }
         return $query;
     }
+    // email
+    public function checkEmail()
+    {
+        try {
+            $sql = "select settings_other_email from {$this->tblSettingsOther} ";
+            $sql .= "where settings_other_email = :settings_other_email ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "settings_other_email" => "{$this->settings_other_email}",
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
 }

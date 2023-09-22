@@ -3,19 +3,19 @@ import { Form, Formik } from "formik";
 import React from "react";
 import { FaTimes } from "react-icons/fa";
 import * as Yup from "yup";
-import { StoreContext } from "../../../../../../../store/StoreContext";
-import { handleEscape } from "../../../../../../helpers/functions-general";
-import { InputText } from "../../../../../../helpers/FormInputs";
-import ButtonSpinner from "../../../../../../partials/spinners/ButtonSpinner";
 import {
   setIsAdd,
   setMessage,
   setSuccess,
   setValidate,
-} from "../../../../../../../store/StoreAction";
-import { queryData } from "../../../../../../helpers/queryData";
+} from "../../../../../store/StoreAction";
+import { StoreContext } from "../../../../../store/StoreContext";
+import { InputText, InputTextArea } from "../../../../helpers/FormInputs";
+import { handleEscape } from "../../../../helpers/functions-general";
+import { queryData } from "../../../../helpers/queryData";
+import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
 
-const ModalAddSystem = ({ itemEdit }) => {
+const ModalAddActivities = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -23,14 +23,14 @@ const ModalAddSystem = ({ itemEdit }) => {
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v2/controllers/developer/settings/users/system/system.php?systemId=${itemEdit.settings_system_aid}` //update
-          : "/v2/controllers/developer/settings/users/system/system.php", //add
+          ? `/v2/controllers/developer/settings/activity/activity.php?activityId=${itemEdit.settings_activity_aid}` //update
+          : "/v2/controllers/developer/settings/activity/activity.php", //add
         itemEdit ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["settings-system"] });
+      queryClient.invalidateQueries({ queryKey: ["settings-activity"] });
       if (data.success) {
         dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
@@ -45,16 +45,23 @@ const ModalAddSystem = ({ itemEdit }) => {
   });
 
   const initVal = {
-    settings_system_name: itemEdit ? itemEdit.settings_system_name : "",
-    settings_system_email: itemEdit ? itemEdit.settings_system_email : "",
-    settings_system_role: itemEdit ? itemEdit.settings_system_role : "",
-    settings_system_name_old: itemEdit ? itemEdit.settings_system_name : "",
+    settings_activity_aid: itemEdit ? itemEdit.settings_activity_aid : "",
+    settings_activity_description: itemEdit
+      ? itemEdit.settings_activity_description
+      : "",
+    settings_activity_invoice_description: itemEdit
+      ? itemEdit.settings_activity_invoice_description
+      : "",
+
+    settings_activity_description_old: itemEdit
+      ? itemEdit.settings_activity_description
+      : "",
   };
 
   const yupSchema = Yup.object({
-    settings_system_name: Yup.string().required("Required"),
-    settings_system_email: Yup.string().required("Required"),
-    settings_system_role: Yup.string().required("Required"),
+    settings_activity_aid: Yup.string().required("Required"),
+    settings_activity_description: Yup.string().required("Required"),
+    settings_activity_invoice_description: Yup.string().required("Required"),
   });
 
   const handleClose = () => {
@@ -70,7 +77,7 @@ const ModalAddSystem = ({ itemEdit }) => {
           className={`modal__main absolute mx-1 bg-white border border-gray-200 rounded-md py-8 px-5 max-w-[420px] w-full shadow-xl`}
         >
           <div className="modal__header relative">
-            <h3> {itemEdit ? "Update" : "Add"} System </h3>
+            <h3> {itemEdit ? "Update" : "Add"} Activity </h3>
             <button className="absolute -top-4 right-0 " onClick={handleClose}>
               <FaTimes className="text-gray-700 text-base" />
             </button>
@@ -90,25 +97,26 @@ const ModalAddSystem = ({ itemEdit }) => {
                     <div className="modal__body ">
                       <div className="form__wrap">
                         <InputText
-                          label="Name"
+                          label="ID"
                           type="text"
-                          name="settings_system_name"
+                          number="number"
+                          name="settings_activity_aid"
                           disabled={mutation.isLoading}
                         />
                       </div>
                       <div className="form__wrap">
-                        <InputText
-                          label="Email"
+                        <InputTextArea
+                          label="Activity Description"
                           type="text"
-                          name="settings_system_email"
+                          name="settings_activity_description"
                           disabled={mutation.isLoading}
                         />
                       </div>
                       <div className="form__wrap">
-                        <InputText
-                          label="Role"
+                        <InputTextArea
+                          label="Invoice Description"
                           type="text"
-                          name="settings_system_role"
+                          name="settings_activity_invoice_description"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -148,4 +156,4 @@ const ModalAddSystem = ({ itemEdit }) => {
   );
 };
 
-export default ModalAddSystem;
+export default ModalAddActivities;

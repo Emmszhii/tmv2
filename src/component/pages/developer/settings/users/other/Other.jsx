@@ -7,7 +7,7 @@ import {
 import Header from "../../../../../partials/Header";
 import Navigation from "../../../../../partials/Navigation";
 import BreadCrumbs from "../../../../../partials/Breadcrumbs";
-import ModalAddOther from "./modals/ModalAddOther";
+import ModalAddOther from "./ModalAddOther";
 import OtherTable from "./OtherTable";
 import ModalValidate from "../../../../../partials/modals/ModalValidate";
 import Toast from "../../../../../partials/Toast";

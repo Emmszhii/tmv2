@@ -6,11 +6,11 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { useInView } from "react-intersection-observer";
 import {
   setIsAdd,
-  setIsArchive,
-  setIsDelete,
+  setIsConfirm,
   setIsRestore,
 } from "../../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../../store/StoreContext";
+import useQueryData from "../../../../../custom-hooks/useQueryData";
 import { queryDataInfinite } from "../../../../../helpers/queryDataInfinite";
 import Loadmore from "../../../../../partials/Loadmore";
 import Nodata from "../../../../../partials/Nodata";
@@ -19,27 +19,25 @@ import RecordCount from "../../../../../partials/RecordCount";
 import Searchbar from "../../../../../partials/Searchbar";
 import ServerError from "../../../../../partials/ServerError";
 import TableLoading from "../../../../../partials/TableLoading";
-import Toast from "../../../../../partials/Toast";
+import ModalConfirm from "../../../../../partials/modals/ModalConfirm";
+import ModalDeleteAndRestore from "../../../../../partials/modals/ModalDeleteAndRestore";
 import TableSpinner from "../../../../../partials/spinners/TableSpinner";
 import { getSystemCountRecord } from "./functions-system";
-import ModalArchive from "./modals/ModalArchive";
-import ModalDelete from "./modals/ModalDelete";
-import ModalRestore from "./modals/ModalRestore";
-import useQueryData from "../../../../../custom-hooks/useQueryData";
 
 const SystemTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
-  const [item, setItem] = React.useState(null);
-
+  // for archive, restore,delete
+  const [dataItem, setData] = React.useState(null);
+  const [id, setId] = React.useState(null);
+  const [isDel, setDel] = React.useState(false);
   // Loadmore
   const [page, setPage] = React.useState(1);
   const search = React.useRef(null);
   const { ref, inView } = useInView();
-
+  // count
   let counter = 1,
     active = 0,
     inactive = 0;
-
   // use if with loadmore button and search bar
   const {
     data: result,
@@ -71,7 +69,7 @@ const SystemTable = ({ setItemEdit }) => {
   const { data: system } = useQueryData(
     `/v2/controllers/developer/settings/users/system/system.php`,
     "get",
-    "settings-systems"
+    "settings-system"
   );
 
   React.useEffect(() => {
@@ -87,18 +85,24 @@ const SystemTable = ({ setItemEdit }) => {
   };
 
   const handleArchive = (item) => {
-    dispatch(setIsArchive(true));
-    setItem(item);
+    dispatch(setIsConfirm(true));
+    setId(item.settings_system_aid);
+    setData(item);
+    setDel(null);
   };
 
   const handleRestore = (item) => {
     dispatch(setIsRestore(true));
-    setItem(item);
+    setId(item.settings_system_aid);
+    setData(item);
+    setDel(null);
   };
 
   const handleDelete = (item) => {
-    dispatch(setIsDelete(true));
-    setItem(item);
+    dispatch(setIsRestore(true));
+    setId(item.settings_system_aid);
+    setData(item);
+    setDel(true);
   };
   console.log(system);
   return (
@@ -233,10 +237,29 @@ const SystemTable = ({ setItemEdit }) => {
         page={page}
         refView={ref}
       />
-      {store.isArchive && <ModalArchive item={item} />}
-      {store.isRestore && <ModalRestore item={item} />}
-      {store.isDelete && <ModalDelete item={item} />}
-      {store.success && <Toast />}
+      {store.isConfirm && (
+        <ModalConfirm
+          mysqlApiArchive={`/v2/controllers/developer/settings/users/system/active.php?systemId=${id}`}
+          msg={`Are you sure you want to archive this system?`}
+          item={dataItem.settings_system_name}
+          queryKey={"settings-system"}
+        />
+      )}
+      {store.isRestore && (
+        <ModalDeleteAndRestore
+          id={id}
+          isDel={isDel}
+          mysqlApiDelete={`/v2/controllers/developer/settings/users/system/system.php?systemId=${id}`}
+          mysqlApiRestore={`/v2/controllers/developer/settings/users/system/active.php?systemId=${id}`}
+          msg={
+            isDel
+              ? "Are you sure you want to delete this system?"
+              : "Are you sure you want to restore this system?"
+          }
+          item={dataItem.settings_system_name}
+          queryKey={"settings-system"}
+        />
+      )}
     </>
   );
 };

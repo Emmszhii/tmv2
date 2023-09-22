@@ -129,8 +129,8 @@ const OfficeTable = ({ setItemEdit }) => {
           <thead>
             <tr>
               <th>#</th>
-              <th>Status</th>
-              <th>Name</th>
+              <th width="50px">Status</th>
+              <th width="50px">Name</th>
               <th>Description</th>
               <th className="action lg:hidden"></th>
             </tr>

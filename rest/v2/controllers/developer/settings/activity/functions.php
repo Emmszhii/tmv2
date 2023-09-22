@@ -6,4 +6,3 @@ function checkReadAllDepartmentByIdAndStaffId($object)
     checkQuery($query, "Empty records. (read All Department By Id And Staff Id");
     return $query;
 }
- 

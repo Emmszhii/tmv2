@@ -3,19 +3,20 @@ import { Form, Formik } from "formik";
 import React from "react";
 import { FaTimes } from "react-icons/fa";
 import * as Yup from "yup";
-import { StoreContext } from "../../../../../../../store/StoreContext";
-import { handleEscape } from "../../../../../../helpers/functions-general";
-import { InputText } from "../../../../../../helpers/FormInputs";
-import ButtonSpinner from "../../../../../../partials/spinners/ButtonSpinner";
+import { StoreContext } from "../../../../../../store/StoreContext";
+import { handleEscape } from "../../../../../helpers/functions-general";
+import { InputSelect, InputText } from "../../../../../helpers/FormInputs";
+import ButtonSpinner from "../../../../../partials/spinners/ButtonSpinner";
 import {
   setIsAdd,
   setMessage,
   setSuccess,
   setValidate,
-} from "../../../../../../../store/StoreAction";
-import { queryData } from "../../../../../../helpers/queryData";
+} from "../../../../../../store/StoreAction";
+import { queryData } from "../../../../../helpers/queryData";
+import useQueryData from "../../../../../custom-hooks/useQueryData";
 
-const ModalAddRoles = ({ itemEdit }) => {
+const ModalAddOther = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -23,14 +24,14 @@ const ModalAddRoles = ({ itemEdit }) => {
     mutationFn: (values) =>
       queryData(
         itemEdit
-          ? `/v2/controllers/developer/settings/users/roles/roles.php?rolesId=${itemEdit.settings_roles_aid}` //update
-          : "/v2/controllers/developer/settings/users/roles/roles.php", //add
+          ? `/v2/controllers/developer/settings/users/other/other.php?otherId=${itemEdit.settings_other_aid}` //update
+          : "/v2/controllers/developer/settings/users/other/other.php", //add
         itemEdit ? "put" : "post",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["settings-roles"] });
+      queryClient.invalidateQueries({ queryKey: ["settings-other"] });
       if (data.success) {
         dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
@@ -44,18 +45,30 @@ const ModalAddRoles = ({ itemEdit }) => {
     },
   });
 
-  const initVal = {
-    settings_roles_name: itemEdit ? itemEdit.settings_roles_name : "",
-    settings_roles_description: itemEdit
-      ? itemEdit.settings_roles_description
-      : "",
+  const {
+    loadingRoles,
+    isFetching,
+    errorRoles,
+    data: roles,
+  } = useQueryData(
+    `/v2/controllers/developer/settings/users/roles/roles.php`,
+    "get",
+    "settings-other"
+  );
 
-    settings_roles_name_old: itemEdit ? itemEdit.settings_roles_name : "",
+  const initVal = {
+    settings_other_name: itemEdit ? itemEdit.settings_other_name : "",
+    settings_other_email: itemEdit ? itemEdit.settings_other_email : "",
+    settings_other_role: itemEdit ? itemEdit.settings_other_role : "",
+    settings_other_name_old: itemEdit ? itemEdit.settings_other_name : "",
   };
 
   const yupSchema = Yup.object({
-    settings_roles_name: Yup.string().required("Required"),
-    settings_roles_description: Yup.string().required("Required"),
+    settings_other_name: Yup.string().required("Required"),
+    settings_other_email: Yup.string()
+      .required("Required")
+      .email("invalid email"),
+    settings_other_role: Yup.string().required("Required"),
   });
 
   const handleClose = () => {
@@ -71,7 +84,7 @@ const ModalAddRoles = ({ itemEdit }) => {
           className={`modal__main absolute mx-1 bg-white border border-gray-200 rounded-md py-8 px-5 max-w-[420px] w-full shadow-xl`}
         >
           <div className="modal__header relative">
-            <h3> {itemEdit ? "Update" : "Add"} System </h3>
+            <h3> {itemEdit ? "Update" : "Add"} Other </h3>
             <button className="absolute -top-4 right-0 " onClick={handleClose}>
               <FaTimes className="text-gray-700 text-base" />
             </button>
@@ -93,17 +106,57 @@ const ModalAddRoles = ({ itemEdit }) => {
                         <InputText
                           label="Name"
                           type="text"
-                          name="settings_roles_name"
+                          name="settings_other_name"
                           disabled={mutation.isLoading}
                         />
                       </div>
                       <div className="form__wrap">
                         <InputText
-                          label="Description"
+                          label="Email"
                           type="text"
-                          name="settings_roles_description"
+                          name="settings_other_email"
                           disabled={mutation.isLoading}
                         />
+                      </div>
+                      <div className="form__wrap">
+                        <InputSelect
+                          label="Role"
+                          type="text"
+                          name="settings_other_role"
+                          disabled={mutation.isLoading}
+                          onChange={(e) => e}
+                        >
+                          {loadingRoles ? (
+                            <option value="" hidden>
+                              Loading..
+                            </option>
+                          ) : errorRoles ? (
+                            <option value="" disabled>
+                              Error
+                            </option>
+                          ) : (
+                            <optgroup label="Select Role">
+                              <option value="" hidden></option>
+                              {roles?.data.length > 0 ? (
+                                roles?.data.map((item, key) => {
+                                  return (
+                                    <option
+                                      // value={item.settings_roles_aid}
+                                      value={item.settings_roles_name}
+                                      key={key}
+                                    >
+                                      {item.settings_roles_name}
+                                    </option>
+                                  );
+                                })
+                              ) : (
+                                <option value="" disabled>
+                                  No data
+                                </option>
+                              )}
+                            </optgroup>
+                          )}
+                        </InputSelect>
                       </div>
 
                       <div className="modal__action flex justify-end mt-6 gap-2">
@@ -141,4 +194,4 @@ const ModalAddRoles = ({ itemEdit }) => {
   );
 };
 
-export default ModalAddRoles;
+export default ModalAddOther;

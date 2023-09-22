@@ -2,7 +2,7 @@ import React from "react";
 
 const MainFooter = () => {
   return (
-    <div className=" p-1 fixed bottom-0 z-20 text-center before:border-t-2 overflow-hidden before:content-[''] before:bg-gray-50 before:z-10 before:absolute before:top-0 before:left-0 before:h-full before:w-screen">
+    <div className=" p-1 fixed bottom-0 mx-auto z-20 w-full before:border-t-2 before:content-[''] before:bg-gray-50 before:z-10 before:absolute before:top-0 before:left-0 before:h-full before:w-full after:border-t-2 after:content-[''] after:bg-gray-50 after:z-10 after:absolute after:top-0 after:right-0 after:h-full after:w-full">
       <p className="text-[10px] leading-none m-0 relative z-30">
         © 2023 All Rights Reserved. | Powered by
         <span className="font-bold text-alert_darker/90">

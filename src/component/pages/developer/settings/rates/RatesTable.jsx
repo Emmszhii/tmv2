@@ -26,14 +26,15 @@ import { getRatesCountRecord } from "./functions-rates";
 
 const RatesTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
+  // for archive,delete,restore
   const [dataItem, setData] = React.useState(null);
   const [id, setId] = React.useState(null);
   const [isDel, setDel] = React.useState(false);
-
+  // for loadmore and search
   const [page, setPage] = React.useState(1);
   const search = React.useRef(null);
   const { ref, inView } = useInView();
-
+  // count
   let counter = 1;
   let active = 0;
   let inactive = 0;
@@ -127,7 +128,7 @@ const RatesTable = ({ setItemEdit }) => {
           <thead>
             <tr>
               <th>#</th>
-              <th>Status</th>
+              <th width="50px">Status</th>
               <th>Description</th>
               <th className="action lg:hidden"></th>
             </tr>

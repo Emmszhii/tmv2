@@ -6,11 +6,11 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { useInView } from "react-intersection-observer";
 import {
   setIsAdd,
-  setIsArchive,
-  setIsDelete,
+  setIsConfirm,
   setIsRestore,
 } from "../../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../../store/StoreContext";
+import useQueryData from "../../../../../custom-hooks/useQueryData";
 import { queryDataInfinite } from "../../../../../helpers/queryDataInfinite";
 import Loadmore from "../../../../../partials/Loadmore";
 import Nodata from "../../../../../partials/Nodata";
@@ -19,17 +19,15 @@ import RecordCount from "../../../../../partials/RecordCount";
 import Searchbar from "../../../../../partials/Searchbar";
 import ServerError from "../../../../../partials/ServerError";
 import TableLoading from "../../../../../partials/TableLoading";
-import Toast from "../../../../../partials/Toast";
+import ModalConfirm from "../../../../../partials/modals/ModalConfirm";
+import ModalDeleteAndRestore from "../../../../../partials/modals/ModalDeleteAndRestore";
 import TableSpinner from "../../../../../partials/spinners/TableSpinner";
-import ModalArchive from "./modals/ModalArchive";
-import ModalDelete from "./modals/ModalDelete";
-import ModalRestore from "./modals/ModalRestore";
 import { getOtherCountRecord } from "./functions-other";
-import useQueryData from "../../../../../custom-hooks/useQueryData";
 
 const OtherTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
-  const [item, setItem] = React.useState(null);
+  // for archive, restore,delete
+  const [dataItem, setData] = React.useState(null);
   const [id, setId] = React.useState(null);
   const [isDel, setDel] = React.useState(false);
 
@@ -88,18 +86,24 @@ const OtherTable = ({ setItemEdit }) => {
   };
 
   const handleArchive = (item) => {
-    dispatch(setIsArchive(true));
-    setItem(item);
+    dispatch(setIsConfirm(true));
+    setId(item.settings_other_aid);
+    setData(item);
+    setDel(null);
   };
 
   const handleRestore = (item) => {
     dispatch(setIsRestore(true));
-    setItem(item);
+    setId(item.settings_other_aid);
+    setData(item);
+    setDel(null);
   };
 
   const handleDelete = (item) => {
-    dispatch(setIsDelete(true));
-    setItem(item);
+    dispatch(setIsRestore(true));
+    setId(item.settings_other_aid);
+    setData(item);
+    setDel(true);
   };
 
   return (
@@ -124,9 +128,9 @@ const OtherTable = ({ setItemEdit }) => {
           <thead>
             <tr>
               <th>#</th>
-              <th>Status</th>
-              <th>Name</th>
-              <th>Email</th>
+              <th width="80px">Status</th>
+              <th width="200px">Name</th>
+              <th width="300px">Email</th>
               <th>Role</th>
               <th className="action lg:hidden"></th>
             </tr>
@@ -233,10 +237,34 @@ const OtherTable = ({ setItemEdit }) => {
         page={page}
         refView={ref}
       />
-      {store.isArchive && <ModalArchive item={item} />}
+
+      {store.isConfirm && (
+        <ModalConfirm
+          mysqlApiArchive={`/v2/controllers/developer/settings/users/other/active.php?otherId=${id}`}
+          msg={`Are you sure you want to archive this other?`}
+          item={dataItem.settings_other_name}
+          queryKey={"settings-other"}
+        />
+      )}
+      {store.isRestore && (
+        <ModalDeleteAndRestore
+          id={id}
+          isDel={isDel}
+          mysqlApiDelete={`/v2/controllers/developer/settings/users/other/other.php?otherId=${id}`}
+          mysqlApiRestore={`/v2/controllers/developer/settings/users/other/active.php?otherId=${id}`}
+          msg={
+            isDel
+              ? "Are you sure you want to delete this other?"
+              : "Are you sure you want to restore this other?"
+          }
+          item={dataItem.settings_other_name}
+          queryKey={"settings-other"}
+        />
+      )}
+      {/* {store.isArchive && <ModalArchive item={item} />}
       {store.isRestore && <ModalRestore item={item} />}
       {store.isDelete && <ModalDelete item={item} />}
-      {store.success && <Toast />}
+      {store.success && <Toast />} */}
     </>
   );
 };
