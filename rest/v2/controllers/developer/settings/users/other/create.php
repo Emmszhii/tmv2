@@ -13,7 +13,7 @@ checkPayload($data);
 // get data
 $settingsOther->settings_other_name = checkIndex($data, "settings_other_name");
 $settingsOther->settings_other_email = checkIndex($data, "settings_other_email");
-$settingsOther->settings_other_role = checkIndex($data, "settings_other_role");
+$settingsOther->settings_other_roles_id = checkIndex($data, "settings_other_roles_id");
 $settingsOther->settings_other_is_active = 1;
 $settingsOther->settings_other_created_at = date("Y-m-d H:i:s");
 $settingsOther->settings_other_updated_at = date("Y-m-d H:i:s");

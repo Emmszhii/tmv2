@@ -16,7 +16,7 @@ $settingsDepartment->settings_department_is_active = 1;
 $settingsDepartment->settings_department_created_at = date("Y-m-d H:i:s");
 $settingsDepartment->settings_department_updated_at = date("Y-m-d H:i:s");
 // // check name
-isNameExist($settingsDepartment, $settingsDepartment->settings_department_name);
+// isNameExist($settingsDepartment, $settingsDepartment->settings_department_name);
 // create
 $query = checkCreate($settingsDepartment);
 returnSuccess($settingsDepartment, "Settings Department", $query);

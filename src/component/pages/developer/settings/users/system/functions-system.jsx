@@ -14,3 +14,7 @@ export const getSystemCountRecord = (system) => {
 
   return { active, inactive };
 };
+
+export const getRolesNameById = (object, id) => {
+  return object.filter((item) => item.settings_system_aid === id);
+};

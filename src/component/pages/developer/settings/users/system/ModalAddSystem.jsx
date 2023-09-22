@@ -59,8 +59,10 @@ const ModalAddSystem = ({ itemEdit }) => {
   const initVal = {
     settings_system_name: itemEdit ? itemEdit.settings_system_name : "",
     settings_system_email: itemEdit ? itemEdit.settings_system_email : "",
-    settings_system_role: itemEdit ? itemEdit.settings_system_role : "",
+    settings_system_roles_id: itemEdit ? itemEdit.settings_system_roles_id : "",
+
     settings_system_name_old: itemEdit ? itemEdit.settings_system_name : "",
+    settings_system_email_old: itemEdit ? itemEdit.settings_system_email : "",
   };
 
   const yupSchema = Yup.object({
@@ -68,7 +70,7 @@ const ModalAddSystem = ({ itemEdit }) => {
     settings_system_email: Yup.string()
       .required("Required")
       .email("Invalid email"),
-    settings_system_role: Yup.string().required("Required"),
+    settings_system_roles_id: Yup.string().required("Required"),
   });
 
   const handleClose = () => {
@@ -122,7 +124,7 @@ const ModalAddSystem = ({ itemEdit }) => {
                         <InputSelect
                           label="Role"
                           type="text"
-                          name="settings_system_role"
+                          name="settings_system_roles_id"
                           disabled={mutation.isLoading}
                           onChange={(e) => e}
                         >
@@ -141,8 +143,7 @@ const ModalAddSystem = ({ itemEdit }) => {
                                 roles?.data.map((item, key) => {
                                   return (
                                     <option
-                                      // value={item.settings_roles_aid}
-                                      value={item.settings_roles_name}
+                                      value={item.settings_roles_aid}
                                       key={key}
                                     >
                                       {item.settings_roles_name}

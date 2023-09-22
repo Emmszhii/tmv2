@@ -104,7 +104,6 @@ const SystemTable = ({ setItemEdit }) => {
     setData(item);
     setDel(true);
   };
-  console.log(system);
   return (
     <>
       <Searchbar
@@ -157,6 +156,7 @@ const SystemTable = ({ setItemEdit }) => {
             {result?.pages.map((page, key) => (
               <React.Fragment key={key}>
                 {page.data.map((item, key) => {
+                  console.log(item);
                   active += item.settings_system_is_active === 1;
                   inactive += item.settings_system_is_active === 0;
                   return (
@@ -171,7 +171,7 @@ const SystemTable = ({ setItemEdit }) => {
                       </td>
                       <td>{item.settings_system_name}</td>
                       <td>{item.settings_system_email}</td>
-                      <td>{item.settings_system_role}</td>
+                      <td>{item.settings_roles_name}</td>
                       <td
                         className="table__action top-0 right-5 "
                         data-ellipsis=". . ."

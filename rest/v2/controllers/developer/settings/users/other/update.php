@@ -14,13 +14,21 @@ if (array_key_exists("otherId", $_GET)) {
     $settingsOther->settings_other_aid = $_GET['otherId'];
     $settingsOther->settings_other_name = checkIndex($data, "settings_other_name");
     $settingsOther->settings_other_email = checkIndex($data, "settings_other_email");
-    $settingsOther->settings_other_role = checkIndex($data, "settings_other_role");
+    $settingsOther->settings_other_roles_id = checkIndex($data, "settings_other_roles_id");
     $settingsOther->settings_other_updated_at = date("Y-m-d H:i:s");
     checkId($settingsOther->settings_other_aid);
-    // check name
-    isNameExist($settingsOther, $settingsOther->settings_other_name);
-    // check email
-    isEmailExist($settingsOther, $settingsOther->settings_other_email);
+
+    $settings_other_name_old = checkIndex($data, "settings_other_name_old");
+    $settings_other_email_old = checkIndex($data, "settings_other_email_old");
+
+    if ($settings_other_name_old !== $settingsOther->settings_other_name) {
+        // check name
+        isNameExist($settingsOther, $settingsOther->settings_other_name);
+    }
+    if ($settings_other_email_old !==  $settingsOther->settings_other_email) {
+        // check email
+        isEmailExist($settingsOther, $settingsOther->settings_other_email);
+    }
     // update
     $query = checkUpdate($settingsOther);
     returnSuccess($settingsOther, "SettingsOther", $query);

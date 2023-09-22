@@ -171,7 +171,7 @@ const OtherTable = ({ setItemEdit }) => {
                       </td>
                       <td>{item.settings_other_name}</td>
                       <td>{item.settings_other_email}</td>
-                      <td>{item.settings_other_role}</td>
+                      <td>{item.settings_roles_name}</td>
                       <td
                         className="table__action top-0 right-5 "
                         data-ellipsis=". . ."
@@ -261,10 +261,6 @@ const OtherTable = ({ setItemEdit }) => {
           queryKey={"settings-other"}
         />
       )}
-      {/* {store.isArchive && <ModalArchive item={item} />}
-      {store.isRestore && <ModalRestore item={item} />}
-      {store.isDelete && <ModalDelete item={item} />}
-      {store.success && <Toast />} */}
     </>
   );
 };

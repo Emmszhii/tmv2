@@ -15,6 +15,8 @@ if (array_key_exists("departmentId", $_GET)) {
     $settingsDepartment->settings_department_name = strtoupper(checkIndex($data, "settings_department_name"));
     $settingsDepartment->settings_department_updated_at = date("Y-m-d H:i:s");
     checkId($settingsDepartment->settings_department_aid);
+    // check name
+    isNameExist($settingsDepartment, $settingsDepartment->settings_department_name);
     // update
     $query = checkUpdate($settingsDepartment);
     returnSuccess($settingsDepartment, "Settings Department", $query);
