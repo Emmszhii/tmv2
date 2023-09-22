@@ -66,7 +66,7 @@ function App() {
                 path={`/system/client/information/notes`}
                 element={<ClientNotes />}
               />
-              <Route path={`/settings/accesslevel`} element={<Test />} />
+              <Route path={`/settings/access-level`} element={<Test />} />
               <Route path={`/settings/users`} element={<Users />} />
               <Route path={`/settings/users/system`} element={<System />} />
               <Route path={`/settings/users/other`} element={<Other />} />
@@ -87,19 +87,22 @@ function App() {
               <Route path={`/settings/department`} element={<Department />} />
               <Route path={`/settings/entities`} element={<Test />} />
               <Route
-                path={`/settings/referraltype`}
+                path={`/settings/referral-type`}
                 element={<ReferrralType />}
               />
               <Route
-                path={`/settings/referralsource`}
+                path={`/settings/referral-source`}
                 element={<ReferrralSource />}
               />
-              <Route path={`/settings/lostreason`} element={<LostReason />} />
-              <Route path={`/settings/lostto`} element={<LostTo />} />
-              <Route path={`/settings/wonreason`} element={<WonReason />} />
-              <Route path={`/settings/clientclass`} element={<ClientClass />} />
+              <Route path={`/settings/lost-reason`} element={<LostReason />} />
+              <Route path={`/settings/lost-to`} element={<LostTo />} />
+              <Route path={`/settings/won-reason`} element={<WonReason />} />
               <Route
-                path={`/settings/form1099special-character`}
+                path={`/settings/client-class`}
+                element={<ClientClass />}
+              />
+              <Route
+                path={`/settings/form1099-special-character`}
                 element={<SpecialCharacter />}
               />
             </Routes>

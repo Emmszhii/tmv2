@@ -163,7 +163,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
               }`}
             >
               <Link
-                to={`${urlRolePath}/settings/accesslevel`}
+                to={`${urlRolePath}/settings/access-level`}
                 className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
                   submenu === "settingsAccessLevel" ? "active__submenu" : ""
                 }`}
@@ -285,7 +285,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
               }`}
             >
               <Link
-                to={`${urlRolePath}/settings/referraltype`}
+                to={`${urlRolePath}/settings/referral-type`}
                 className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
                   submenu === "settingsReferralType" ? "active__submenu" : ""
                 }`}
@@ -301,7 +301,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
               }`}
             >
               <Link
-                to={`${urlRolePath}/settings/referralsource`}
+                to={`${urlRolePath}/settings/referral-source`}
                 className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
                   submenu === "settingsReferralSource" ? "active__submenu" : ""
                 }`}
@@ -317,7 +317,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
               }`}
             >
               <Link
-                to={`${urlRolePath}/settings/lostreason`}
+                to={`${urlRolePath}/settings/lost-reason`}
                 className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
                   submenu === "settingsLostReason" ? "active__submenu" : ""
                 }`}
@@ -331,7 +331,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
               }`}
             >
               <Link
-                to={`${urlRolePath}/settings/lostto`}
+                to={`${urlRolePath}/settings/lost-to`}
                 className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
                   submenu === "settingsLostTo" ? "active__submenu" : ""
                 }`}
@@ -347,7 +347,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
               }`}
             >
               <Link
-                to={`${urlRolePath}/settings/wonreason`}
+                to={`${urlRolePath}/settings/won-reason`}
                 className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
                   submenu === "settingsWonReason" ? "active__submenu" : ""
                 }`}
@@ -363,7 +363,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
               }`}
             >
               <Link
-                to={`${urlRolePath}/settings/clientclass`}
+                to={`${urlRolePath}/settings/client-class`}
                 className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
                   submenu === "settingsClientClass" ? "active__submenu" : ""
                 }`}
@@ -379,7 +379,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
               }`}
             >
               <Link
-                to={`${urlRolePath}/settings/form1099special-character`}
+                to={`${urlRolePath}/settings/form1099-special-character`}
                 className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
                   submenu === "settingsForm1099SpecialCharacter"
                     ? "active__submenu"
