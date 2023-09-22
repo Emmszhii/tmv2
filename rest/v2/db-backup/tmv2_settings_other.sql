@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 20, 2023 at 09:40 AM
+-- Generation Time: Sep 22, 2023 at 06:26 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -42,9 +42,8 @@ CREATE TABLE `tmv2_settings_other` (
 --
 
 INSERT INTO `tmv2_settings_other` (`settings_other_aid`, `settings_other_name`, `settings_other_email`, `settings_other_role`, `settings_other_is_active`, `settings_other_created_at`, `settings_other_updated_at`) VALUES
-(2, 'test11111', 'test', 'testt', 1, '2023-09-20 15:26:23', '2023-09-20 15:31:53'),
-(3, 'sample', 'sample', 'sample', 1, '2023-09-20 15:26:28', '2023-09-20 15:26:28'),
-(4, 'sample1111', 'sample', 'sample', 0, '2023-09-20 15:26:34', '2023-09-20 15:39:54');
+(17, 'Emmanuel Manalo', 'emmanuel.manalo@frontlinebusiness.com.ph', 'Developer', 1, '2023-09-22 10:22:32', '2023-09-22 10:22:32'),
+(18, 'samples', 'sample@gmail.com', 'Sample', 0, '2023-09-22 10:27:48', '2023-09-22 10:29:12');
 
 --
 -- Indexes for dumped tables
@@ -64,7 +63,7 @@ ALTER TABLE `tmv2_settings_other`
 -- AUTO_INCREMENT for table `tmv2_settings_other`
 --
 ALTER TABLE `tmv2_settings_other`
-  MODIFY `settings_other_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `settings_other_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

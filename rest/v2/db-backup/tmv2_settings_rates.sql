@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 21, 2023 at 07:11 AM
+-- Generation Time: Sep 22, 2023 at 06:26 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -40,11 +40,11 @@ CREATE TABLE `tmv2_settings_rates` (
 --
 
 INSERT INTO `tmv2_settings_rates` (`settings_rates_aid`, `settings_rates_description`, `settings_rates_is_active`, `settings_rates_created_at`, `settings_rates_updated_at`) VALUES
-(1, 'sample1', 0, '2023-09-21 13:09:37', '2023-09-21 13:09:42'),
-(2, 'test', 1, '2023-09-21 13:10:43', '2023-09-21 13:10:43'),
-(3, 'testing', 1, '2023-09-21 13:10:47', '2023-09-21 13:10:47'),
-(4, 'samples', 1, '2023-09-21 13:10:53', '2023-09-21 13:10:53'),
-(5, 'testingggs', 1, '2023-09-21 13:11:00', '2023-09-21 13:11:00');
+(3, 'TESTINGD', 1, '2023-09-21 13:10:47', '2023-09-21 13:36:16'),
+(4, 'SAMPLESS', 1, '2023-09-21 13:10:53', '2023-09-21 13:36:39'),
+(5, 'TESTINGGG', 1, '2023-09-21 13:11:00', '2023-09-21 13:36:10'),
+(6, 'SAMPLES', 1, '2023-09-21 13:19:21', '2023-09-21 13:36:43'),
+(7, 'TESTINGS', 1, '2023-09-21 13:35:10', '2023-09-21 13:35:10');
 
 --
 -- Indexes for dumped tables
@@ -64,7 +64,7 @@ ALTER TABLE `tmv2_settings_rates`
 -- AUTO_INCREMENT for table `tmv2_settings_rates`
 --
 ALTER TABLE `tmv2_settings_rates`
-  MODIFY `settings_rates_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `settings_rates_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
