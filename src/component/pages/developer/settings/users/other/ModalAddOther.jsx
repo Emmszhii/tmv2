@@ -70,7 +70,7 @@ const ModalAddOther = ({ itemEdit }) => {
     settings_other_email: Yup.string()
       .required("Required")
       .email("invalid email"),
-    settings_other_role: Yup.string().required("Required"),
+    settings_other_roles_id: Yup.string().required("Required"),
   });
 
   const handleClose = () => {
@@ -143,8 +143,7 @@ const ModalAddOther = ({ itemEdit }) => {
                                 roles?.data.map((item, key) => {
                                   return (
                                     <option
-                                      // value={item.settings_roles_aid}
-                                      value={item.settings_roles_name}
+                                      value={item.settings_roles_aid}
                                       key={key}
                                     >
                                       {item.settings_roles_name}

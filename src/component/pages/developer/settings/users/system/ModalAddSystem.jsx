@@ -70,7 +70,7 @@ const ModalAddSystem = ({ itemEdit }) => {
     settings_system_email: Yup.string()
       .required("Required")
       .email("Invalid email"),
-    settings_system_role: Yup.string().required("Required"),
+    settings_system_roles_id: Yup.string().required("Required"),
   });
 
   const handleClose = () => {

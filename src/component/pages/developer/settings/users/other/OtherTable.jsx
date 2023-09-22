@@ -261,10 +261,6 @@ const OtherTable = ({ setItemEdit }) => {
           queryKey={"settings-other"}
         />
       )}
-      {/* {store.isArchive && <ModalArchive item={item} />}
-      {store.isRestore && <ModalRestore item={item} />}
-      {store.isDelete && <ModalDelete item={item} />}
-      {store.success && <Toast />} */}
     </>
   );
 };

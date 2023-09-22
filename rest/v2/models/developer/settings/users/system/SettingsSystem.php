@@ -40,7 +40,7 @@ class SettingsSystem
             $sql .= "settings_system_updated_at ) values ( ";
             $sql .= ":settings_system_name, ";
             $sql .= ":settings_system_email, ";
-            $sql .= ":settings_system_roles_ids, ";
+            $sql .= ":settings_system_roles_id, ";
             $sql .= ":settings_system_is_active, ";
             $sql .= ":settings_system_created_at, ";
             $sql .= ":settings_system_updated_at ) ";
@@ -48,7 +48,7 @@ class SettingsSystem
             $query->execute([
                 "settings_system_name" => $this->settings_system_name,
                 "settings_system_email" => $this->settings_system_email,
-                "settings_system_roles_ids" => $this->settings_system_roles_id,
+                "settings_system_roles_id" => $this->settings_system_roles_id,
                 "settings_system_is_active" => $this->settings_system_is_active,
                 "settings_system_created_at" => $this->settings_system_created_at,
                 "settings_system_updated_at" => $this->settings_system_updated_at,
