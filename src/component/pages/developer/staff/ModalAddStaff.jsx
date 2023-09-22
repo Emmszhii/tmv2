@@ -12,8 +12,13 @@ import {
   setValidate,
 } from "../../../../store/StoreAction";
 import { handleEscape } from "../../../helpers/functions-general";
-import { InputText, InputTextArea } from "../../../helpers/FormInputs";
+import {
+  InputSelect,
+  InputText,
+  InputTextArea,
+} from "../../../helpers/FormInputs";
 import ButtonSpinner from "../../../partials/spinners/ButtonSpinner";
+import useQueryData from "../../../custom-hooks/useQueryData";
 
 const ModalAddStaff = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
@@ -44,20 +49,49 @@ const ModalAddStaff = ({ itemEdit }) => {
     },
   });
 
+  const {
+    loadingDepartment,
+    isFetchingDepartment,
+    errorDepartment,
+    data: department,
+  } = useQueryData(
+    `/v2/controllers/developer/settings/department/department.php`,
+    "get",
+    "settings-department"
+  );
+
+  const {
+    loadingOffice,
+    isFetchingOffice,
+    errorOffice,
+    data: office,
+  } = useQueryData(
+    `/v2/controllers/developer/settings/office/office.php`,
+    "get",
+    "settings-office"
+  );
+
   const initVal = {
+    staff_id_old: itemEdit ? itemEdit.staff_id : "",
     staff_aid: itemEdit ? itemEdit.staff_aid : "",
     staff_id: itemEdit ? itemEdit.staff_id : "",
     staff_description: itemEdit ? itemEdit.staff_description : "",
-    staff_name: itemEdit ? itemEdit.staff_name : "",
+    staff_first_name: itemEdit ? itemEdit.staff_first_name : "",
+    staff_middle_name: itemEdit ? itemEdit.staff_middle_name : "",
+    staff_last_name: itemEdit ? itemEdit.staff_last_name : "",
     staff_department: itemEdit ? itemEdit.staff_department : "",
+    staff_date_hired: itemEdit ? itemEdit.staff_date_hired : "",
     staff_office: itemEdit ? itemEdit.staff_office : "",
   };
 
   const yupSchema = Yup.object({
     staff_id: Yup.string().required("Required"),
     staff_description: Yup.string().required("Required"),
-    staff_name: Yup.string().required("Required"),
+    staff_first_name: Yup.string().required("Required"),
+    staff_middle_name: Yup.string().required("Required"),
+    staff_last_name: Yup.string().required("Required"),
     staff_department: Yup.string().required("Required"),
+    staff_date_hired: Yup.string().required("Required"),
     staff_office: Yup.string().required("Required"),
   });
 
@@ -110,27 +144,113 @@ const ModalAddStaff = ({ itemEdit }) => {
                       </div>
                       <div className="form__wrap">
                         <InputText
-                          label="Staff Name"
+                          label="Last Name"
                           type="text"
-                          name="staff_name"
+                          name="staff_last_name"
                           disabled={mutation.isLoading}
                         />
                       </div>
                       <div className="form__wrap">
                         <InputText
+                          label="First Name"
+                          type="text"
+                          name="staff_first_name"
+                          disabled={mutation.isLoading}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputText
+                          label="Middle Name"
+                          type="text"
+                          name="staff_middle_name"
+                          disabled={mutation.isLoading}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputText
+                          label="Date Hired"
+                          type="date"
+                          name="staff_date_hired"
+                          disabled={mutation.isLoading}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputSelect
                           label="Department"
                           type="text"
                           name="staff_department"
                           disabled={mutation.isLoading}
-                        />
+                          onChange={(e) => e}
+                        >
+                          {loadingDepartment ? (
+                            <option value="" hidden>
+                              Loading...
+                            </option>
+                          ) : errorDepartment ? (
+                            <option value="" disabled>
+                              Error
+                            </option>
+                          ) : (
+                            <optgroup label="Select Department">
+                              <option value="" hidden></option>
+                              {department?.data.length > 0 ? (
+                                department?.data.map((oItem, key) => {
+                                  return (
+                                    <option
+                                      value={oItem.settings_department_name}
+                                      key={key}
+                                    >
+                                      {oItem.settings_department_name}
+                                    </option>
+                                  );
+                                })
+                              ) : (
+                                <option value="" disabled>
+                                  No data
+                                </option>
+                              )}
+                            </optgroup>
+                          )}
+                        </InputSelect>
                       </div>
                       <div className="form__wrap">
-                        <InputText
+                        <InputSelect
                           label="Office"
                           type="text"
                           name="staff_office"
                           disabled={mutation.isLoading}
-                        />
+                          onChange={(e) => e}
+                        >
+                          {loadingOffice ? (
+                            <option value="" hidden>
+                              Loading...
+                            </option>
+                          ) : errorOffice ? (
+                            <option value="" disabled>
+                              Error
+                            </option>
+                          ) : (
+                            <optgroup label="Select Office">
+                              <option value="" hidden></option>
+                              {office?.data.length > 0 ? (
+                                office?.data.map((oItem, key) => {
+                                  return (
+                                    <option
+                                      value={oItem.settings_office_name}
+                                      key={key}
+                                    >
+                                      {oItem.settings_office_name}
+                                    </option>
+                                  );
+                                })
+                              ) : (
+                                <option value="" disabled>
+                                  No data
+                                </option>
+                              )}
+                            </optgroup>
+                          )}
+                        </InputSelect>
                       </div>
 
                       <div className="modal__action flex justify-end mt-6 gap-2">

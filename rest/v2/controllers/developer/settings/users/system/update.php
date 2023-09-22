@@ -30,7 +30,7 @@ if (array_key_exists("systemId", $_GET)) {
     }
     // update
     $query = checkUpdate($settingsSystem);
-    returnSuccess($settingsSystem, "Settings System", $query);
+    returnSuccess($settingsSystem, "SettingsSystem", $query);
 }
 
 // return 404 error if endpoint not available

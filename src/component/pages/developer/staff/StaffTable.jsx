@@ -180,7 +180,9 @@ const StaffTable = ({ setItemEdit }) => {
                       </td>
                       <td>{item.staff_id}</td>
                       <td>{item.staff_description}</td>
-                      <td>{item.staff_name}</td>
+                      <td>
+                        {item.staff_last_name}, {item.staff_first_name}
+                      </td>
                       <td>{item.staff_department}</td>
                       <td>{item.staff_office}</td>
 
@@ -266,7 +268,7 @@ const StaffTable = ({ setItemEdit }) => {
           mysqlApiArchive={`/v2/controllers/developer/staff/active.php?staffId=${id}`}
           msg={"Are you sure you want to archive this staff"}
           item={dataItem.staff_id}
-          queryKey={"engagement-category"}
+          queryKey={"staff"}
         />
       )}
 

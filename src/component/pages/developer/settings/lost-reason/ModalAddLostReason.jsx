@@ -45,6 +45,9 @@ const ModalAddLostReason = ({ itemEdit }) => {
   });
 
   const initVal = {
+    lost_reason_description_old: itemEdit
+      ? itemEdit.lost_reason_description
+      : "",
     lost_reason_aid: itemEdit ? itemEdit.lost_reason_aid : "",
     lost_reason_description: itemEdit ? itemEdit.lost_reason_description : "",
   };

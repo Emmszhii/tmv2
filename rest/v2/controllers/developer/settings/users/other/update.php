@@ -31,7 +31,7 @@ if (array_key_exists("otherId", $_GET)) {
     }
     // update
     $query = checkUpdate($settingsOther);
-    returnSuccess($settingsOther, "Settings Other", $query);
+    returnSuccess($settingsOther, "SettingsOther", $query);
 }
 
 // return 404 error if endpoint not available

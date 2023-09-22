@@ -21,7 +21,9 @@ const Staff = () => {
     <>
       <Header />
       <section className={`main__grid ${store.isShow ? "open" : ""}`}>
-        <aside className={`${store.isShow ? "open " : ""}   `}>
+        <aside
+          className={`${store.isMenuOpen ? "open " : ""} overflow-y-auto `}
+        >
           <Navigation menu="staff" />
         </aside>
         <main className="px-2 lg:pr-10">

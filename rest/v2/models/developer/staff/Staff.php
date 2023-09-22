@@ -4,8 +4,11 @@ class Staff
     public $staff_aid;
     public $staff_id;
     public $staff_description;
-    public $staff_name;
+    public $staff_last_name;
+    public $staff_first_name;
+    public $staff_middle_name;
     public $staff_department;
+    public $staff_date_hired;
     public $staff_office;
     public $staff_is_active;
     public $staff_created_at;
@@ -34,16 +37,22 @@ class Staff
             $sql = "insert into {$this->tblStaff} ";
             $sql .= "( staff_id, ";
             $sql .= "staff_description, ";
-            $sql .= "staff_name, ";
+            $sql .= "staff_last_name, ";
+            $sql .= "staff_first_name, ";
+            $sql .= "staff_middle_name, ";
             $sql .= "staff_department, ";
+            $sql .= "staff_date_hired, ";
             $sql .= "staff_office, ";
             $sql .= "staff_is_active, ";
             $sql .= "staff_created_at, ";
             $sql .= "staff_updated_at ) values ( ";
             $sql .= ":staff_id, ";
             $sql .= ":staff_description, ";
-            $sql .= ":staff_name, ";
+            $sql .= ":staff_last_name, ";
+            $sql .= ":staff_first_name, ";
+            $sql .= ":staff_middle_name, ";
             $sql .= ":staff_department, ";
+            $sql .= ":staff_date_hired, ";
             $sql .= ":staff_office, ";
             $sql .= ":staff_is_active, ";
             $sql .= ":staff_created_at, ";
@@ -52,8 +61,11 @@ class Staff
             $query->execute([
                 "staff_id" => $this->staff_id,
                 "staff_description" => $this->staff_description,
-                "staff_name" => $this->staff_name,
+                "staff_last_name" => $this->staff_last_name,
+                "staff_first_name" => $this->staff_first_name,
+                "staff_middle_name" => $this->staff_middle_name,
                 "staff_department" => $this->staff_department,
+                "staff_date_hired" => $this->staff_date_hired,
                 "staff_office" => $this->staff_office,
                 "staff_is_active" => $this->staff_is_active,
                 "staff_created_at" => $this->staff_created_at,
@@ -148,8 +160,11 @@ class Staff
             $sql = "update {$this->tblStaff} set ";
             $sql .= "staff_id = :staff_id, ";
             $sql .= "staff_description = :staff_description, ";
-            $sql .= "staff_name = :staff_name, ";
+            $sql .= "staff_last_name = :staff_last_name, ";
+            $sql .= "staff_first_name = :staff_first_name, ";
+            $sql .= "staff_middle_name = :staff_middle_name, ";
             $sql .= "staff_department = :staff_department, ";
+            $sql .= "staff_date_hired = :staff_date_hired, ";
             $sql .= "staff_office = :staff_office, ";
             $sql .= "staff_updated_at = :staff_updated_at ";
             $sql .= "where staff_aid = :staff_aid ";
@@ -157,8 +172,11 @@ class Staff
             $query->execute([
                 "staff_id" => $this->staff_id,
                 "staff_description" => $this->staff_description,
-                "staff_name" => $this->staff_name,
+                "staff_last_name" => $this->staff_last_name,
+                "staff_first_name" => $this->staff_first_name,
+                "staff_middle_name" => $this->staff_middle_name,
                 "staff_department" => $this->staff_department,
+                "staff_date_hired" => $this->staff_date_hired,
                 "staff_office" => $this->staff_office,
                 "staff_updated_at" => $this->staff_updated_at,
                 "staff_aid" => $this->staff_aid,

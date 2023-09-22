@@ -45,6 +45,7 @@ const ModalWonReason = ({ itemEdit }) => {
   });
 
   const initVal = {
+    won_reason_description_old: itemEdit ? itemEdit.won_reason_description : "",
     won_reason_aid: itemEdit ? itemEdit.won_reason_aid : "",
     won_reason_description: itemEdit ? itemEdit.won_reason_description : "",
   };

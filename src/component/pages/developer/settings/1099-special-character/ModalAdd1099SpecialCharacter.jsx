@@ -47,6 +47,7 @@ const ModalAddSpecialCharacter = ({ itemEdit }) => {
   });
 
   const initVal = {
+    special_character_name_old: itemEdit ? itemEdit.special_character_name : "",
     special_character_aid: itemEdit ? itemEdit.special_character_aid : "",
     special_character_name: itemEdit ? itemEdit.special_character_name : "",
   };
