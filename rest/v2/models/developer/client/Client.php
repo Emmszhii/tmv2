@@ -1,6 +1,6 @@
 <?php
 class Client
-{ 
+{
     public $client_aid;
     public $client_client_id;
     public $client_description;
@@ -11,25 +11,25 @@ class Client
 
     public $employee_aid;
 
-    public $settings_activity_start;
-    public $settings_activity_total;
-    public $settings_activity_search;
+    public $client_start;
+    public $client_total;
+    public $client_search;
 
     public $connection;
     public $lastInsertedId;
-    public $tblSettingsActivity;
+    public $tblClient;
 
     public function __construct($db)
     {
         $this->connection = $db;
-        $this->tblSettingsActivity = "tmv2_settings_activity";
+        $this->tblClient = "tmv2_client";
     }
 
     // create
     public function create()
     {
         try {
-            $sql = "insert into {$this->tblSettingsActivity} ";
+            $sql = "insert into {$this->tblClient} ";
             $sql .= "( client_client_id, ";
             $sql .= "client_description, ";
             $sql .= "client_is_active, ";
@@ -61,7 +61,7 @@ class Client
         try {
             $sql = "select ";
             $sql .= "* ";
-            $sql .= "from {$this->tblSettingsActivity} ";
+            $sql .= "from {$this->tblClient} ";
             $sql .= "order by client_is_active desc, ";
             $sql .= "client_client_id asc ";
             $query = $this->connection->query($sql);
@@ -77,15 +77,15 @@ class Client
         try {
             $sql = "select ";
             $sql .= "* ";
-            $sql .= "from {$this->tblSettingsActivity} ";
+            $sql .= "from {$this->tblClient} ";
             $sql .= "order by client_is_active desc, ";
             $sql .= "client_client_id asc ";
             $sql .= "limit :start, ";
             $sql .= ":total ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "start" => $this->settings_activity_start - 1,
-                "total" => $this->settings_activity_total,
+                "start" => $this->client_start - 1,
+                "total" => $this->client_total,
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -99,13 +99,13 @@ class Client
         try {
             $sql = "select ";
             $sql .= "* ";
-            $sql .= "from {$this->tblSettingsActivity} ";
+            $sql .= "from {$this->tblClient} ";
             $sql .= "where client_client_id like :search ";
             $sql .= "order by client_is_active desc, ";
             $sql .= "client_client_id asc ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "search" => "%{$this->settings_activity_search}%",
+                "search" => "%{$this->client_search}%",
             ]);
         } catch (PDOException $ex) {
             $query = false;
@@ -117,7 +117,7 @@ class Client
     public function readById()
     {
         try {
-            $sql = "select * from {$this->tblSettingsActivity} ";
+            $sql = "select * from {$this->tblClient} ";
             $sql .= "where client_aid = :client_aid ";
             $sql .= "order by client_client_id asc ";
             $query = $this->connection->prepare($sql);
@@ -134,7 +134,7 @@ class Client
     public function update()
     {
         try {
-            $sql = "update {$this->tblSettingsActivity} set ";
+            $sql = "update {$this->tblClient} set ";
             $sql .= "client_client_id = :client_client_id, ";
             $sql .= "client_description = :client_description, ";
             $sql .= "client_updated_at = :client_updated_at ";
@@ -157,7 +157,7 @@ class Client
     public function active()
     {
         try {
-            $sql = "update {$this->tblSettingsActivity} set ";
+            $sql = "update {$this->tblClient} set ";
             $sql .= "client_is_active = :client_is_active, ";
             $sql .= "client_updated_at = :client_updated_at ";
             $sql .= "where client_aid = :client_aid ";
@@ -177,7 +177,7 @@ class Client
     public function delete()
     {
         try {
-            $sql = "delete from {$this->tblSettingsActivity} ";
+            $sql = "delete from {$this->tblClient} ";
             $sql .= "where client_aid = :client_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
@@ -193,7 +193,7 @@ class Client
     public function checkName()
     {
         try {
-            $sql = "select client_client_id from {$this->tblSettingsActivity} ";
+            $sql = "select client_client_id from {$this->tblClient} ";
             $sql .= "where client_client_id = :client_client_id ";
             $query = $this->connection->prepare($sql);
             $query->execute([
