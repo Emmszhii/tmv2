@@ -3,17 +3,18 @@ import { Form, Formik } from "formik";
 import React from "react";
 import { FaTimes } from "react-icons/fa";
 import * as Yup from "yup";
-import { StoreContext } from "../../../../../../../store/StoreContext";
-import { handleEscape } from "../../../../../../helpers/functions-general";
-import { InputText } from "../../../../../../helpers/FormInputs";
-import ButtonSpinner from "../../../../../../partials/spinners/ButtonSpinner";
+import { StoreContext } from "../../../../../../store/StoreContext";
+import { queryData } from "../../../../../helpers/queryData";
 import {
   setIsAdd,
   setMessage,
   setSuccess,
   setValidate,
-} from "../../../../../../../store/StoreAction";
-import { queryData } from "../../../../../../helpers/queryData";
+} from "../../../../../../store/StoreAction";
+import { InputSelect, InputText } from "../../../../../helpers/FormInputs";
+import ButtonSpinner from "../../../../../partials/spinners/ButtonSpinner";
+import { handleEscape } from "../../../../../helpers/functions-general";
+import useQueryData from "../../../../../custom-hooks/useQueryData";
 
 const ModalAddSystem = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
@@ -44,6 +45,17 @@ const ModalAddSystem = ({ itemEdit }) => {
     },
   });
 
+  const {
+    loadingRoles,
+    isFetching,
+    errorRoles,
+    data: roles,
+  } = useQueryData(
+    `/v2/controllers/developer/settings/users/roles/roles.php`,
+    "get",
+    "settings-roles"
+  );
+
   const initVal = {
     settings_system_name: itemEdit ? itemEdit.settings_system_name : "",
     settings_system_email: itemEdit ? itemEdit.settings_system_email : "",
@@ -53,7 +65,9 @@ const ModalAddSystem = ({ itemEdit }) => {
 
   const yupSchema = Yup.object({
     settings_system_name: Yup.string().required("Required"),
-    settings_system_email: Yup.string().required("Required"),
+    settings_system_email: Yup.string()
+      .required("Required")
+      .email("Invalid email"),
     settings_system_role: Yup.string().required("Required"),
   });
 
@@ -105,12 +119,27 @@ const ModalAddSystem = ({ itemEdit }) => {
                         />
                       </div>
                       <div className="form__wrap">
-                        <InputText
+                        <InputSelect
                           label="Role"
                           type="text"
                           name="settings_system_role"
                           disabled={mutation.isLoading}
-                        />
+                          onChange={(e) => e}
+                        >
+                          {loadingRoles ? (
+                            <option value="" hidden>
+                              Loading..
+                            </option>
+                          ) : errorRoles ? (
+                            <option value="" disabled>
+                              Error
+                            </option>
+                          ) : (
+                            <optgroup label="Select Role">
+                              <option value="" hidden></option>
+                            </optgroup>
+                          )}
+                        </InputSelect>
                       </div>
 
                       <div className="modal__action flex justify-end mt-6 gap-2">

@@ -10,7 +10,7 @@ import Navigation from "../../../../../partials/Navigation";
 import Toast from "../../../../../partials/Toast";
 import ModalValidate from "../../../../../partials/modals/ModalValidate";
 import SystemTable from "./SystemTable";
-import ModalAddSystem from "./modals/ModalAddSystem";
+import ModalAddSystem from "./ModalAddSystem";
 
 const System = () => {
   const [itemEdit, setItemEdit] = React.useState(null);

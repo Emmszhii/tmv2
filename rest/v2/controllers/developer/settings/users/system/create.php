@@ -11,14 +11,16 @@ if (array_key_exists("departmentId", $_GET)) {
 // check data
 checkPayload($data);
 // get data
-$settingsSystem->settings_system_name = strtoupper(checkIndex($data, "settings_system_name"));
+$settingsSystem->settings_system_name = checkIndex($data, "settings_system_name");
 $settingsSystem->settings_system_email = checkIndex($data, "settings_system_email");
 $settingsSystem->settings_system_role = checkIndex($data, "settings_system_role");
 $settingsSystem->settings_system_is_active = 1;
 $settingsSystem->settings_system_created_at = date("Y-m-d H:i:s");
 $settingsSystem->settings_system_updated_at = date("Y-m-d H:i:s");
-// // check name
-// isNameExist($settingsSystem, $settingsSystem->department_name);
+// check name
+isNameExist($settingsSystem, $settingsSystem->settings_system_name);
+// check email
+isEmailExist($settingsSystem, $settingsSystem->settings_system_email);
 // create
 $query = checkCreate($settingsSystem);
 returnSuccess($settingsSystem, "Settings System", $query);

@@ -208,4 +208,19 @@ class SettingsSystem
         }
         return $query;
     }
+    // name
+    public function checkEmail()
+    {
+        try {
+            $sql = "select settings_system_email from {$this->tblSettingsSystem} ";
+            $sql .= "where settings_system_email = :settings_system_email ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "settings_system_email" => "{$this->settings_system_email}",
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
 }

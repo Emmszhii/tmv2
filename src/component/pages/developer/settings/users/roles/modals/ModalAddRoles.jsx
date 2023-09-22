@@ -71,7 +71,7 @@ const ModalAddRoles = ({ itemEdit }) => {
           className={`modal__main absolute mx-1 bg-white border border-gray-200 rounded-md py-8 px-5 max-w-[420px] w-full shadow-xl`}
         >
           <div className="modal__header relative">
-            <h3> {itemEdit ? "Update" : "Add"} System </h3>
+            <h3> {itemEdit ? "Update" : "Add"} Roles </h3>
             <button className="absolute -top-4 right-0 " onClick={handleClose}>
               <FaTimes className="text-gray-700 text-base" />
             </button>
