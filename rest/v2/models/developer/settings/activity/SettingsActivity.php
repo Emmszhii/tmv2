@@ -30,11 +30,13 @@ class SettingsActivity
     {
         try {
             $sql = "insert into {$this->tblSettingsActivity} ";
-            $sql .= "( settings_activity_description, ";
+            $sql .= "( settings_activity_aid, ";
+            $sql .= "settings_activity_description, ";
             $sql .= "settings_activity_invoice_description, ";
             $sql .= "settings_activity_is_active, ";
             $sql .= "settings_activity_created_at, ";
             $sql .= "settings_activity_updated_at ) values ( ";
+            $sql .= ":settings_activity_aid, ";
             $sql .= ":settings_activity_description, ";
             $sql .= ":settings_activity_invoice_description, ";
             $sql .= ":settings_activity_is_active, ";
@@ -42,6 +44,7 @@ class SettingsActivity
             $sql .= ":settings_activity_updated_at ) ";
             $query = $this->connection->prepare($sql);
             $query->execute([
+                "settings_activity_aid" => $this->settings_activity_aid,
                 "settings_activity_description" => $this->settings_activity_description,
                 "settings_activity_invoice_description" => $this->settings_activity_invoice_description,
                 "settings_activity_is_active" => $this->settings_activity_is_active,
@@ -135,12 +138,14 @@ class SettingsActivity
     {
         try {
             $sql = "update {$this->tblSettingsActivity} set ";
+            $sql .= "settings_activity_aid = :settings_activity_aid, ";
             $sql .= "settings_activity_description = :settings_activity_description, ";
             $sql .= "settings_activity_invoice_description = :settings_activity_invoice_description, ";
             $sql .= "settings_activity_updated_at = :settings_activity_updated_at ";
             $sql .= "where settings_activity_aid = :settings_activity_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
+                "settings_activity_aid" => $this->settings_activity_aid,
                 "settings_activity_description" => $this->settings_activity_description,
                 "settings_activity_invoice_description" => $this->settings_activity_invoice_description,
                 "settings_activity_updated_at" => $this->settings_activity_updated_at,
@@ -198,6 +203,21 @@ class SettingsActivity
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "settings_activity_description" => "{$this->settings_activity_description}",
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+    // check by ID
+    public function checkId()
+    {
+        try {
+            $sql = "select settings_activity_aid from {$this->tblSettingsActivity} ";
+            $sql .= "where settings_activity_aid = :settings_activity_aid ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "settings_activity_aid" => "{$this->settings_activity_aid}",
             ]);
         } catch (PDOException $ex) {
             $query = false;

@@ -8,7 +8,7 @@ import ModalValidate from "../../../../partials/modals/ModalValidate";
 import ModalAddSystem from "../users/system/ModalAddSystem";
 import ActivitiesTable from "./ActivityTable";
 import { setIsAdd, setIsSettingsOpen } from "../../../../../store/StoreAction";
-import ModalAddActivities from "./modals/ModalAddActivities";
+import ModalAddActivities from "./ModalAddActivities";
 
 const Activities = () => {
   const [itemEdit, setItemEdit] = React.useState(null);

@@ -11,7 +11,7 @@ if (array_key_exists("ratesId", $_GET)) {
 // check data
 checkPayload($data);
 // get data
-$settingsRates->settings_rates_description = strtoupper(checkIndex($data, "settings_rates_description"));
+$settingsRates->settings_rates_description = checkIndex($data, "settings_rates_description");
 $settingsRates->settings_rates_is_active = 1;
 $settingsRates->settings_rates_created_at = date("Y-m-d H:i:s");
 $settingsRates->settings_rates_updated_at = date("Y-m-d H:i:s");

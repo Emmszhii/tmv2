@@ -15,7 +15,11 @@ if (array_key_exists("activityId", $_GET)) {
     $settingsActivity->settings_activity_description = strtoupper(checkIndex($data, "settings_activity_description"));
     $settingsActivity->settings_activity_invoice_description = checkIndex($data, "settings_activity_invoice_description");
     $settingsActivity->settings_activity_updated_at = date("Y-m-d H:i:s");
+
+    // check ID
     checkId($settingsActivity->settings_activity_aid);
+    // // check ID exist
+    isIdExist($settingsActivity);
     // update
     $query = checkUpdate($settingsActivity);
     returnSuccess($settingsActivity, "Settings Activity", $query);

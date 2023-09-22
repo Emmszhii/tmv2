@@ -11,13 +11,16 @@ if (array_key_exists("activityId", $_GET)) {
 // check data
 checkPayload($data);
 // get data
+$settingsActivity->settings_activity_aid = strtoupper(checkIndex($data, "settings_activity_aid"));
 $settingsActivity->settings_activity_description = strtoupper(checkIndex($data, "settings_activity_description"));
 $settingsActivity->settings_activity_invoice_description = checkIndex($data, "settings_activity_invoice_description");
 $settingsActivity->settings_activity_is_active = 1;
 $settingsActivity->settings_activity_created_at = date("Y-m-d H:i:s");
 $settingsActivity->settings_activity_updated_at = date("Y-m-d H:i:s");
-// // check name
-isNameExist($settingsActivity, $settingsActivity->settings_activity_description);
+// check ID
+checkId($settingsActivity->settings_activity_aid);
+// // check ID exist
+isIdExist($settingsActivity);
 // create
 $query = checkCreate($settingsActivity);
 returnSuccess($settingsActivity, "Settings Activity", $query);

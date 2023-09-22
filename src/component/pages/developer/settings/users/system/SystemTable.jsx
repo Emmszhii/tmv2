@@ -7,7 +7,7 @@ import { useInView } from "react-intersection-observer";
 import {
   setIsAdd,
   setIsConfirm,
-  setIsRestore
+  setIsRestore,
 } from "../../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../../store/StoreContext";
 import useQueryData from "../../../../../custom-hooks/useQueryData";
@@ -26,20 +26,18 @@ import { getSystemCountRecord } from "./functions-system";
 
 const SystemTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
-  const [item, setItem] = React.useState(null);
+  // for archive, restore,delete
   const [dataItem, setData] = React.useState(null);
   const [id, setId] = React.useState(null);
   const [isDel, setDel] = React.useState(false);
-
   // Loadmore
   const [page, setPage] = React.useState(1);
   const search = React.useRef(null);
   const { ref, inView } = useInView();
-
+  // count
   let counter = 1,
     active = 0,
     inactive = 0;
-
   // use if with loadmore button and search bar
   const {
     data: result,

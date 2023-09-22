@@ -76,7 +76,7 @@ const ModalAddSystem = ({ itemEdit }) => {
   };
 
   handleEscape(() => handleClose());
-
+  console.log(roles?.data.length);
   return (
     <>
       <div className="bg-dark/50 fixed top-0 right-0 bottom-0 left-0 flex items-center justify-center z-50">
@@ -137,6 +137,23 @@ const ModalAddSystem = ({ itemEdit }) => {
                           ) : (
                             <optgroup label="Select Role">
                               <option value="" hidden></option>
+                              {roles?.data.length > 0 ? (
+                                roles?.data.map((item, key) => {
+                                  return (
+                                    <option
+                                      // value={item.settings_roles_aid}
+                                      value={item.settings_roles_name}
+                                      key={key}
+                                    >
+                                      {item.settings_roles_name}
+                                    </option>
+                                  );
+                                })
+                              ) : (
+                                <option value="" disabled>
+                                  No data
+                                </option>
+                              )}
                             </optgroup>
                           )}
                         </InputSelect>

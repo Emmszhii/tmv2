@@ -12,11 +12,15 @@ if (array_key_exists("otherId", $_GET)) {
     checkPayload($data);
     // get data
     $settingsOther->settings_other_aid = $_GET['otherId'];
-    $settingsOther->settings_other_name = strtoupper(checkIndex($data, "settings_other_name"));
+    $settingsOther->settings_other_name = checkIndex($data, "settings_other_name");
     $settingsOther->settings_other_email = checkIndex($data, "settings_other_email");
     $settingsOther->settings_other_role = checkIndex($data, "settings_other_role");
     $settingsOther->settings_other_updated_at = date("Y-m-d H:i:s");
     checkId($settingsOther->settings_other_aid);
+    // check name
+    isNameExist($settingsOther, $settingsOther->settings_other_name);
+    // check email
+    isEmailExist($settingsOther, $settingsOther->settings_other_email);
     // update
     $query = checkUpdate($settingsOther);
     returnSuccess($settingsOther, "Settings Other", $query);
