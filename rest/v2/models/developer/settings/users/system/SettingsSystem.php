@@ -4,7 +4,7 @@ class SettingsSystem
     public $settings_system_aid;
     public $settings_system_name;
     public $settings_system_email;
-    public $settings_system_role;
+    public $settings_system_roles_id;
     public $settings_system_is_active;
     public $settings_system_created_at;
     public $settings_system_updated_at;
@@ -18,10 +18,12 @@ class SettingsSystem
     public $connection;
     public $lastInsertedId;
     public $tblSettingsSystem;
+    public $tblSettingsRoles;
 
     public function __construct($db)
     {
         $this->connection = $db;
+        $this->tblSettingsRoles = "tmv2_settings_roles";
         $this->tblSettingsSystem = "tmv2_settings_system";
     }
 
@@ -32,13 +34,13 @@ class SettingsSystem
             $sql = "insert into {$this->tblSettingsSystem} ";
             $sql .= "( settings_system_name, ";
             $sql .= "settings_system_email, ";
-            $sql .= "settings_system_role, ";
+            $sql .= "settings_system_roles_id, ";
             $sql .= "settings_system_is_active, ";
             $sql .= "settings_system_created_at, ";
             $sql .= "settings_system_updated_at ) values ( ";
             $sql .= ":settings_system_name, ";
             $sql .= ":settings_system_email, ";
-            $sql .= ":settings_system_role, ";
+            $sql .= ":settings_system_roles_ids, ";
             $sql .= ":settings_system_is_active, ";
             $sql .= ":settings_system_created_at, ";
             $sql .= ":settings_system_updated_at ) ";
@@ -46,7 +48,7 @@ class SettingsSystem
             $query->execute([
                 "settings_system_name" => $this->settings_system_name,
                 "settings_system_email" => $this->settings_system_email,
-                "settings_system_role" => $this->settings_system_role,
+                "settings_system_roles_ids" => $this->settings_system_roles_id,
                 "settings_system_is_active" => $this->settings_system_is_active,
                 "settings_system_created_at" => $this->settings_system_created_at,
                 "settings_system_updated_at" => $this->settings_system_updated_at,
@@ -79,10 +81,22 @@ class SettingsSystem
     {
         try {
             $sql = "select ";
-            $sql .= "* ";
-            $sql .= "from {$this->tblSettingsSystem} ";
-            $sql .= "order by settings_system_is_active desc, ";
-            $sql .= "settings_system_name asc ";
+            $sql .= "settings_roles_name, ";
+            $sql .= "settings_system_aid, ";
+            $sql .= "settings_system_created_at, ";
+            $sql .= "settings_system_email, ";
+            $sql .= "settings_system_is_active, ";
+            $sql .= "settings_system_name, ";
+            $sql .= "settings_system_aid, ";
+            $sql .= "settings_system_roles_id, ";
+            $sql .= "settings_system_updated_at ";
+            $sql .= "from {$this->tblSettingsSystem} as system , ";
+            $sql .= "{$this->tblSettingsRoles} as roles ";
+            $sql .= "where ";
+            $sql .= "system.settings_system_roles_id = ";
+            $sql .= "roles.settings_roles_aid ";
+            $sql .= "order by system.settings_system_is_active desc, ";
+            $sql .= "system.settings_system_name asc ";
             $sql .= "limit :start, ";
             $sql .= ":total ";
             $query = $this->connection->prepare($sql);
@@ -139,14 +153,14 @@ class SettingsSystem
             $sql = "update {$this->tblSettingsSystem} set ";
             $sql .= "settings_system_name = :settings_system_name, ";
             $sql .= "settings_system_email = :settings_system_email, ";
-            $sql .= "settings_system_role = :settings_system_role, ";
+            $sql .= "settings_system_roles_id = :settings_system_roles_id, ";
             $sql .= "settings_system_updated_at = :settings_system_updated_at ";
             $sql .= "where settings_system_aid = :settings_system_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "settings_system_name" => $this->settings_system_name,
                 "settings_system_email" => $this->settings_system_email,
-                "settings_system_role" => $this->settings_system_role,
+                "settings_system_roles_id" => $this->settings_system_roles_id,
                 "settings_system_updated_at" => $this->settings_system_updated_at,
                 "settings_system_aid" => $this->settings_system_aid,
             ]);

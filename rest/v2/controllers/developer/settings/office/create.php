@@ -17,7 +17,7 @@ $settingsOffice->settings_office_is_active = 1;
 $settingsOffice->settings_office_created_at = date("Y-m-d H:i:s");
 $settingsOffice->settings_office_updated_at = date("Y-m-d H:i:s");
 // // check name
-isNameExist($settingsOffice, $settingsOffice->settings_office_name);
+// isNameExist($settingsOffice, $settingsOffice->settings_office_name);
 // create
 $query = checkCreate($settingsOffice);
 returnSuccess($settingsOffice, "Settings Activity", $query);

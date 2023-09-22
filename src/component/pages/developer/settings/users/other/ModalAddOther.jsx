@@ -59,8 +59,10 @@ const ModalAddOther = ({ itemEdit }) => {
   const initVal = {
     settings_other_name: itemEdit ? itemEdit.settings_other_name : "",
     settings_other_email: itemEdit ? itemEdit.settings_other_email : "",
-    settings_other_role: itemEdit ? itemEdit.settings_other_role : "",
+    settings_other_roles_id: itemEdit ? itemEdit.settings_other_roles_id : "",
+
     settings_other_name_old: itemEdit ? itemEdit.settings_other_name : "",
+    settings_other_email_old: itemEdit ? itemEdit.settings_other_email : "",
   };
 
   const yupSchema = Yup.object({
@@ -122,7 +124,7 @@ const ModalAddOther = ({ itemEdit }) => {
                         <InputSelect
                           label="Role"
                           type="text"
-                          name="settings_other_role"
+                          name="settings_other_roles_id"
                           disabled={mutation.isLoading}
                           onChange={(e) => e}
                         >

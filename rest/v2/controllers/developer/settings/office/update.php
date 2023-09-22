@@ -16,6 +16,8 @@ if (array_key_exists("officeId", $_GET)) {
     $settingsOffice->settings_office_description = checkIndex($data, "settings_office_description");
     $settingsOffice->settings_office_updated_at = date("Y-m-d H:i:s");
     checkId($settingsOffice->settings_office_aid);
+    // check name
+    isNameExist($settingsOffice, $settingsOffice->settings_office_name);
     // update
     $query = checkUpdate($settingsOffice);
     returnSuccess($settingsOffice, "Settings Office", $query);

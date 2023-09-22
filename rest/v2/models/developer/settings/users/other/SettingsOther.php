@@ -4,7 +4,7 @@ class SettingsOther
     public $settings_other_aid;
     public $settings_other_name;
     public $settings_other_email;
-    public $settings_other_role;
+    public $settings_other_roles_id;
     public $settings_other_is_active;
     public $settings_other_created_at;
     public $settings_other_updated_at;
@@ -18,11 +18,14 @@ class SettingsOther
     public $connection;
     public $lastInsertedId;
     public $tblSettingsOther;
+    public $tblSettingsRoles;
+
 
     public function __construct($db)
     {
         $this->connection = $db;
         $this->tblSettingsOther = "tmv2_settings_other";
+        $this->tblSettingsRoles = "tmv2_settings_roles";
     }
 
     // create
@@ -32,13 +35,13 @@ class SettingsOther
             $sql = "insert into {$this->tblSettingsOther} ";
             $sql .= "( settings_other_name, ";
             $sql .= "settings_other_email, ";
-            $sql .= "settings_other_role, ";
+            $sql .= "settings_other_roles_id, ";
             $sql .= "settings_other_is_active, ";
             $sql .= "settings_other_created_at, ";
             $sql .= "settings_other_updated_at ) values ( ";
             $sql .= ":settings_other_name, ";
             $sql .= ":settings_other_email, ";
-            $sql .= ":settings_other_role, ";
+            $sql .= ":settings_other_roles_id, ";
             $sql .= ":settings_other_is_active, ";
             $sql .= ":settings_other_created_at, ";
             $sql .= ":settings_other_updated_at ) ";
@@ -46,7 +49,7 @@ class SettingsOther
             $query->execute([
                 "settings_other_name" => $this->settings_other_name,
                 "settings_other_email" => $this->settings_other_email,
-                "settings_other_role" => $this->settings_other_role,
+                "settings_other_roles_id" => $this->settings_other_roles_id,
                 "settings_other_is_active" => $this->settings_other_is_active,
                 "settings_other_created_at" => $this->settings_other_created_at,
                 "settings_other_updated_at" => $this->settings_other_updated_at,
@@ -79,8 +82,20 @@ class SettingsOther
     {
         try {
             $sql = "select ";
-            $sql .= "* ";
-            $sql .= "from {$this->tblSettingsOther} ";
+            $sql .= "settings_roles_name, ";
+            $sql .= "settings_other_aid, ";
+            $sql .= "settings_other_created_at, ";
+            $sql .= "settings_other_email, ";
+            $sql .= "settings_other_is_active, ";
+            $sql .= "settings_other_name, ";
+            $sql .= "settings_other_aid, ";
+            $sql .= "settings_other_roles_id, ";
+            $sql .= "settings_other_updated_at ";
+            $sql .= "from {$this->tblSettingsOther} as other , ";
+            $sql .= "{$this->tblSettingsRoles} as roles ";
+            $sql .= "where ";
+            $sql .= "other.settings_other_roles_id = ";
+            $sql .= "roles.settings_roles_aid ";
             $sql .= "order by settings_other_is_active desc, ";
             $sql .= "settings_other_name asc ";
             $sql .= "limit :start, ";
@@ -139,14 +154,14 @@ class SettingsOther
             $sql = "update {$this->tblSettingsOther} set ";
             $sql .= "settings_other_name = :settings_other_name, ";
             $sql .= "settings_other_email = :settings_other_email, ";
-            $sql .= "settings_other_role = :settings_other_role, ";
+            $sql .= "settings_other_roles_id = :settings_other_roles_id, ";
             $sql .= "settings_other_updated_at = :settings_other_updated_at ";
             $sql .= "where settings_other_aid = :settings_other_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "settings_other_name" => $this->settings_other_name,
                 "settings_other_email" => $this->settings_other_email,
-                "settings_other_role" => $this->settings_other_role,
+                "settings_other_roles_id" => $this->settings_other_roles_id,
                 "settings_other_updated_at" => $this->settings_other_updated_at,
                 "settings_other_aid" => $this->settings_other_aid,
             ]);
