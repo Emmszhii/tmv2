@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 20, 2023 at 06:06 PM
+-- Generation Time: Sep 22, 2023 at 06:27 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -37,6 +37,15 @@ CREATE TABLE `tmv2_settings_roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `tmv2_settings_roles`
+--
+
+INSERT INTO `tmv2_settings_roles` (`settings_roles_aid`, `settings_roles_name`, `settings_roles_description`, `settings_roles_is_active`, `settings_roles_created_at`, `settings_roles_updated_at`) VALUES
+(24, 'Developer', 'Developer', 1, '2023-09-22 09:28:42', '2023-09-22 09:36:26'),
+(26, 'Admin', 'Admin', 1, '2023-09-22 09:36:06', '2023-09-22 09:36:06'),
+(28, 'Sample', 'Sample', 1, '2023-09-22 10:24:03', '2023-09-22 10:24:03');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -54,7 +63,7 @@ ALTER TABLE `tmv2_settings_roles`
 -- AUTO_INCREMENT for table `tmv2_settings_roles`
 --
 ALTER TABLE `tmv2_settings_roles`
-  MODIFY `settings_roles_aid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `settings_roles_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

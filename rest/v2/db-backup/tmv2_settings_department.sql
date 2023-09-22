@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 21, 2023 at 09:17 AM
+-- Generation Time: Sep 22, 2023 at 06:26 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -40,8 +40,7 @@ CREATE TABLE `tmv2_settings_department` (
 --
 
 INSERT INTO `tmv2_settings_department` (`settings_department_aid`, `settings_department_name`, `settings_department_is_active`, `settings_department_created_at`, `settings_department_updated_at`) VALUES
-(1, 'SAMPLE1', 0, '2023-09-21 15:15:09', '2023-09-21 15:15:17'),
-(2, 'TESTING', 1, '2023-09-21 15:16:57', '2023-09-21 15:16:57');
+(8, 'sample', 1, '2023-09-22 12:22:08', '2023-09-22 12:22:08');
 
 --
 -- Indexes for dumped tables
@@ -61,7 +60,7 @@ ALTER TABLE `tmv2_settings_department`
 -- AUTO_INCREMENT for table `tmv2_settings_department`
 --
 ALTER TABLE `tmv2_settings_department`
-  MODIFY `settings_department_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `settings_department_aid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
