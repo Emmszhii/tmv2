@@ -14,7 +14,7 @@ $staff = new Staff($conn);
 if (array_key_exists("start", $_GET)) {
 
     $staff->staff_start = $_GET['start'];
-    $staff->staff_total = 3;
+    $staff->staff_total = 5;
 
     //check to see if task id in query string is not empty and is number, if not return json error
     checkLimitId($staff->staff_start, $staff->staff_total);
