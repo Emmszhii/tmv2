@@ -1,15 +1,15 @@
 <?php
 // set http header
-require '../../../../core/header.php';
+require '../../../core/header.php';
 // use needed functions
-require '../../../../core/functions.php';
+require '../../../core/functions.php';
 // use needed classes
-require '../../../../models/developer/settings/activity/SettingsActivity.php';
+require '../../../models/developer/client/Client.php';
 // check database connection
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$settingsActivity = new SettingsActivity($conn);
+$client = new Client($conn);
 // // get payload
 $body = file_get_contents("php://input");
 $data = json_decode($body, true);
@@ -19,8 +19,8 @@ checkPayload($data);
 
 if (empty($_GET)) {
     // get task id from query string
-    $settingsActivity->settings_activity_search = checkIndex($data, "search");
-    $query = checkSearch($settingsActivity);
+    $client->client_search = checkIndex($data, "search");
+    $query = checkSearch($client);
     http_response_code(200);
     getQueriedData($query);
 }

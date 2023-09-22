@@ -23,6 +23,7 @@ import WonReason from "./component/pages/developer/settings/won-reason/WonReason
 import ClientClass from "./component/pages/developer/settings/client-class/ClientClass";
 import SpecialCharacter from "./component/pages/developer/settings/1099-special-character/1099SpecialCharacter";
 import Staff from "./component/pages/developer/staff/Staff";
+import Client from "./component/pages/developer/client/Client";
 
 function App() {
   const queryClient = new QueryClient();
@@ -35,6 +36,8 @@ function App() {
               <Route path={`*`} element={<Test />} />
               <Route path={`/staff`} element={<Staff />} />
               <Route path={`/client`} element={<Test />} />
+              <Route path={`/staff`} element={<Test />} />
+              <Route path={`/client`} element={<Client />} />
               <Route path={`/settings/accesslevel`} element={<Test />} />
               <Route path={`/settings/users`} element={<Users />} />
               <Route path={`/settings/users/system`} element={<System />} />
