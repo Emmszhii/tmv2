@@ -15,8 +15,12 @@ if (array_key_exists("clientClassId", $_GET)) {
     $clientClass->client_class_name = checkIndex($data, "client_class_name");
     $clientClass->client_class_updated_at = date("Y-m-d H:i:s");
     checkId($clientClass->client_class_aid );
-    // // check name
-    isNameExist($clientClass, $clientClass->client_class_name);
+   
+    $client_class_name_old = checkIndex($data, "client_class_name_old");
+    if($client_class_name_old !==  $clientClass->client_class_name) {
+        // check ID
+        isNameExist($clientClass, $clientClass->client_class_name);
+  }
     // update
     $query = checkUpdate($clientClass);
     returnSuccess($clientClass, "ClientClass", $query);

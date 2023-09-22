@@ -23,7 +23,7 @@ if (array_key_exists("otherId", $_GET)) {
     isEmailExist($settingsOther, $settingsOther->settings_other_email);
     // update
     $query = checkUpdate($settingsOther);
-    returnSuccess($settingsOther, "Settings Other", $query);
+    returnSuccess($settingsOther, "SettingsOther", $query);
 }
 
 // return 404 error if endpoint not available

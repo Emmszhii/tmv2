@@ -15,8 +15,11 @@ if (array_key_exists("lostReasonId", $_GET)) {
     $lostReason->lost_reason_description = checkIndex($data, "lost_reason_description");
     $lostReason->lost_reason_updated_at = date("Y-m-d H:i:s");
     checkId($lostReason->lost_reason_aid );
-    // check description
-    isNameExist($lostReason, $lostReason->lost_reason_description);
+    $lost_reason_description_old = checkIndex($data, "lost_reason_description_old");
+    if($lost_reason_description_old !==  $lostReason->lost_reason_description) {
+          // check ID
+          isNameExist($lostReason, $lostReason->lost_reason_description);
+    }
     // update
     $query = checkUpdate($lostReason);
     returnSuccess($lostReason, "LostReason", $query);

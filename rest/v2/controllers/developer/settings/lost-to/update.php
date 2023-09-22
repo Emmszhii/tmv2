@@ -15,11 +15,14 @@ if (array_key_exists("lostToId", $_GET)) {
     $lostTo->lost_to_description = checkIndex($data, "lost_to_description");
     $lostTo->lost_to_updated_at = date("Y-m-d H:i:s");
     checkId($lostTo->lost_to_aid );
-    //check description
-    isNameExist($lostTo, $lostTo->lost_to_description);
+    $lost_to_description_old = checkIndex($data, "lost_to_description_old");
+    if($lost_to_description_old !==  $lostTo->lost_to_description) {
+          // check description
+          isNameExist($lostTo, $lostTo->lost_to_description);
+    }
     // update
     $query = checkUpdate($lostTo);
-    returnSuccess($lostTo, "LostReason", $query);
+    returnSuccess($lostTo, "Lostto", $query);
 }
 
 // return 404 error if endpoint not available

@@ -55,23 +55,24 @@ const ModalAddStaff = ({ itemEdit }) => {
     errorDepartment,
     data: department,
   } = useQueryData(
-    `/v2/controllers/developer/settings/department.php`,
+    `/v2/controllers/developer/settings/department/department.php`,
     "get",
     "settings-department"
   );
 
-  // const {
-  //   loadingOffice,
-  //   isFetchingOffice,
-  //   errorOffice,
-  //   data: office,
-  // } = useQueryData(
-  //   `/v2/controllers/developer/settings/office.php`,
-  //   "get",
-  //   "settings-office"
-  // );
+  const {
+    loadingOffice,
+    isFetchingOffice,
+    errorOffice,
+    data: office,
+  } = useQueryData(
+    `/v2/controllers/developer/settings/office/office.php`,
+    "get",
+    "settings-office"
+  );
 
   const initVal = {
+    staff_id_old: itemEdit ? itemEdit.staff_id : "",
     staff_aid: itemEdit ? itemEdit.staff_aid : "",
     staff_id: itemEdit ? itemEdit.staff_id : "",
     staff_description: itemEdit ? itemEdit.staff_description : "",
@@ -196,7 +197,7 @@ const ModalAddStaff = ({ itemEdit }) => {
                                 department?.data.map((oItem, key) => {
                                   return (
                                     <option
-                                      value={oItem.settings_department_aid}
+                                      value={oItem.settings_department_name}
                                       key={key}
                                     >
                                       {oItem.settings_department_name}
@@ -212,7 +213,7 @@ const ModalAddStaff = ({ itemEdit }) => {
                           )}
                         </InputSelect>
                       </div>
-                      {/* <div className="form__wrap">
+                      <div className="form__wrap">
                         <InputSelect
                           label="Office"
                           type="text"
@@ -235,7 +236,7 @@ const ModalAddStaff = ({ itemEdit }) => {
                                 office?.data.map((oItem, key) => {
                                   return (
                                     <option
-                                      value={oItem.settings_office_aid}
+                                      value={oItem.settings_office_name}
                                       key={key}
                                     >
                                       {oItem.settings_office_name}
@@ -250,7 +251,7 @@ const ModalAddStaff = ({ itemEdit }) => {
                             </optgroup>
                           )}
                         </InputSelect>
-                      </div> */}
+                      </div>
 
                       <div className="modal__action flex justify-end mt-6 gap-2">
                         <button

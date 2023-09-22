@@ -45,6 +45,7 @@ const ModalAddReferralType = ({ itemEdit }) => {
   });
 
   const initVal = {
+    referral_type_name_old: itemEdit ? itemEdit.referral_type_name : "",
     referral_type_aid: itemEdit ? itemEdit.referral_type_aid : "",
     referral_type_name: itemEdit ? itemEdit.referral_type_name : "",
   };

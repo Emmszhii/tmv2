@@ -22,8 +22,13 @@ if (array_key_exists("staffId", $_GET)) {
     $staff->staff_office = checkIndex($data, "staff_office");
     $staff->staff_updated_at = date("Y-m-d H:i:s");
     checkId($staff->staff_aid);
-    // // check name
+
+    $staff_id_old = checkIndex($data, "staff_id_old");
+    if($staff_id_old !== $staff-> staff_id){
+     // // check name
     isNameExist($staff, $staff->staff_id);
+    }
+    
     // update
     $query = checkUpdate($staff);
     returnSuccess($staff, "Staff", $query);

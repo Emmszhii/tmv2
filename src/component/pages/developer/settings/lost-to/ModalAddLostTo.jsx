@@ -45,6 +45,7 @@ const ModalAddLostTo = ({ itemEdit }) => {
   });
 
   const initVal = {
+    lost_to_description_old: itemEdit ? itemEdit.lost_to_description : "",
     lost_to_aid: itemEdit ? itemEdit.lost_to_aid : "",
     lost_to_description: itemEdit ? itemEdit.lost_to_description : "",
   };

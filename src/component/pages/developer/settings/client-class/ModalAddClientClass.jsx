@@ -45,6 +45,7 @@ const ModalAddClientClass = ({ itemEdit }) => {
   });
 
   const initVal = {
+    client_class_name_old: itemEdit ? itemEdit.client_class_name : "",
     client_class_aid: itemEdit ? itemEdit.client_class_aid : "",
     client_class_name: itemEdit ? itemEdit.client_class_name : "",
   };

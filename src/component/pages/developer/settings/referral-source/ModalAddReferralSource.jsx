@@ -45,6 +45,7 @@ const ModalAddReferralSource = ({ itemEdit }) => {
   });
 
   const initVal = {
+    referral_source_name_old: itemEdit ? itemEdit.referral_source_name : "",
     referral_source_aid: itemEdit ? itemEdit.referral_source_aid : "",
     referral_source_name: itemEdit ? itemEdit.referral_source_name : "",
   };

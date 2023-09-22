@@ -8,7 +8,7 @@ const UserIcon = () => {
         fill="currentColor"
         strokeWidth="0"
         viewBox="0 0 496 512"
-        class="mx-auto fill-gray-400 h-8 w-8"
+        className="mx-auto fill-gray-400 h-8 w-8"
         height="1em"
         width="1em"
         xmlns="http://www.w3.org/2000/svg"

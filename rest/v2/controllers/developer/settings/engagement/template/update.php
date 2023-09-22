@@ -17,8 +17,11 @@ if (array_key_exists("engagementTemplateId", $_GET)) {
     $engagementTemplate->engagement_template_invoice_description = checkIndex($data, "engagement_template_invoice_description");
     $engagementTemplate->engagement_template_updated_at = date("Y-m-d H:i:s");
     checkId($engagementTemplate->engagement_template_aid);
-    // check Id
-    isNameExist($engagementTemplate, $engagementTemplate->engagement_template_id);
+    $engagement_template_id_old = checkIndex($data, "engagement_template_id_old");
+    if($engagement_template_id_old !==  $engagementTemplate->engagement_template_id) {
+          // check ID
+          isNameExist($engagementTemplate, $engagementTemplate->engagement_template_id);
+    }
     // update
     $query = checkUpdate($engagementTemplate);
     returnSuccess($engagementTemplate, "EngagementTemplate", $query);

@@ -45,6 +45,7 @@ const ModalAddCategory = ({ itemEdit }) => {
   });
 
   const initVal = {
+    engagement_category_id_old: itemEdit ? itemEdit.engagement_category_id : "",
     engagement_category_aid: itemEdit ? itemEdit.engagement_category_aid : "",
     engagement_category_id: itemEdit ? itemEdit.engagement_category_id : "",
     engagement_category_description: itemEdit

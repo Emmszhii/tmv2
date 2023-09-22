@@ -48,6 +48,7 @@ const ModalAddEntities = ({ itemEdit }) => {
     entities_aid: itemEdit ? itemEdit.entities_aid : "",
     entities_id: itemEdit ? itemEdit.entities_id : "",
     entities_description: itemEdit ? itemEdit.entities_description : "",
+    entities_id_old: itemEdit ? itemEdit.entities_id : "",
   };
 
   const yupSchema = Yup.object({

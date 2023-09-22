@@ -45,6 +45,7 @@ const ModalAddTemplate = ({ itemEdit }) => {
   });
 
   const initVal = {
+    engagement_template_id_old: itemEdit ? itemEdit.engagement_template_id : "",
     engagement_template_aid: itemEdit ? itemEdit.engagement_template_aid : "",
     engagement_template_id: itemEdit ? itemEdit.engagement_template_id : "",
     engagement_template_description: itemEdit
