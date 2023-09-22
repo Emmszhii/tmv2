@@ -12,7 +12,11 @@ import {
   setValidate,
 } from "../../../../store/StoreAction";
 import { handleEscape } from "../../../helpers/functions-general";
-import { InputText, InputTextArea } from "../../../helpers/FormInputs";
+import {
+  InputSelect,
+  InputText,
+  InputTextArea,
+} from "../../../helpers/FormInputs";
 import ButtonSpinner from "../../../partials/spinners/ButtonSpinner";
 
 const ModalAddStaff = ({ itemEdit }) => {
@@ -48,17 +52,23 @@ const ModalAddStaff = ({ itemEdit }) => {
     staff_aid: itemEdit ? itemEdit.staff_aid : "",
     staff_id: itemEdit ? itemEdit.staff_id : "",
     staff_description: itemEdit ? itemEdit.staff_description : "",
-    staff_name: itemEdit ? itemEdit.staff_name : "",
-    staff_department: itemEdit ? itemEdit.staff_department : "",
+    staff_first_name: itemEdit ? itemEdit.staff_first_name : "",
+    staff_middle_name: itemEdit ? itemEdit.staff_middle_name : "",
+    staff_last_name: itemEdit ? itemEdit.staff_last_name : "",
+    // staff_department: itemEdit ? itemEdit.staff_department : "",
+    // staff_date_hired: itemEdit ? itemEdit.staff_date_hired : "",
     staff_office: itemEdit ? itemEdit.staff_office : "",
   };
 
   const yupSchema = Yup.object({
     staff_id: Yup.string().required("Required"),
     staff_description: Yup.string().required("Required"),
-    staff_name: Yup.string().required("Required"),
-    staff_department: Yup.string().required("Required"),
-    staff_office: Yup.string().required("Required"),
+    staff_first_name: Yup.string().required("Required"),
+    staff_middle_name: Yup.string().required("Required"),
+    staff_last_name: Yup.string().required("Required"),
+    // staff_department: Yup.string().required("Required"),
+    staff_date_hired: Yup.string().required("Required"),
+    // staff_office: Yup.string().required("Required"),
   });
 
   const handleClose = () => {
@@ -110,9 +120,25 @@ const ModalAddStaff = ({ itemEdit }) => {
                       </div>
                       <div className="form__wrap">
                         <InputText
-                          label="Staff Name"
+                          label="Last Name"
                           type="text"
-                          name="staff_name"
+                          name="staff_last_name"
+                          disabled={mutation.isLoading}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputText
+                          label="First Name"
+                          type="text"
+                          name="staff_first_name"
+                          disabled={mutation.isLoading}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputText
+                          label="Middle Name"
+                          type="text"
+                          name="staff_middle_name"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -121,6 +147,14 @@ const ModalAddStaff = ({ itemEdit }) => {
                           label="Department"
                           type="text"
                           name="staff_department"
+                          disabled={mutation.isLoading}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputText
+                          label="Date Hired"
+                          type="text"
+                          name="staff_date_hired"
                           disabled={mutation.isLoading}
                         />
                       </div>
