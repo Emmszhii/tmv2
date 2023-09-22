@@ -12,7 +12,9 @@ const Engagement = () => {
     <>
       <Header />
       <section className={`main__grid ${store.isMenuOpen ? "open" : ""}`}>
-        <aside className={`${store.isMenuOpen ? "open " : ""}   `}>
+        <aside
+          className={`${store.isMenuOpen ? "open " : ""} overflow-y-auto `}
+        >
           <Navigation menu="settings" submenu="settingsEngagement" />
         </aside>
         <main className="px-2 lg:pr-10">

@@ -1,49 +1,29 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
-import { FiArchive, FiEdit3 } from "react-icons/fi";
+import { FiArchive } from "react-icons/fi";
+import { FaRegEye } from "react-icons/fa";
 import { MdRestore } from "react-icons/md";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { useInView } from "react-intersection-observer";
-import { StoreContext } from "../../../../../store/StoreContext";
 import {
   setIsAdd,
   setIsConfirm,
   setIsRestore,
-} from "../../../../../store/StoreAction";
-import Searchbar from "../../../../partials/Searchbar";
-import Footer from "../../../../partials/Footer";
-import Loadmore from "../../../../partials/Loadmore";
-import { queryDataInfinite } from "../../../../helpers/queryDataInfinite";
-import Nodata from "../../../../partials/Nodata";
-import TableLoading from "../../../../partials/TableLoading";
-import ServerError from "../../../../partials/ServerError";
-import ModalConfirm from "../../../../partials/modals/ModalConfirm";
-import ModalDeleteAndRestore from "../../../../partials/modals/ModalDeleteAndRestore";
-import Pills from "../../../../partials/Pills";
-import TableSpinner from "../../../../partials/spinners/TableSpinner";
-import useQueryData from "../../../../custom-hooks/useQueryData";
-import { getEntitiesCountRecord } from "./functions-entities";
-import RecordCount from "../../../../partials/RecordCount";
+} from "../../../../store/StoreAction";
+import { StoreContext } from "../../../../store/StoreContext";
+import { queryDataInfinite } from "../../../helpers/queryDataInfinite";
+import Nodata from "../../../partials/Nodata";
+import RecordCount from "../../../partials/RecordCount";
+import Searchbar from "../../../partials/Searchbar";
+import ServerError from "../../../partials/ServerError";
+import TableLoading from "../../../partials/TableLoading";
+import UserIcon from "../../../partials/UserIcon";
+import { getStaffCountRecord } from "./funtions-staff";
+import Loadmore from "../../../partials/Loadmore";
+import ModalConfirm from "../../../partials/modals/ModalConfirm";
+import ModalDeleteAndRestore from "../../../partials/modals/ModalDeleteAndRestore";
 
-// import {
-//   setIsAdd,
-//   setIsConfirm,
-//   setIsRestore,
-// } from "../../../../../../store/StoreAction";
-// import { StoreContext } from "../../../../../../store/StoreContext";
-// import { queryDataInfinite } from "../../../../../helpers/queryDataInfinite";
-// import Footer from "../../../../../partials/Footer";
-// import Loadmore from "../../../../../partials/Loadmore";
-// import Nodata from "../../../../../partials/Nodata";
-// import Searchbar from "../../../../../partials/Searchbar";
-// import ServerError from "../../../../../partials/ServerError";
-// import TableLoading from "../../../../../partials/TableLoading";
-// import ModalConfirm from "../../../../../partials/modals/ModalConfirm";
-// import ModalDeleteAndRestore from "../../../../../partials/modals/ModalDeleteAndRestore";
-// import TableSpinner from "../../../../../partials/spinners/TableSpinner";
-// import Pills from "../../../../../partials/Pills";
-
-const EntitiesTable = ({ setItemEdit }) => {
+const StaffTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);
   const [id, setId] = React.useState(null);
@@ -67,11 +47,11 @@ const EntitiesTable = ({ setItemEdit }) => {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["settings-entities", store.isSearch],
+    queryKey: ["staff", store.isSearch],
     queryFn: async ({ pageParam = 1 }) =>
       await queryDataInfinite(
-        `/v2/controllers/developer/settings/entities/search.php`, // search endpoint
-        `/v2/controllers/developer/settings/entities/page.php?start=${pageParam}`, // list endpoint // list endpoint
+        `/v2/controllers/developer/staff/search.php`, // search endpoint
+        `/v2/controllers/developer/staff/page.php?start=${pageParam}`, // list endpoint // list endpoint
         store.isSearch, // search boolean
         "post",
         { search: search.current.value }
@@ -85,10 +65,10 @@ const EntitiesTable = ({ setItemEdit }) => {
     refetchOnWindowFocus: true,
   });
 
-  const { data: entities } = useQueryData(
-    `/v2/controllers/developer/settings/entities/entities.php`,
+  const { data: staff } = useQueryData(
+    `/v2/controllers/developer/staff/staff.php`,
     "get",
-    "settings-entities"
+    "staff"
   );
 
   React.useEffect(() => {
@@ -105,21 +85,21 @@ const EntitiesTable = ({ setItemEdit }) => {
 
   const handleArchive = (item) => {
     dispatch(setIsConfirm(true));
-    setId(item.entities_aid);
+    setId(item.staff_aid);
     setData(item);
     setDel(null);
   };
 
   const handleRestore = (item) => {
     dispatch(setIsRestore(true));
-    setId(item.entities_aid);
+    setId(item.staff_aid);
     setData(item);
     setDel(null);
   };
 
   const handleDelete = (item) => {
     dispatch(setIsRestore(true));
-    setId(item.entities_aid);
+    setId(item.staff_aid);
     setData(item);
     setDel(true);
   };
@@ -137,9 +117,7 @@ const EntitiesTable = ({ setItemEdit }) => {
         record={
           store.isSearch ? result?.pages[0].count : result?.pages[0].total
         }
-        status={getEntitiesCountRecord(
-          store.isSearch ? result?.pages[0] : entities
-        )}
+        status={getStaffCountRecord(store.isSearch ? result?.pages[0] : staff)}
       />
       <div className="table__wrapper relative rounded-md shadow-md overflow-auto mb-8">
         {isFetching && status !== "loading" && <TableSpinner />}
@@ -149,8 +127,12 @@ const EntitiesTable = ({ setItemEdit }) => {
             <tr>
               <th>#</th>
               <th>Status</th>
-              <th>ID</th>
+              <th className="min-w-[3rem]"></th>
+              <th>Staff ID</th>
               <th>Description</th>
+              <th>Staff Name</th>
+              <th>Department </th>
+              <th>Office </th>
               <th className="action lg:hidden"></th>
             </tr>
           </thead>
@@ -178,34 +160,40 @@ const EntitiesTable = ({ setItemEdit }) => {
             {result?.pages.map((page, key) => (
               <React.Fragment key={key}>
                 {page.data.map((item, key) => {
-                  active += item.entities_is_active === 1;
-                  inactive += item.entities_is_active === 0;
+                  active += item.staff_is_active === 1;
+                  inactive += item.staff_is_active === 0;
                   return (
                     <tr key={key}>
                       <td>{counter++}.</td>
                       <td>
-                        {item.entities_is_active === 1 ? (
+                        {item.staff_is_active === 1 ? (
                           <Pills label="Active" tc="text-success" />
                         ) : (
                           <Pills label="Inactive" tc="text-archive" />
                         )}
                       </td>
-                      <td>{item.entities_id}</td>
-                      <td>{item.entities_description}</td>
+                      <td>
+                        <UserIcon />
+                      </td>
+                      <td>{item.staff_id}</td>
+                      <td>{item.staff_description}</td>
+                      <td>{item.staff_name}</td>
+                      <td>{item.staff_department}</td>
+                      <td>{item.staff_office}</td>
 
                       <td
                         className="table__action top-0 right-5 "
                         data-ellipsis=". . ."
                       >
-                        {item.entities_is_active === 1 ? (
+                        {item.staff_is_active === 1 ? (
                           <ul className=" flex items-center  gap-4 bg-">
                             <li>
                               <button
                                 className="tooltip"
-                                data-tooltip="Edit"
-                                onClick={() => handleEdit(item)}
+                                data-tooltip="View"
+                                // onClick={() => handleEdit(item)}
                               >
-                                <FiEdit3 />
+                                <FaRegEye />
                               </button>
                             </li>
                             <li>
@@ -220,6 +208,15 @@ const EntitiesTable = ({ setItemEdit }) => {
                           </ul>
                         ) : (
                           <ul className="flex items-center gap-4">
+                            <li>
+                              <button
+                                className="tooltip"
+                                data-tooltip="View"
+                                // onClick={() => handleEdit(item)}
+                              >
+                                <FaRegEye />
+                              </button>
+                            </li>
                             <li>
                               <button
                                 className="tooltip"
@@ -263,10 +260,10 @@ const EntitiesTable = ({ setItemEdit }) => {
 
       {store.isConfirm && (
         <ModalConfirm
-          mysqlApiArchive={`/v2/controllers/developer/settings/entities/active.php?entitiesId=${id}`}
-          msg={"Are you sure you want to archive this client entities?"}
-          item={dataItem.entities_id}
-          queryKey={"settings-entities"}
+          mysqlApiArchive={`/v2/controllers/developer/staff/active.php?staffId=${id}`}
+          msg={"Are you sure you want to archive this staff"}
+          item={dataItem.staff_id}
+          queryKey={"engagement-category"}
         />
       )}
 
@@ -274,19 +271,19 @@ const EntitiesTable = ({ setItemEdit }) => {
         <ModalDeleteAndRestore
           id={id}
           isDel={isDel}
-          mysqlApiDelete={`/v2/controllers/developer/settings/entities/entities.php?entitiesId=${id}`}
-          mysqlApiRestore={`/v2/controllers/developer/settings/entities/active.php?entitiesId=${id}`}
+          mysqlApiDelete={`/v2/controllers/developer/staff/staff.php?staffId=${id}`}
+          mysqlApiRestore={`/v2/controllers/developer/staff/active.php?staffId=${id}`}
           msg={
             isDel
-              ? "Are you sure you want to delete this client entities?"
-              : "Are you sure you want to restore this client entities?"
+              ? "Are you sure you want to delete this staff?"
+              : "Are you sure you want to restore this staff?"
           }
-          item={dataItem.entities_id}
-          queryKey={"settings-entities"}
+          item={dataItem.staff_id}
+          queryKey={"staff"}
         />
       )}
     </>
   );
 };
 
-export default EntitiesTable;
+export default StaffTable;

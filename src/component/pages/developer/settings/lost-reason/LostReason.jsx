@@ -22,7 +22,9 @@ const LostReason = () => {
     <>
       <Header />
       <section className={`main__grid ${store.isShow ? "open" : ""}`}>
-        <aside className={`${store.isShow ? "open " : ""}   `}>
+        <aside
+          className={`${store.isMenuOpen ? "open " : ""} overflow-y-auto `}
+        >
           <Navigation menu="settings" submenu="settingsLostReason" />
         </aside>
         <main className="px-2 lg:pr-10 custom-scroll">

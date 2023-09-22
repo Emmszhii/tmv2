@@ -22,7 +22,9 @@ const SpecialCharacter = () => {
     <>
       <Header />
       <section className={`main__grid ${store.isShow ? "open" : ""}`}>
-        <aside className={`${store.isShow ? "open " : ""}   `}>
+        <aside
+          className={`${store.isMenuOpen ? "open " : ""} overflow-y-auto `}
+        >
           <Navigation
             menu="settings"
             submenu="settingsForm1099SpecialCharacter"
