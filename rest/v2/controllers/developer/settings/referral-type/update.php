@@ -15,6 +15,8 @@ if (array_key_exists("referralTypeId", $_GET)) {
     $referralType->referral_type_name = checkIndex($data, "referral_type_name");
     $referralType->referral_type_updated_at = date("Y-m-d H:i:s");
     checkId($referralType->referral_type_aid);
+    // // check name
+    isNameExist($referralType, $referralType->referral_type_name);
     // update
     $query = checkUpdate($referralType);
     returnSuccess($referralType, "ReferralType", $query);

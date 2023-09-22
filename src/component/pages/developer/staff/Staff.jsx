@@ -1,9 +1,12 @@
 import React from "react";
-import { StoreContext } from "../../../../store/StoreContext";
 import { setIsAdd } from "../../../../store/StoreAction";
+import { StoreContext } from "../../../../store/StoreContext";
+import BreadCrumbs from "../../../partials/Breadcrumbs";
 import Header from "../../../partials/Header";
 import Navigation from "../../../partials/Navigation";
-import BreadCrumbs from "../../../partials/Breadcrumbs";
+import ModalAddStaff from "./ModalAddStaff";
+import StaffTable from "./StaffTable";
+import Toast from "../../../partials/Toast";
 
 const Staff = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -30,11 +33,11 @@ const Staff = () => {
             </button>
           </div>
 
-          {/* <CategoryTable setItemEdit={setItemEdit} /> */}
+          <StaffTable setItemEdit={setItemEdit} />
         </main>
       </section>
 
-      {/* {store.isAdd && <ModalAddCategory itemEdit={itemEdit} />} */}
+      {store.isAdd && <ModalAddStaff itemEdit={itemEdit} />}
       {store.validate && <ModalValidate />}
       {store.success && <Toast />}
     </>

@@ -15,6 +15,8 @@ if (array_key_exists("referralSourceId", $_GET)) {
     $referralSource->referral_source_name = checkIndex($data, "referral_source_name");
     $referralSource->referral_source_updated_at = date("Y-m-d H:i:s");
     checkId($referralSource->referral_source_aid);
+    // // check name
+    isNameExist($referralSource, $referralSource->referral_source_name);
     // update
     $query = checkUpdate($referralSource);
     returnSuccess($referralSource, "ReferralSource", $query);

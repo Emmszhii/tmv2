@@ -17,7 +17,7 @@ $specialCharacter->special_character_is_active = 1;
 $specialCharacter->special_character_created_at = date("Y-m-d H:i:s");
 $specialCharacter->special_character_updated_at = date("Y-m-d H:i:s");
 // // check name
-// isNameExist($specialCharacter, $specialCharacter->department_name);
+isNameExist($specialCharacter, $specialCharacter->special_character_name);
 // create
 $query = checkCreate($specialCharacter);
 returnSuccess($specialCharacter, "SpecialCharacter", $query);

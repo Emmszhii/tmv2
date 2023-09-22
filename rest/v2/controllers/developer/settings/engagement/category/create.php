@@ -19,7 +19,7 @@ $enagagementCategory->engagement_category_is_active = 1;
 $enagagementCategory->engagement_category_created_at = date("Y-m-d H:i:s");
 $enagagementCategory->engagement_category_updated_at = date("Y-m-d H:i:s");
 // // check name
-// isNameExist($enagagementCategory, $enagagementCategory->department_name);
+isNameExist($enagagementCategory, $enagagementCategory->engagement_category_id);
 // create
 $query = checkCreate($enagagementCategory);
 returnSuccess($enagagementCategory, "EngagementCategory", $query);
