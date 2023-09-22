@@ -35,8 +35,6 @@ function App() {
             <Routes>
               <Route path={`*`} element={<Test />} />
               <Route path={`/staff`} element={<Staff />} />
-              <Route path={`/client`} element={<Test />} />
-              <Route path={`/staff`} element={<Test />} />
               <Route path={`/client`} element={<Client />} />
               <Route path={`/settings/accesslevel`} element={<Test />} />
               <Route path={`/settings/users`} element={<Users />} />
