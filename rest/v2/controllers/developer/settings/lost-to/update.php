@@ -15,6 +15,8 @@ if (array_key_exists("lostToId", $_GET)) {
     $lostTo->lost_to_description = checkIndex($data, "lost_to_description");
     $lostTo->lost_to_updated_at = date("Y-m-d H:i:s");
     checkId($lostTo->lost_to_aid );
+    //check description
+    isNameExist($lostTo, $lostTo->lost_to_description);
     // update
     $query = checkUpdate($lostTo);
     returnSuccess($lostTo, "LostReason", $query);

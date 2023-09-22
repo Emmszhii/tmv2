@@ -17,7 +17,7 @@ $clientClass->client_class_is_active = 1;
 $clientClass->client_class_created_at = date("Y-m-d H:i:s");
 $clientClass->client_class_updated_at = date("Y-m-d H:i:s");
 // // check name
-// isNameExist($clientClass, $clientClass->department_name);
+isNameExist($clientClass, $clientClass->client_class_name);
 // create
 $query = checkCreate($clientClass);
 returnSuccess($clientClass, "ClientClass", $query);

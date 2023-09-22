@@ -17,8 +17,8 @@ $entities->entities_description = checkIndex($data, "entities_description");
 $entities->entities_is_active = 1;
 $entities->entities_created_at = date("Y-m-d H:i:s");
 $entities->entities_updated_at = date("Y-m-d H:i:s");
-// // check name
-// isNameExist($entities, $entities->department_name);
+// check name
+isNameExist($entities, $entities->entities_id);
 // create
 $query = checkCreate($entities);
 returnSuccess($entities, "Entities", $query);

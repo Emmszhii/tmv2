@@ -12,18 +12,8 @@ import {
   setValidate,
 } from "../../../../store/StoreAction";
 import { handleEscape } from "../../../helpers/functions-general";
-import { InputText } from "../../../helpers/FormInputs";
-// import { StoreContext } from "../../../../../../store/StoreContext";
-// import { queryData } from "../../../../../helpers/queryData";
-// import {
-//   setIsAdd,
-//   setMessage,
-//   setSuccess,
-//   setValidate,
-// } from "../../../../../../store/StoreAction";
-// import ButtonSpinner from "../../../../../partials/spinners/ButtonSpinner";
-// import { InputText, InputTextArea } from "../../../../../helpers/FormInputs";
-// import { handleEscape } from "../../../../../helpers/functions-general";
+import { InputText, InputTextArea } from "../../../helpers/FormInputs";
+import ButtonSpinner from "../../../partials/spinners/ButtonSpinner";
 
 const ModalAddStaff = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);

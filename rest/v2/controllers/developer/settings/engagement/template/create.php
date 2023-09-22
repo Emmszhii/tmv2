@@ -18,8 +18,8 @@ $engagementTemplate->engagement_template_invoice_description = checkIndex($data,
 $engagementTemplate->engagement_template_is_active = 1;
 $engagementTemplate->engagement_template_created_at = date("Y-m-d H:i:s");
 $engagementTemplate->engagement_template_updated_at = date("Y-m-d H:i:s");
-// // check name
-// isNameExist($engagementTemplate, $engagementTemplate->department_name);
+// // check id
+isNameExist($engagementTemplate, $engagementTemplate->engagement_template_id);
 // create
 $query = checkCreate($engagementTemplate);
 returnSuccess($engagementTemplate, "EngagementTemplate", $query);

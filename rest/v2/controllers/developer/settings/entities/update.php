@@ -16,6 +16,7 @@ if (array_key_exists("entitiesId", $_GET)) {
     $entities->entities_description = checkIndex($data, "entities_description");
     $entities->entities_updated_at = date("Y-m-d H:i:s");
     checkId($entities->entities_aid);
+    isNameExist($entities, $entities->entities_id);
     // update
     $query = checkUpdate($entities);
     returnSuccess($entities, "Entities", $query);

@@ -14,7 +14,9 @@ if (array_key_exists("specialCharacterId", $_GET)) {
     $specialCharacter->special_character_aid = $_GET['specialCharacterId'];
     $specialCharacter->special_character_name = checkIndex($data, "special_character_name");
     $specialCharacter->special_character_updated_at = date("Y-m-d H:i:s");
-    checkId($specialCharacter->special_character_aid );
+    checkId($specialCharacter->special_character_aid);
+    // // check name
+    isNameExist($specialCharacter, $specialCharacter->special_character_name);
     // update
     $query = checkUpdate($specialCharacter);
     returnSuccess($specialCharacter, "SpecialCharacter", $query);

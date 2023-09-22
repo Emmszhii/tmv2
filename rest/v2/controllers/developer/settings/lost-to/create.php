@@ -17,7 +17,7 @@ $lostTo->lost_to_is_active = 1;
 $lostTo->lost_to_created_at = date("Y-m-d H:i:s");
 $lostTo->lost_to_updated_at = date("Y-m-d H:i:s");
 // // check name
-// isNameExist($lostTo, $lostTo->department_name);
+isNameExist($lostTo, $lostTo->lost_to_description);
 // create
 $query = checkCreate($lostTo);
 returnSuccess($lostTo, "lostToId", $query);

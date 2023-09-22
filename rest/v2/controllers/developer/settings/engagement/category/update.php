@@ -17,6 +17,8 @@ if (array_key_exists("engagementCategoryId", $_GET)) {
     $enagagementCategory->engagement_category_invoice_description = checkIndex($data, "engagement_category_invoice_description");
     $enagagementCategory->engagement_category_updated_at = date("Y-m-d H:i:s");
     checkId($enagagementCategory->engagement_category_aid);
+    // check ID
+    isNameExist($enagagementCategory, $enagagementCategory->engagement_category_id);
     // update
     $query = checkUpdate($enagagementCategory);
     returnSuccess($enagagementCategory, "EngagementCategory", $query);

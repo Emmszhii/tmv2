@@ -17,7 +17,7 @@ $lostReason->lost_reason_is_active = 1;
 $lostReason->lost_reason_created_at = date("Y-m-d H:i:s");
 $lostReason->lost_reason_updated_at = date("Y-m-d H:i:s");
 // // check name
-// isNameExist($lostReason, $lostReason->department_name);
+isNameExist($lostReason, $lostReason->lost_reason_description);
 // create
 $query = checkCreate($lostReason);
 returnSuccess($lostReason, "LostReason", $query);

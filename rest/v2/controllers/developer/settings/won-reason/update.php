@@ -15,6 +15,8 @@ if (array_key_exists("wonReasonId", $_GET)) {
     $wonReason->won_reason_description = checkIndex($data, "won_reason_description");
     $wonReason->won_reason_updated_at = date("Y-m-d H:i:s");
     checkId($wonReason->won_reason_aid );
+    // // check description
+    isNameExist($wonReason, $wonReason->won_reason_description);
     // update
     $query = checkUpdate($wonReason);
     returnSuccess($wonReason, "WonReason", $query);

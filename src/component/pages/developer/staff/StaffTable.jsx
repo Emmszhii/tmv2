@@ -22,6 +22,9 @@ import { getStaffCountRecord } from "./funtions-staff";
 import Loadmore from "../../../partials/Loadmore";
 import ModalConfirm from "../../../partials/modals/ModalConfirm";
 import ModalDeleteAndRestore from "../../../partials/modals/ModalDeleteAndRestore";
+import useQueryData from "../../../custom-hooks/useQueryData";
+import TableSpinner from "../../../partials/spinners/TableSpinner";
+import Pills from "../../../partials/Pills";
 
 const StaffTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -126,7 +129,7 @@ const StaffTable = ({ setItemEdit }) => {
           <thead>
             <tr>
               <th>#</th>
-              <th>Status</th>
+              <th className="w-[2rem]">Status</th>
               <th className="min-w-[3rem]"></th>
               <th>Staff ID</th>
               <th>Description</th>

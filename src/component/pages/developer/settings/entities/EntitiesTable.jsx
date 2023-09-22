@@ -25,24 +25,6 @@ import useQueryData from "../../../../custom-hooks/useQueryData";
 import { getEntitiesCountRecord } from "./functions-entities";
 import RecordCount from "../../../../partials/RecordCount";
 
-// import {
-//   setIsAdd,
-//   setIsConfirm,
-//   setIsRestore,
-// } from "../../../../../../store/StoreAction";
-// import { StoreContext } from "../../../../../../store/StoreContext";
-// import { queryDataInfinite } from "../../../../../helpers/queryDataInfinite";
-// import Footer from "../../../../../partials/Footer";
-// import Loadmore from "../../../../../partials/Loadmore";
-// import Nodata from "../../../../../partials/Nodata";
-// import Searchbar from "../../../../../partials/Searchbar";
-// import ServerError from "../../../../../partials/ServerError";
-// import TableLoading from "../../../../../partials/TableLoading";
-// import ModalConfirm from "../../../../../partials/modals/ModalConfirm";
-// import ModalDeleteAndRestore from "../../../../../partials/modals/ModalDeleteAndRestore";
-// import TableSpinner from "../../../../../partials/spinners/TableSpinner";
-// import Pills from "../../../../../partials/Pills";
-
 const EntitiesTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const [dataItem, setData] = React.useState(null);

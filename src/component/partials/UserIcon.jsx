@@ -6,7 +6,7 @@ const UserIcon = () => {
       <svg
         stroke="currentColor"
         fill="currentColor"
-        stroke-width="0"
+        strokeWidth="0"
         viewBox="0 0 496 512"
         class="mx-auto fill-gray-400 h-8 w-8"
         height="1em"
