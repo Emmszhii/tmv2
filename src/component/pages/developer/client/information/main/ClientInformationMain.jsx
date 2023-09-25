@@ -47,7 +47,7 @@ const ClientInformationMain = () => {
     "get",
     "client"
   );
-
+  console.log(client);
   return (
     <>
       <Header />
@@ -57,235 +57,209 @@ const ClientInformationMain = () => {
         >
           <Navigation menu="client" />
         </aside>
-
         <main className="p-3 !pb-6 lg:p-0 lg:pr-10 custom__scroll">
           <div className="max-w-lg">
             <BreadCrumbs param={location.search} />
             {isFetching && !isLoading && <FetchingSpinner />}
-            {client?.error ? (
-              <h1 className="text-center text-gray-400 text-base">
-                Page not found.
-              </h1>
-            ) : (
-              <>
-                {(isLoading || client?.data.length === 0) && (
-                  <>
-                    {isLoading ? (
-                      <TableLoading cols={1} count={20} />
-                    ) : (
-                      <div className="py-10">
-                        <Nodata />
-                        {/* <h1 className="text-center text-gray-200">
-                          Page not found.
-                        </h1> */}
-                      </div>
-                    )}
-                  </>
-                )}
-                {client?.data.length > 0 &&
-                  client?.data.map((item, key) => {
-                    return (
-                      <React.Fragment key={key}>
-                        <div className="py-5">
-                          <h1>{item.client_client_id}</h1>
-                          <ul>
-                            <li>
-                              <div>
-                                <div className="flex items-center justify-between gap-2 text-sm cursor-pointer hover:bg-gray-50 border-b-2">
-                                  <div
-                                    className="flex items-center justify-between w-full py-4 "
-                                    onClick={handlerShowIdentity}
-                                  >
-                                    <h4 className="mb-0">Identification</h4>
-
-                                    <button
-                                      className={`tooltip`}
-                                      data-tooltip={`${
-                                        identityShow ? "Close" : "Open"
-                                      }`}
-                                      onClick={handlerShowIdentity}
-                                    >
-                                      {identityShow ? (
-                                        <BiChevronDown />
-                                      ) : (
-                                        <BiChevronRight />
-                                      )}
-                                    </button>
-                                  </div>
-                                  <button
-                                    className="tooltip"
-                                    data-tooltip={`Edit`}
-                                    onClick={() => handlerEdit(item)}
-                                  >
-                                    <FiEdit3 />
-                                  </button>
-                                </div>
-                                {identityShow && (
-                                  <div className="p-4">
-                                    <ul className="flex flex-col gap-2">
-                                      <li className="grid grid-cols-[200px_1fr] items-center">
-                                        <h4 className="mb-0 ">Logo</h4>
-                                        <img
-                                          src="https://placehold.jp/80x80.png"
-                                          alt=""
-                                          className="rounded-md"
-                                        />
-                                      </li>
-                                      <li className="grid grid-cols-[200px_1fr] items-center">
-                                        <h4 className="mb-0">ID:</h4>
-                                        <p className="mb-0">
-                                          {item.client_client_id}
-                                        </p>
-                                      </li>
-                                      <li className="grid grid-cols-[200px_1fr] items-center">
-                                        <h4 className="mb-0">Description:</h4>
-                                        <p className="mb-0">
-                                          {item.client_description || "No data"}
-                                        </p>
-                                      </li>
-                                      <li className="grid grid-cols-[200px_1fr] items-center">
-                                        <h4 className="mb-0">EIN/SSN:</h4>
-                                        <p className="mb-0">
-                                          {item.client_ein_ssn || "No data"}
-                                        </p>
-                                      </li>
-                                      <li className="grid grid-cols-[200px_1fr] items-center">
-                                        <h4 className="mb-0">Name 1:</h4>
-                                        <p className="mb-0">
-                                          {item.client_name || "No data"}
-                                        </p>
-                                      </li>
-                                      <li className="grid grid-cols-[200px_1fr] items-center">
-                                        <h4 className="mb-0">Name 2:</h4>
-                                        <p className="mb-0">
-                                          {item.client_name_2 || "No data"}
-                                        </p>
-                                      </li>
-                                    </ul>
-                                  </div>
-                                )}
-                              </div>
-                            </li>
-                            <li className="cursor-pointer hover:bg-gray-50 border-b-2">
-                              <div className="flex items-center justify-between gap-2 text-sm">
-                                <div
-                                  className="flex items-center justify-between w-full py-4 "
-                                  onClick={handlerIndividual}
-                                >
-                                  <h4 className="mb-0">Individual</h4>
-                                  <button
-                                    className={`tooltip`}
-                                    data-tooltip={`${
-                                      individualShow ? "Close" : "Open"
-                                    }`}
-                                    onClick={handlerIndividual}
-                                  >
-                                    {individualShow ? (
-                                      <BiChevronDown />
-                                    ) : (
-                                      <BiChevronRight />
-                                    )}
-                                  </button>
-                                </div>
+            {isLoading && <TableLoading cols={1} count={20} />}
+            {(error || !client?.success || client?.data.length === 0) && (
+              <div className="py-10">
+                {/* <Nodata /> */}
+                <h1 className="text-center text-gray-400 text-base">
+                  Page not found.
+                </h1>
+              </div>
+            )}
+            {client?.success &&
+              client?.data.map((item, key) => {
+                return (
+                  <React.Fragment key={key}>
+                    <div className="py-5">
+                      <h1>{item.client_client_id}</h1>
+                      <ul>
+                        <li>
+                          <div>
+                            <div className="flex items-center justify-between gap-2 text-sm cursor-pointer hover:bg-gray-50 border-b-2">
+                              <div
+                                className="flex items-center justify-between w-full py-4 "
+                                onClick={handlerShowIdentity}
+                              >
+                                <h4 className="mb-0">Identification</h4>
 
                                 <button
-                                  className="tooltip"
-                                  data-tooltip={`Edit`}
+                                  className={`tooltip`}
+                                  data-tooltip={`${
+                                    identityShow ? "Close" : "Open"
+                                  }`}
+                                  onClick={handlerShowIdentity}
                                 >
-                                  <FiEdit3 />
+                                  {identityShow ? (
+                                    <BiChevronDown />
+                                  ) : (
+                                    <BiChevronRight />
+                                  )}
                                 </button>
                               </div>
-                            </li>
-                            <li
-                              onClick={handlerSpouse}
-                              className="cursor-pointer hover:bg-gray-50  border-b-2"
-                            >
-                              <div className="flex items-center justify-between text-sm py-4 ">
-                                <h4 className="mb-0">Spouse</h4>
-                                <div className={`flex items-center gap-2`}>
-                                  <button
-                                    className={`tooltip   ${
-                                      spouseShow ? "rotate-90" : ""
-                                    }`}
-                                    data-tooltip={`${
-                                      spouseShow ? "Close" : "Open"
-                                    }`}
-                                    onClick={handlerSpouse}
-                                  >
-                                    <BiChevronRight />
-                                  </button>
-                                  <button
-                                    className="tooltip"
-                                    data-tooltip={`Edit`}
-                                  >
-                                    <FiEdit3 />
-                                  </button>
-                                </div>
+                              <button
+                                className="tooltip"
+                                data-tooltip={`Edit`}
+                                onClick={() => handlerEdit(item)}
+                              >
+                                <FiEdit3 />
+                              </button>
+                            </div>
+                            {identityShow && (
+                              <div className="p-4">
+                                <ul className="flex flex-col gap-2">
+                                  <li className="grid grid-cols-[200px_1fr] items-center">
+                                    <h4 className="mb-0 ">Logo</h4>
+                                    <img
+                                      src="https://placehold.jp/80x80.png"
+                                      alt=""
+                                      className="rounded-md"
+                                    />
+                                  </li>
+                                  <li className="grid grid-cols-[200px_1fr] items-center">
+                                    <h4 className="mb-0">ID:</h4>
+                                    <p className="mb-0">
+                                      {item.client_client_id}
+                                    </p>
+                                  </li>
+                                  <li className="grid grid-cols-[200px_1fr] items-center">
+                                    <h4 className="mb-0">Description:</h4>
+                                    <p className="mb-0">
+                                      {item.client_description || "No data"}
+                                    </p>
+                                  </li>
+                                  <li className="grid grid-cols-[200px_1fr] items-center">
+                                    <h4 className="mb-0">EIN/SSN:</h4>
+                                    <p className="mb-0">
+                                      {item.client_ein_ssn || "No data"}
+                                    </p>
+                                  </li>
+                                  <li className="grid grid-cols-[200px_1fr] items-center">
+                                    <h4 className="mb-0">Name 1:</h4>
+                                    <p className="mb-0">
+                                      {item.client_name || "No data"}
+                                    </p>
+                                  </li>
+                                  <li className="grid grid-cols-[200px_1fr] items-center">
+                                    <h4 className="mb-0">Name 2:</h4>
+                                    <p className="mb-0">
+                                      {item.client_name_2 || "No data"}
+                                    </p>
+                                  </li>
+                                </ul>
                               </div>
-                            </li>
-                            <li
-                              onClick={handlerInfo}
-                              className="cursor-pointer hover:bg-gray-50  border-b-2"
+                            )}
+                          </div>
+                        </li>
+                        <li className="cursor-pointer hover:bg-gray-50 border-b-2">
+                          <div className="flex items-center justify-between gap-2 text-sm">
+                            <div
+                              className="flex items-center justify-between w-full py-4 "
+                              onClick={handlerIndividual}
                             >
-                              <div className="flex items-center justify-between text-sm py-4 ">
-                                <h4 className="mb-0">Client Information</h4>
-                                <div className={`flex items-center gap-2`}>
-                                  <button
-                                    className={`tooltip   ${
-                                      clientInfoShow ? "rotate-90" : ""
-                                    }`}
-                                    data-tooltip={`${
-                                      clientInfoShow ? "Close" : "Open"
-                                    }`}
-                                    onClick={handlerInfo}
-                                  >
-                                    <BiChevronRight />
-                                  </button>
-                                  <button
-                                    className="tooltip"
-                                    data-tooltip={`Edit`}
-                                  >
-                                    <FiEdit3 />
-                                  </button>
-                                </div>
-                              </div>
-                            </li>
-                            <li
-                              onClick={handlerReten}
-                              className="cursor-pointer hover:bg-gray-50  border-b-2"
-                            >
-                              <div className="flex items-center justify-between text-sm py-4 ">
-                                <h4 className="mb-0">
-                                  Client Retention Information
-                                </h4>
-                                <div className={`flex items-center gap-2`}>
-                                  <button
-                                    className={`tooltip   ${
-                                      clientRetenShow ? "rotate-90" : ""
-                                    }`}
-                                    data-tooltip={`${
-                                      clientRetenShow ? "Close" : "Open"
-                                    }`}
-                                    onClick={handlerReten}
-                                  >
-                                    <BiChevronRight />
-                                  </button>
-                                  <button
-                                    className="tooltip"
-                                    data-tooltip={`Edit`}
-                                  >
-                                    <FiEdit3 />
-                                  </button>
-                                </div>
-                              </div>
-                            </li>
-                          </ul>
-                        </div>
-                      </React.Fragment>
-                    );
-                  })}
-              </>
-            )}
+                              <h4 className="mb-0">Individual</h4>
+                              <button
+                                className={`tooltip`}
+                                data-tooltip={`${
+                                  individualShow ? "Close" : "Open"
+                                }`}
+                                onClick={handlerIndividual}
+                              >
+                                {individualShow ? (
+                                  <BiChevronDown />
+                                ) : (
+                                  <BiChevronRight />
+                                )}
+                              </button>
+                            </div>
+
+                            <button className="tooltip" data-tooltip={`Edit`}>
+                              <FiEdit3 />
+                            </button>
+                          </div>
+                        </li>
+                        <li
+                          onClick={handlerSpouse}
+                          className="cursor-pointer hover:bg-gray-50  border-b-2"
+                        >
+                          <div className="flex items-center justify-between text-sm py-4 ">
+                            <h4 className="mb-0">Spouse</h4>
+                            <div className={`flex items-center gap-2`}>
+                              <button
+                                className={`tooltip   ${
+                                  spouseShow ? "rotate-90" : ""
+                                }`}
+                                data-tooltip={`${
+                                  spouseShow ? "Close" : "Open"
+                                }`}
+                                onClick={handlerSpouse}
+                              >
+                                <BiChevronRight />
+                              </button>
+                              <button className="tooltip" data-tooltip={`Edit`}>
+                                <FiEdit3 />
+                              </button>
+                            </div>
+                          </div>
+                        </li>
+                        <li
+                          onClick={handlerInfo}
+                          className="cursor-pointer hover:bg-gray-50  border-b-2"
+                        >
+                          <div className="flex items-center justify-between text-sm py-4 ">
+                            <h4 className="mb-0">Client Information</h4>
+                            <div className={`flex items-center gap-2`}>
+                              <button
+                                className={`tooltip   ${
+                                  clientInfoShow ? "rotate-90" : ""
+                                }`}
+                                data-tooltip={`${
+                                  clientInfoShow ? "Close" : "Open"
+                                }`}
+                                onClick={handlerInfo}
+                              >
+                                <BiChevronRight />
+                              </button>
+                              <button className="tooltip" data-tooltip={`Edit`}>
+                                <FiEdit3 />
+                              </button>
+                            </div>
+                          </div>
+                        </li>
+                        <li
+                          onClick={handlerReten}
+                          className="cursor-pointer hover:bg-gray-50  border-b-2"
+                        >
+                          <div className="flex items-center justify-between text-sm py-4 ">
+                            <h4 className="mb-0">
+                              Client Retention Information
+                            </h4>
+                            <div className={`flex items-center gap-2`}>
+                              <button
+                                className={`tooltip   ${
+                                  clientRetenShow ? "rotate-90" : ""
+                                }`}
+                                data-tooltip={`${
+                                  clientRetenShow ? "Close" : "Open"
+                                }`}
+                                onClick={handlerReten}
+                              >
+                                <BiChevronRight />
+                              </button>
+                              <button className="tooltip" data-tooltip={`Edit`}>
+                                <FiEdit3 />
+                              </button>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </React.Fragment>
+                );
+              })}
           </div>
           <MainFooter />
         </main>

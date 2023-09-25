@@ -6,8 +6,11 @@ $conn = checkDbConnection();
 $client = new Client($conn);
 // get $_GET data  
 
+
+
 if (array_key_exists("clientId", $_GET)) {
     $client->client_aid = $_GET['clientId'];
+    
     checkId($client->client_aid);
     $query = checkReadById($client);
     http_response_code(200);
