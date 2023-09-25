@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const ClientContactInformation = () => {
-  return (
-    <div>ClientContactInformation</div>
-  )
-}
+  return <div>ClientContactInformation</div>;
+};
 
-export default ClientContactInformation
+export default ClientContactInformation;

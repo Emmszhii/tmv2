@@ -5,6 +5,7 @@ import Breadcrumbs from "../../../../partials/Breadcrumbs";
 import { StoreContext } from "../../../../../store/StoreContext";
 import { Link } from "react-router-dom";
 import { FiChevronRight } from "react-icons/fi";
+import { IoMdArrowDropright } from "react-icons/io";
 
 const Users = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -24,7 +25,7 @@ const Users = () => {
           <div className="flex justify-between items-center my-5">
             <h1 className="mb-0">Users</h1>
           </div>
-          <ul>
+          <ul className="max-w-xl">
             <li className="hover:bg-gray-100">
               <Link to={`/settings/users/system`}>
                 <div className="flex items-center justify-between">
@@ -32,8 +33,8 @@ const Users = () => {
                     <h4 className="mb-1 text-base">System</h4>
                     <p>list of roles used on the system</p>
                   </div>
-                  <div className="p-4 text-2xl">
-                    <FiChevronRight />
+                  <div className="p-4 text-xl">
+                    <IoMdArrowDropright />
                   </div>
                 </div>
               </Link>
@@ -45,8 +46,8 @@ const Users = () => {
                     <h4 className="mb-1 text-base">Other</h4>
                     <p>list of roles used on the other</p>
                   </div>
-                  <div className="p-4 text-2xl">
-                    <FiChevronRight />
+                  <div className="p-4 text-xl">
+                    <IoMdArrowDropright />
                   </div>
                 </div>
               </Link>
@@ -58,8 +59,8 @@ const Users = () => {
                     <h4 className="mb-1 text-base">Roles</h4>
                     <p>list of roles used on the roles</p>
                   </div>
-                  <div className="p-4 text-2xl">
-                    <FiChevronRight />
+                  <div className="p-4 text-xl">
+                    <IoMdArrowDropright />
                   </div>
                 </div>
               </Link>
