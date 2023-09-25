@@ -53,29 +53,26 @@ function App() {
                 element={<ClientInformationMain />}
               />
               <Route
-                path={`/system/client/information/main`}
-                element={<ClientMain />}
-              />
-              <Route
-                path={`/system/client/information/contact-information`}
+                path={`/client/information/contact-information`}
                 element={<ClientContactInformation />}
               />
               <Route
-                path={`/system/client/information/engagement`}
+                path={`/client/information/engagement`}
                 element={<ClientEngagement />}
               />
               <Route
-                path={`/system/client/information/billing-ar`}
+                path={`/client/information/billing-ar`}
                 element={<ClientBillingAR />}
               />
               <Route
-                path={`/system/client/information/custom-fields`}
+                path={`/client/information/custom-fields`}
                 element={<ClientCustomFields />}
               />
               <Route
-                path={`/system/client/information/notes`}
+                path={`/client/information/notes`}
                 element={<ClientNotes />}
               />
+
               <Route path={`/settings/access-level`} element={<Test />} />
               <Route path={`/settings/users`} element={<Users />} />
               <Route path={`/settings/users/system`} element={<System />} />

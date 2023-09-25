@@ -138,11 +138,11 @@ const ClientInformation = () => {
                             </li>
                             <li className="max-w-xl">
                               <Link
-                                to={`/client/information?clientId=${clientId}`}
+                                to={`/client/information/custom-fields?clientId=${clientId}`}
                               >
                                 <div className="flex justify-between items-center border-b-2 py-2 hover:bg-gray-50">
                                   <div className="flex flex-col gap-1">
-                                    <h4 className="m-0">Custome Fields</h4>
+                                    <h4 className="m-0">Custom Fields</h4>
                                     <p className="m-0">
                                       View list of roles used on the system
                                     </p>
@@ -155,7 +155,7 @@ const ClientInformation = () => {
                             </li>
                             <li className="max-w-xl">
                               <Link
-                                to={`/client/information?clientId=${clientId}`}
+                                to={`/client/information/notes?clientId=${clientId}`}
                               >
                                 <div className="flex justify-between items-center border-b-2 py-2 hover:bg-gray-50">
                                   <div className="flex flex-col gap-1">
