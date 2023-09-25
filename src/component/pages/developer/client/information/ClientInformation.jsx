@@ -74,7 +74,7 @@ const ClientInformation = () => {
                           <ul>
                             <li className="max-w-xl">
                               <Link
-                                to={`/system/client/information/main?clientId=${clientId}`}
+                                to={`/client/information/main?clientId=${clientId}`}
                               >
                                 <div className="flex justify-between items-center border-b-2 py-2  hover:bg-gray-50">
                                   <div className="flex flex-col gap-1">
@@ -89,7 +89,7 @@ const ClientInformation = () => {
                             </li>
                             <li className="max-w-xl">
                               <Link
-                                to={`/system/client/information/contact-information?clientId=${clientId}`}
+                                to={`/client/information/contact-information?clientId=${clientId}`}
                               >
                                 <div className="flex justify-between items-center border-b-2 py-2 hover:bg-gray-50">
                                   <div className="flex flex-col gap-1">
@@ -104,7 +104,7 @@ const ClientInformation = () => {
                             </li>
                             <li className="max-w-xl">
                               <Link
-                                to={`/system/client/information/engagement?clientId=${clientId}`}
+                                to={`/client/information/engagement?clientId=${clientId}`}
                               >
                                 <div className="flex justify-between items-center border-b-2 py-2 hover:bg-gray-50">
                                   <div className="flex flex-col gap-1">
@@ -121,7 +121,7 @@ const ClientInformation = () => {
                             </li>
                             <li className="max-w-xl">
                               <Link
-                                to={`/system/client/information/billing-ar?clientId=${clientId}`}
+                                to={`/client/information/billing-ar?clientId=${clientId}`}
                               >
                                 <div className="flex justify-between items-center border-b-2 py-2 hover:bg-gray-50">
                                   <div className="flex flex-col gap-1">
@@ -138,7 +138,7 @@ const ClientInformation = () => {
                             </li>
                             <li className="max-w-xl">
                               <Link
-                                to={`/system/client/information?clientId=${clientId}`}
+                                to={`/client/information?clientId=${clientId}`}
                               >
                                 <div className="flex justify-between items-center border-b-2 py-2 hover:bg-gray-50">
                                   <div className="flex flex-col gap-1">
@@ -155,7 +155,7 @@ const ClientInformation = () => {
                             </li>
                             <li className="max-w-xl">
                               <Link
-                                to={`/system/client/information?clientId=${clientId}`}
+                                to={`/client/information?clientId=${clientId}`}
                               >
                                 <div className="flex justify-between items-center border-b-2 py-2 hover:bg-gray-50">
                                   <div className="flex flex-col gap-1">
