@@ -3,8 +3,8 @@ class Client
 {
     public $client_aid;
     public $client_client_id;
-    public $client_description;
     public $client_name;
+    public $client_description;
     public $client_is_active;
     public $client_created_at;
     public $client_updated_at;
@@ -31,11 +31,13 @@ class Client
         try {
             $sql = "insert into {$this->tblClient} ";
             $sql .= "( client_client_id, ";
+            $sql .= "client_name, ";
             $sql .= "client_description, ";
             $sql .= "client_is_active, ";
             $sql .= "client_created_at, ";
             $sql .= "client_updated_at ) values ( ";
             $sql .= ":client_client_id, ";
+            $sql .= ":client_name, ";
             $sql .= ":client_description, ";
             $sql .= ":client_is_active, ";
             $sql .= ":client_created_at, ";
@@ -43,6 +45,7 @@ class Client
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "client_client_id" => $this->client_client_id,
+                "client_name" => $this->client_name,
                 "client_description" => $this->client_description,
                 "client_is_active" => $this->client_is_active,
                 "client_created_at" => $this->client_created_at,
@@ -136,12 +139,14 @@ class Client
         try {
             $sql = "update {$this->tblClient} set ";
             $sql .= "client_client_id = :client_client_id, ";
+            $sql .= "client_name = :client_name, ";
             $sql .= "client_description = :client_description, ";
             $sql .= "client_updated_at = :client_updated_at ";
             $sql .= "where client_aid = :client_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "client_client_id" => $this->client_client_id,
+                "client_name" => $this->client_name,
                 "client_description" => $this->client_description,
                 "client_updated_at" => $this->client_updated_at,
                 "client_aid" => $this->client_aid,

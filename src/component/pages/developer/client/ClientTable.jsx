@@ -129,7 +129,8 @@ const ClientTable = ({ setItemEdit }) => {
               <th>#</th>
               <th width={`100px`}>Status</th>
               <th width={`170px`}>Client ID</th>
-              <th>Description</th>
+              <th width={`170px`}>Description</th>
+              <th>Name</th>
               <th className="action lg:hidden"></th>
             </tr>
           </thead>
@@ -169,6 +170,7 @@ const ClientTable = ({ setItemEdit }) => {
                       </td>
                       <td>{item.client_client_id}</td>
                       <td>{item.client_description}</td>
+                      <td>{item.client_name}</td>
                       <td
                         className="table__action top-0 right-5 "
                         data-ellipsis=". . ."
@@ -177,7 +179,7 @@ const ClientTable = ({ setItemEdit }) => {
                           <ul className=" flex items-center  gap-4 bg-">
                             <li>
                               <Link
-                                to={`client/view?clientId=${item.client_aid}`}
+                                to={`/client/information?clientId=${item.client_aid}`}
                               >
                                 <button className="tooltip" data-tooltip="Info">
                                   <FaRegEye />

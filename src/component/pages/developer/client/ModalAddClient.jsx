@@ -46,13 +46,16 @@ const ModalAddClient = ({ itemEdit }) => {
 
   const initVal = {
     client_client_id: itemEdit ? itemEdit.client_client_id : "",
+    client_name: itemEdit ? itemEdit.client_name : "",
     client_description: itemEdit ? itemEdit.client_description : "",
 
     client_client_id_old: itemEdit ? itemEdit.client_client_id : "",
+    client_description_old: itemEdit ? itemEdit.client_description : "",
   };
 
   const yupSchema = Yup.object({
     client_client_id: Yup.string().required("Required"),
+    // client_name: Yup.string().required("Required"),
     client_description: Yup.string().required("Required"),
   });
 
@@ -69,7 +72,7 @@ const ModalAddClient = ({ itemEdit }) => {
           className={`modal__main absolute mx-1 bg-white border border-gray-200 rounded-md py-8 px-5 max-w-[420px] w-full shadow-xl`}
         >
           <div className="modal__header relative">
-            <h3> {itemEdit ? "Update" : "Add"} Activity </h3>
+            <h3> {itemEdit ? "Update" : "Add"} Client </h3>
             <button className="absolute -top-4 right-0 " onClick={handleClose}>
               <FaTimes className="text-gray-700 text-base" />
             </button>
@@ -92,6 +95,14 @@ const ModalAddClient = ({ itemEdit }) => {
                           label="Client ID"
                           type="text"
                           name="client_client_id"
+                          disabled={mutation.isLoading}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputText
+                          label="Name"
+                          type="text"
+                          name="client_name"
                           disabled={mutation.isLoading}
                         />
                       </div>

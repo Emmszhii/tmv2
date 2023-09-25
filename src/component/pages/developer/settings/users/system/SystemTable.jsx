@@ -156,7 +156,6 @@ const SystemTable = ({ setItemEdit }) => {
             {result?.pages.map((page, key) => (
               <React.Fragment key={key}>
                 {page.data.map((item, key) => {
-                  console.log(item);
                   active += item.settings_system_is_active === 1;
                   inactive += item.settings_system_is_active === 0;
                   return (

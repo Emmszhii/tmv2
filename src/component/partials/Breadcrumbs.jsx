@@ -18,7 +18,6 @@ const BreadCrumbs = ({ param = "" }) => {
     .split("/")
     .filter((crumb) => crumb !== "");
 
-  console.log("123", location.pathname);
   return (
     <>
       <div className="breadcrumbs">

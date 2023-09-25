@@ -4,7 +4,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Test from "./component/pages/Test";
 import Client from "./component/pages/developer/client/Client";
 import ClientContactInformation from "./component/pages/developer/client/information/contact-information/ClientContactInformation";
-import ClientMain from "./component/pages/developer/client/information/main/ClientMain";
+import ClientMain from "./component/pages/developer/client/information/main/ClientInformationMain";
 import SpecialCharacter from "./component/pages/developer/settings/1099-special-character/1099SpecialCharacter";
 import Activity from "./component/pages/developer/settings/activity/Activity";
 import ClientClass from "./component/pages/developer/settings/client-class/ClientClass";
@@ -30,6 +30,8 @@ import ClientEngagement from "./component/pages/developer/client/information/eng
 import ClientBillingAR from "./component/pages/developer/client/information/billing-ar/ClientBillingAR";
 import ClientCustomFields from "./component/pages/developer/client/information/custom-fields/ClientCustomFields";
 import ClientNotes from "./component/pages/developer/client/information/notes/ClientNotes";
+import ClientInformation from "./component/pages/developer/client/information/ClientInformation";
+import ClientInformationMain from "./component/pages/developer/client/information/main/ClientInformationMain";
 
 function App() {
   const queryClient = new QueryClient();
@@ -42,6 +44,14 @@ function App() {
               <Route path={`*`} element={<Test />} />
               <Route path={`/staff`} element={<Staff />} />
               <Route path={`/client`} element={<Client />} />
+              <Route
+                path={`/client/information`}
+                element={<ClientInformation />}
+              />
+              <Route
+                path={`/client/information/main`}
+                element={<ClientInformationMain />}
+              />
               <Route
                 path={`/system/client/information/main`}
                 element={<ClientMain />}
