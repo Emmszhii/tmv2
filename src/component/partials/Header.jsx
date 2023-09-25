@@ -1,12 +1,16 @@
 import React from "react";
-import { BiSolidUserCircle } from "react-icons/bi";
+import { BiSolidUserCircle, BiUserCircle } from "react-icons/bi";
 import { setIsMenuOpen } from "../../store/StoreAction";
 import { StoreContext } from "../../store/StoreContext";
+import { CiMail } from "react-icons/ci";
 import Logo from "../svg/Logo";
+import { MdOutlineLogout } from "react-icons/md";
 
 const Header = () => {
   const { store, dispatch } = React.useContext(StoreContext);
+  const [avatarShow, setAvatarShow] = React.useState(false);
 
+  const handleShowAvatar = () => setAvatarShow(!avatarShow);
   const handleBurgerBtn = () => dispatch(setIsMenuOpen(!store.isMenuOpen));
   return (
     <>
@@ -33,14 +37,43 @@ const Header = () => {
           </div>
         </div>
 
-        <div className="flex items-center gap-2 text-right lg:pr-7">
-          <div className="m-0 text-sm hidden lg:block">
-            <p className="m-0 leading-none font-bold">Emms</p>
-            <p className="m-0">Developer</p>
+        <div>
+          <div
+            className="flex items-center gap-2 text-right lg:pr-7 relative cursor-pointer group"
+            onClick={handleShowAvatar}
+          >
+            <div className="m-0 text-sm hidden lg:block">
+              <p className="m-0 leading-none font-bold">Emms</p>
+              <p className="m-0">Developer</p>
+            </div>
+            <div
+              className={`relative before:top-0 before:left-0 before:content-[''] before:absolute group-hover:before:border-4 active:before:border-4  before:w-full before:h-full before:rounded-full before:border-success/20 ${
+                avatarShow ? "before:border-4" : ""
+              }`}
+            >
+              <BiSolidUserCircle className="text-5xl text-gray-400" />
+            </div>
           </div>
-          <div className="">
-            <BiSolidUserCircle className="text-5xl text-gray-400" />
-          </div>
+          {avatarShow && (
+            <div className="absolute bg-white px-3 -bottom-28 right-8 border-2 inline-block rounded-md shadow-sm">
+              <ul>
+                <li className="grid grid-cols-[20px_1fr] items-center gap-1 text-sm border-b-2 last:border-b-0 text-left py-2 hover:text-success cursor-pointer">
+                  <CiMail />
+                  <p className="m-0">
+                    emmanuel.manalo@frontlinebusiness.com.ph
+                  </p>
+                </li>
+                <li className="grid grid-cols-[20px_1fr] items-center gap-1 text-sm border-b-2 last:border-b-0 text-left py-2 hover:text-success cursor-pointer">
+                  <BiUserCircle />
+                  <p className="m-0">Account</p>
+                </li>
+                <li className="grid grid-cols-[20px_1fr] items-center gap-1 text-sm border-b-2 last:border-b-0 text-left py-2 hover:text-success cursor-pointer">
+                  <MdOutlineLogout />
+                  <p className="m-0">Logout</p>
+                </li>
+              </ul>
+            </div>
+          )}
         </div>
       </header>
     </>
