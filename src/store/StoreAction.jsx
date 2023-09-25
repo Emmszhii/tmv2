@@ -205,3 +205,9 @@ export const setIsArchive = (val) => {
     payload: val,
   };
 };
+export const setIsAvatar = (val) => {
+  return {
+    type: "IS_AVATAR",
+    payload: val,
+  };
+};

@@ -43,20 +43,27 @@ const ClientInformation = () => {
             <BreadCrumbs />
             {isFetching && !isLoading && <TableSpinner />}
             {client?.error ? (
-              <h1 className="text-center text-gray-200">Page not found.</h1>
+              <h1 className="text-center text-gray-400 text-base">
+                Page not found.
+              </h1>
             ) : (
               <>
                 {error && <ServerError />}
                 {(isLoading || client?.data.length === 0) && (
-                  <>
+                  <div className="py-10">
                     {isLoading ? (
                       <TableLoading cols={1} count={20} />
                     ) : (
-                      <Nodata />
+                      <div>
+                        <Nodata />
+                        {/* <h1 className="text-center text-gray-400 text-base">
+                         Page not found.
+                       </h1> */}
+                      </div>
                     )}
-                  </>
+                  </div>
                 )}
-                {client?.data.length > 0 ? (
+                {client?.data.length > 0 &&
                   client?.data.map((item, key) => {
                     return (
                       <React.Fragment key={key}>
@@ -67,7 +74,7 @@ const ClientInformation = () => {
                           <ul>
                             <li className="max-w-xl">
                               <Link
-                                to={`/client/information/main?clientId=${clientId}`}
+                                to={`/system/client/information/main?clientId=${clientId}`}
                               >
                                 <div className="flex justify-between items-center border-b-2 py-2  hover:bg-gray-50">
                                   <div className="flex flex-col gap-1">
@@ -82,7 +89,7 @@ const ClientInformation = () => {
                             </li>
                             <li className="max-w-xl">
                               <Link
-                                to={`/client/information/contact-information?clientId=${clientId}`}
+                                to={`/system/client/information/contact-information?clientId=${clientId}`}
                               >
                                 <div className="flex justify-between items-center border-b-2 py-2 hover:bg-gray-50">
                                   <div className="flex flex-col gap-1">
@@ -97,7 +104,7 @@ const ClientInformation = () => {
                             </li>
                             <li className="max-w-xl">
                               <Link
-                                to={`/client/information/engagement?clientId=${clientId}`}
+                                to={`/system/client/information/engagement?clientId=${clientId}`}
                               >
                                 <div className="flex justify-between items-center border-b-2 py-2 hover:bg-gray-50">
                                   <div className="flex flex-col gap-1">
@@ -114,7 +121,7 @@ const ClientInformation = () => {
                             </li>
                             <li className="max-w-xl">
                               <Link
-                                to={`/client/information/billing-ar?clientId=${clientId}`}
+                                to={`/system/client/information/billing-ar?clientId=${clientId}`}
                               >
                                 <div className="flex justify-between items-center border-b-2 py-2 hover:bg-gray-50">
                                   <div className="flex flex-col gap-1">
@@ -131,7 +138,7 @@ const ClientInformation = () => {
                             </li>
                             <li className="max-w-xl">
                               <Link
-                                to={`/client/information?clientId=${clientId}`}
+                                to={`/system/client/information?clientId=${clientId}`}
                               >
                                 <div className="flex justify-between items-center border-b-2 py-2 hover:bg-gray-50">
                                   <div className="flex flex-col gap-1">
@@ -148,7 +155,7 @@ const ClientInformation = () => {
                             </li>
                             <li className="max-w-xl">
                               <Link
-                                to={`/client/information?clientId=${clientId}`}
+                                to={`/system/client/information?clientId=${clientId}`}
                               >
                                 <div className="flex justify-between items-center border-b-2 py-2 hover:bg-gray-50">
                                   <div className="flex flex-col gap-1">
@@ -167,10 +174,7 @@ const ClientInformation = () => {
                         </div>
                       </React.Fragment>
                     );
-                  })
-                ) : (
-                  <Nodata />
-                )}
+                  })}
               </>
             )}
           </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import { BiSolidUserCircle, BiUserCircle } from "react-icons/bi";
-import { setIsMenuOpen } from "../../store/StoreAction";
+import { setIsAvatar, setIsMenuOpen } from "../../store/StoreAction";
 import { StoreContext } from "../../store/StoreContext";
 import { CiMail } from "react-icons/ci";
 import Logo from "../svg/Logo";
@@ -8,9 +8,9 @@ import { MdOutlineLogout } from "react-icons/md";
 
 const Header = () => {
   const { store, dispatch } = React.useContext(StoreContext);
-  const [avatarShow, setAvatarShow] = React.useState(false);
+  // const [avatarShow, setAvatarShow] = React.useState(false);
 
-  const handleShowAvatar = () => setAvatarShow(!avatarShow);
+  const handleShowAvatar = () => dispatch(setIsAvatar(!store.isAvatar));
   const handleBurgerBtn = () => dispatch(setIsMenuOpen(!store.isMenuOpen));
   return (
     <>
@@ -48,13 +48,13 @@ const Header = () => {
             </div>
             <div
               className={`relative before:top-0 before:left-0 before:content-[''] before:absolute group-hover:before:border-4 active:before:border-4  before:w-full before:h-full before:rounded-full before:border-success/20 ${
-                avatarShow ? "before:border-4" : ""
+                store.isAvatar ? "before:border-4" : ""
               }`}
             >
               <BiSolidUserCircle className="text-5xl text-gray-400" />
             </div>
           </div>
-          {avatarShow && (
+          {store.isAvatar && (
             <div className="absolute bg-white px-3 -bottom-[6.3rem] right-3 lg:right-8 border-2 inline-block rounded-md shadow-sm">
               <ul>
                 <li className="grid grid-cols-[20px_1fr] items-center gap-1 text-sm border-b-2 last:border-b-0 text-left py-2 hover:text-success cursor-pointer">

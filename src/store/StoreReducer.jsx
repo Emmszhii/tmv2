@@ -170,6 +170,11 @@ export const StoreReducer = (state, action) => {
         ...state,
         isMenuOpen: action.payload,
       };
+    case "IS_AVATAR":
+      return {
+        ...state,
+        isAvatar: action.payload,
+      };
 
     default:
       return state;

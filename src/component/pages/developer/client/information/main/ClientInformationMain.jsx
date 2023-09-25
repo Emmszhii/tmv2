@@ -63,7 +63,9 @@ const ClientInformationMain = () => {
             <BreadCrumbs param={location.search} />
             {isFetching && !isLoading && <FetchingSpinner />}
             {client?.error ? (
-              <ServerError />
+              <h1 className="text-center text-gray-400 text-base">
+                Page not found.
+              </h1>
             ) : (
               <>
                 {(isLoading || client?.data.length === 0) && (
@@ -73,11 +75,14 @@ const ClientInformationMain = () => {
                     ) : (
                       <div className="py-10">
                         <Nodata />
+                        {/* <h1 className="text-center text-gray-200">
+                          Page not found.
+                        </h1> */}
                       </div>
                     )}
                   </>
                 )}
-                {client?.data.length > 0 ? (
+                {client?.data.length > 0 &&
                   client?.data.map((item, key) => {
                     return (
                       <React.Fragment key={key}>
@@ -123,6 +128,7 @@ const ClientInformationMain = () => {
                                         <img
                                           src="https://placehold.jp/80x80.png"
                                           alt=""
+                                          className="rounded-md"
                                         />
                                       </li>
                                       <li className="grid grid-cols-[200px_1fr] items-center">
@@ -277,12 +283,7 @@ const ClientInformationMain = () => {
                         </div>
                       </React.Fragment>
                     );
-                  })
-                ) : (
-                  <div className="py-10">
-                    <Nodata />
-                  </div>
-                )}
+                  })}
               </>
             )}
           </div>

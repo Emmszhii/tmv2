@@ -30,6 +30,7 @@ const initVal = {
   isToolsOpen: false,
   isSettingsOpen: false,
   isMenuOpen: false,
+  isAvatar: false,
 };
 
 const StoreContext = React.createContext();
