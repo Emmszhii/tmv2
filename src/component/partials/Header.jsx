@@ -55,7 +55,7 @@ const Header = () => {
             </div>
           </div>
           {avatarShow && (
-            <div className="absolute bg-white px-3 -bottom-28 right-8 border-2 inline-block rounded-md shadow-sm">
+            <div className="absolute bg-white px-3 -bottom-[6.3rem] right-3 lg:right-8 border-2 inline-block rounded-md shadow-sm">
               <ul>
                 <li className="grid grid-cols-[20px_1fr] items-center gap-1 text-sm border-b-2 last:border-b-0 text-left py-2 hover:text-success cursor-pointer">
                   <CiMail />
