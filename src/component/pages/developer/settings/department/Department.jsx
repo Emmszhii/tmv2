@@ -8,6 +8,7 @@ import Toast from "../../../../partials/Toast";
 import ModalValidate from "../../../../partials/modals/ModalValidate";
 import DepartmentTable from "./DepartmentTable";
 import ModalAddDepartment from "./ModalAddDepartment";
+import MainFooter from "../../../../partials/MainFooter";
 
 const Department = () => {
   const [itemEdit, setItemEdit] = React.useState(null);
@@ -25,7 +26,7 @@ const Department = () => {
         >
           <Navigation menu="settings" submenu={`settingsDepartment`} />
         </aside>
-        <main className="p-3 lg:p-0 lg:pr-10">
+        <main className="p-3 !pb-6 lg:p-0 lg:pr-10">
           <BreadCrumbs />
           <div className="flex justify-between items-center my-5">
             <h1 className="mb-0">Department</h1>
@@ -36,6 +37,7 @@ const Department = () => {
           <div>
             <DepartmentTable setItemEdit={setItemEdit} />
           </div>
+          <MainFooter />
         </main>
       </section>
 

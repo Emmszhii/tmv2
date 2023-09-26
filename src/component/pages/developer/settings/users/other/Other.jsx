@@ -11,6 +11,7 @@ import ModalAddOther from "./ModalAddOther";
 import OtherTable from "./OtherTable";
 import ModalValidate from "../../../../../partials/modals/ModalValidate";
 import Toast from "../../../../../partials/Toast";
+import MainFooter from "../../../../../partials/MainFooter";
 
 const Other = () => {
   const [itemEdit, setItemEdit] = React.useState(null);
@@ -31,7 +32,7 @@ const Other = () => {
         >
           <Navigation menu="settings" submenu={`settingsUsers`} />
         </aside>
-        <main className="px-2 lg:pr-10 custom__scroll">
+        <main className="px-2 !pb-6 lg:pr-10 custom__scroll">
           <BreadCrumbs />
           <div className="flex justify-between items-center my-5">
             <h1 className="mb-0">Other</h1>
@@ -42,6 +43,7 @@ const Other = () => {
           <div>
             <OtherTable setItemEdit={setItemEdit} />
           </div>
+          <MainFooter />
         </main>
       </section>
 

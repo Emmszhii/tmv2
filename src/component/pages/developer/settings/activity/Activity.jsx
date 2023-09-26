@@ -9,6 +9,7 @@ import ModalAddSystem from "../users/system/ModalAddSystem";
 import ActivitiesTable from "./ActivityTable";
 import { setIsAdd, setIsSettingsOpen } from "../../../../../store/StoreAction";
 import ModalAddActivities from "./ModalAddActivities";
+import MainFooter from "../../../../partials/MainFooter";
 
 const Activities = () => {
   const [itemEdit, setItemEdit] = React.useState(null);
@@ -29,7 +30,7 @@ const Activities = () => {
         >
           <Navigation menu="settings" submenu={`settingsActivity`} />
         </aside>
-        <main className="p-3 lg:p-0 lg:pr-10">
+        <main className="p-3 !pb-6 lg:p-0 lg:pr-10">
           <BreadCrumbs />
           <div className="flex justify-between items-center my-5">
             <h1 className="mb-0">Activity</h1>
@@ -40,6 +41,7 @@ const Activities = () => {
           <div>
             <ActivitiesTable setItemEdit={setItemEdit} />
           </div>
+          <MainFooter />
         </main>
       </section>
 

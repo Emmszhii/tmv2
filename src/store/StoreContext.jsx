@@ -31,6 +31,7 @@ const initVal = {
   isSettingsOpen: false,
   isMenuOpen: false,
   isAvatar: false,
+  navHeight: 0,
 };
 
 const StoreContext = React.createContext();

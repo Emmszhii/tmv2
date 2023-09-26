@@ -11,6 +11,7 @@ import Toast from "../../../../../partials/Toast";
 import ModalValidate from "../../../../../partials/modals/ModalValidate";
 import RolesTable from "./RolesTable";
 import ModalAddRoles from "./ModalAddRoles";
+import MainFooter from "../../../../../partials/MainFooter";
 
 const Roles = () => {
   const [itemEdit, setItemEdit] = React.useState(null);
@@ -33,7 +34,7 @@ const Roles = () => {
         >
           <Navigation menu="settings" submenu={`settingsUsers`} />
         </aside>
-        <main className="p-3 lg:p-0 lg:pr-10 custom__scroll">
+        <main className="p-3 !pb-6 lg:p-0 lg:pr-10 custom__scroll">
           <BreadCrumbs />
           <div className="flex justify-between items-center my-5">
             <h1 className="mb-0">Roles</h1>
@@ -44,6 +45,7 @@ const Roles = () => {
           <div>
             <RolesTable setItemEdit={setItemEdit} />
           </div>
+          <MainFooter />
         </main>
       </section>
 

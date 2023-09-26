@@ -1,8 +1,5 @@
 import React from "react";
-import {
-  setIsAdd,
-  setIsSettingsOpen
-} from "../../../../../store/StoreAction";
+import { setIsAdd, setIsSettingsOpen } from "../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../store/StoreContext";
 import BreadCrumbs from "../../../../partials/Breadcrumbs";
 import Header from "../../../../partials/Header";
@@ -11,6 +8,7 @@ import Toast from "../../../../partials/Toast";
 import ModalValidate from "../../../../partials/modals/ModalValidate";
 import ModalAddRates from "./ModalAddRates";
 import RatesTable from "./RatesTable";
+import MainFooter from "../../../../partials/MainFooter";
 
 const Rates = () => {
   const [itemEdit, setItemEdit] = React.useState(null);
@@ -32,7 +30,7 @@ const Rates = () => {
         >
           <Navigation menu="settings" submenu={`settingsRates`} />
         </aside>
-        <main className="p-3 lg:p-0 lg:pr-10">
+        <main className="p-3 !pb-6 lg:p-0 lg:pr-10">
           <BreadCrumbs />
           <div className="flex justify-between items-center my-5">
             <h1 className="mb-0">Rates</h1>
@@ -43,6 +41,7 @@ const Rates = () => {
           <div>
             <RatesTable setItemEdit={setItemEdit} />
           </div>
+          <MainFooter />
         </main>
       </section>
 

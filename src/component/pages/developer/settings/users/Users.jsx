@@ -6,6 +6,7 @@ import { StoreContext } from "../../../../../store/StoreContext";
 import { Link } from "react-router-dom";
 import { FiChevronRight } from "react-icons/fi";
 import { IoMdArrowDropright } from "react-icons/io";
+import MainFooter from "../../../../partials/MainFooter";
 
 const Users = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -20,7 +21,7 @@ const Users = () => {
         <aside className={`${store.isMenuOpen ? "open " : ""} `}>
           <Navigation menu="settings" submenu={`settingsUsers`} />
         </aside>
-        <main className="p-3 lg:p-0 lg:pr-10">
+        <main className="p-3 !pb-6 lg:p-0 lg:pr-10">
           <Breadcrumbs />
           <div className="flex justify-between items-center my-5">
             <h1 className="mb-0">Users</h1>
@@ -66,6 +67,7 @@ const Users = () => {
               </Link>
             </li>
           </ul>
+          <MainFooter />
         </main>
       </section>
     </>

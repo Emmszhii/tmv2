@@ -175,6 +175,11 @@ export const StoreReducer = (state, action) => {
         ...state,
         isAvatar: action.payload,
       };
+    case "NAV_HEIGHT":
+      return {
+        ...state,
+        navHeight: action.payload,
+      };
 
     default:
       return state;

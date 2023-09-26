@@ -8,6 +8,7 @@ import Toast from "../../../../partials/Toast";
 import ModalValidate from "../../../../partials/modals/ModalValidate";
 import ModalAddOffice from "./ModalAddOffice";
 import OfficeTable from "./OfficeTable";
+import MainFooter from "../../../../partials/MainFooter";
 
 const Office = () => {
   const [itemEdit, setItemEdit] = React.useState(null);
@@ -28,7 +29,7 @@ const Office = () => {
         >
           <Navigation menu="settings" submenu={`settingsOffice`} />
         </aside>
-        <main className="p-3 lg:p-0 lg:pr-10">
+        <main className="p-3 !pb-6 lg:p-0 lg:pr-10">
           <BreadCrumbs />
           <div className="flex justify-between items-center my-5">
             <h1 className="mb-0">Office</h1>
@@ -39,6 +40,7 @@ const Office = () => {
           <div>
             <OfficeTable setItemEdit={setItemEdit} />
           </div>
+          <MainFooter />
         </main>
       </section>
 

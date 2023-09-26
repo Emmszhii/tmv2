@@ -11,6 +11,7 @@ import Toast from "../../../../../partials/Toast";
 import ModalValidate from "../../../../../partials/modals/ModalValidate";
 import SystemTable from "./SystemTable";
 import ModalAddSystem from "./ModalAddSystem";
+import MainFooter from "../../../../../partials/MainFooter";
 
 const System = () => {
   const [itemEdit, setItemEdit] = React.useState(null);
@@ -31,7 +32,7 @@ const System = () => {
         >
           <Navigation menu="settings" submenu={`settingsUsers`} />
         </aside>
-        <main className="p-3 lg:p-0 lg:pr-10 custom__scroll">
+        <main className="p-3 !pb-6 lg:p-0 lg:pr-10 custom__scroll">
           <BreadCrumbs />
           <div className="flex justify-between items-center my-5">
             <h1 className="mb-0">System</h1>
@@ -42,6 +43,7 @@ const System = () => {
           <div>
             <SystemTable setItemEdit={setItemEdit} />
           </div>
+          <MainFooter />
         </main>
       </section>
 

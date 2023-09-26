@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { BsGear, BsPersonVcard } from "react-icons/bs";
 import { LiaToolsSolid, LiaBusinessTimeSolid } from "react-icons/lia";
 import { BiUserCircle } from "react-icons/bi";
@@ -6,6 +6,7 @@ import {
   setIsSearch,
   setIsSettingsOpen,
   setIsToolsOpen,
+  setNavHeight,
 } from "../../store/StoreAction";
 import { PiCaretRight } from "react-icons/pi";
 import { devNavUrl } from "../helpers/functions-general";
@@ -15,7 +16,7 @@ import { Link } from "react-router-dom";
 const Navigation = ({ menu, submenu = null, val }) => {
   const { store, dispatch } = React.useContext(StoreContext);
   const urlRolePath = `${devNavUrl}`;
-
+  const ref = React.useRef(null);
   const handleDropDownTools = (e) => {
     dispatch(setIsToolsOpen(!store.isToolsOpen));
   };
@@ -33,7 +34,10 @@ const Navigation = ({ menu, submenu = null, val }) => {
   //   };
 
   return (
-    <div className="px-2 py-4 bg-tm-gradient h-full custom__scroll overflow-y-auto">
+    <div
+      className="px-2 py-4 bg-tm-gradient h-full custom__scroll overflow-y-auto"
+      ref={ref}
+    >
       <ul className="">
         <li className="nav__link has__dropdown">
           <button

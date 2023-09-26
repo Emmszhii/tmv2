@@ -211,3 +211,9 @@ export const setIsAvatar = (val) => {
     payload: val,
   };
 };
+export const setNavHeight = (val) => {
+  return {
+    type: "NAV_HEIGHT",
+    payload: val,
+  };
+};
