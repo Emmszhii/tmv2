@@ -32,6 +32,7 @@ import ClientCustomFields from "./component/pages/developer/client/information/c
 import ClientNotes from "./component/pages/developer/client/information/notes/ClientNotes";
 import ClientInformation from "./component/pages/developer/client/information/ClientInformation";
 import ClientInformationMain from "./component/pages/developer/client/information/main/ClientInformationMain";
+import StaffInformation from "./component/pages/developer/staff/information/StaffInformation";
 
 function App() {
   const queryClient = new QueryClient();
@@ -43,6 +44,10 @@ function App() {
             <Routes>
               <Route path={`*`} element={<Test />} />
               <Route path={`/staff`} element={<Staff />} />
+              <Route
+                path={`/staff/information`}
+                element={<StaffInformation />}
+              />
               <Route path={`/client`} element={<Client />} />
               <Route
                 path={`/client/information`}
