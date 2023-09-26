@@ -8,6 +8,7 @@ import {
   setIsAdd,
   setIsConfirm,
   setIsRestore,
+  setIsSearch,
 } from "../../../../../../store/StoreAction";
 import { StoreContext } from "../../../../../../store/StoreContext";
 import useQueryData from "../../../../../custom-hooks/useQueryData";
@@ -63,7 +64,7 @@ const SystemTable = ({ setItemEdit }) => {
       }
       return;
     },
-    refetchOnWindowFocus: false,
+    refetchOnWindowFocus: true,
   });
 
   const { data: system } = useQueryData(

@@ -20,7 +20,11 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { queryDataInfinite } from "../../../helpers/queryDataInfinite";
 import useQueryData from "../../../custom-hooks/useQueryData";
 import { getClientCountRecord } from "./functions-client";
-import { setIsConfirm, setIsRestore } from "../../../../store/StoreAction";
+import {
+  setIsConfirm,
+  setIsRestore,
+  setIsSearch,
+} from "../../../../store/StoreAction";
 
 const ClientTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -71,6 +75,7 @@ const ClientTable = ({ setItemEdit }) => {
   );
 
   React.useEffect(() => {
+    dispatch(setIsSearch(false));
     if (inView) {
       setPage((prev) => prev + 1);
       fetchNextPage();
