@@ -42,141 +42,126 @@ const ClientInformation = () => {
           <div className="max-w-lg">
             <BreadCrumbs />
             {isFetching && !isLoading && <TableSpinner />}
-            {client?.error ? (
-              <h1 className="text-center text-gray-400 text-base">
-                Page not found.
-              </h1>
-            ) : (
-              <>
-                {error && <ServerError />}
-                {(isLoading || client?.data.length === 0) && (
-                  <div className="py-10">
-                    {isLoading ? (
-                      <TableLoading cols={1} count={20} />
-                    ) : (
-                      <div>
-                        <Nodata />
-                        {/* <h1 className="text-center text-gray-400 text-base">
-                         Page not found.
-                       </h1> */}
-                      </div>
-                    )}
-                  </div>
-                )}
-                {client?.data.length > 0 &&
-                  client?.data.map((item, key) => {
-                    return (
-                      <React.Fragment key={key}>
-                        <div className="flex justify-between items-center my-5">
-                          <h1 className="mb-0">{item.client_client_id}</h1>
-                        </div>
-                        <div>
-                          <ul>
-                            <li className="max-w-xl">
-                              <Link
-                                to={`/client/information/main?clientId=${clientId}`}
-                              >
-                                <div className="flex justify-between items-center border-b-2 py-2  hover:bg-gray-50">
-                                  <div className="flex flex-col gap-1">
-                                    <h4 className="m-0">Main</h4>
-                                    <p className="m-0">View list of main</p>
-                                  </div>
-                                  <div className="text-lg pr-2">
-                                    <IoMdArrowDropright />
-                                  </div>
-                                </div>
-                              </Link>
-                            </li>
-                            <li className="max-w-xl">
-                              <Link
-                                to={`/client/information/contact-information?clientId=${clientId}`}
-                              >
-                                <div className="flex justify-between items-center border-b-2 py-2 hover:bg-gray-50">
-                                  <div className="flex flex-col gap-1">
-                                    <h4 className="m-0">Contact Information</h4>
-                                    <p className="m-0">View list of main</p>
-                                  </div>
-                                  <div className="text-lg pr-2">
-                                    <IoMdArrowDropright />
-                                  </div>
-                                </div>
-                              </Link>
-                            </li>
-                            <li className="max-w-xl">
-                              <Link
-                                to={`/client/information/engagement?clientId=${clientId}`}
-                              >
-                                <div className="flex justify-between items-center border-b-2 py-2 hover:bg-gray-50">
-                                  <div className="flex flex-col gap-1">
-                                    <h4 className="m-0">Engagement</h4>
-                                    <p className="m-0">
-                                      View list of roles used on the system
-                                    </p>
-                                  </div>
-                                  <div className="text-lg pr-2">
-                                    <IoMdArrowDropright />
-                                  </div>
-                                </div>
-                              </Link>
-                            </li>
-                            <li className="max-w-xl">
-                              <Link
-                                to={`/client/information/billing-ar?clientId=${clientId}`}
-                              >
-                                <div className="flex justify-between items-center border-b-2 py-2 hover:bg-gray-50">
-                                  <div className="flex flex-col gap-1">
-                                    <h4 className="m-0">Billing and A/R</h4>
-                                    <p className="m-0">
-                                      View list of roles used on the system
-                                    </p>
-                                  </div>
-                                  <div className="text-lg pr-2">
-                                    <IoMdArrowDropright />
-                                  </div>
-                                </div>
-                              </Link>
-                            </li>
-                            <li className="max-w-xl">
-                              <Link
-                                to={`/client/information/custom-fields?clientId=${clientId}`}
-                              >
-                                <div className="flex justify-between items-center border-b-2 py-2 hover:bg-gray-50">
-                                  <div className="flex flex-col gap-1">
-                                    <h4 className="m-0">Custom Fields</h4>
-                                    <p className="m-0">
-                                      View list of roles used on the system
-                                    </p>
-                                  </div>
-                                  <div className="text-lg pr-2">
-                                    <IoMdArrowDropright />
-                                  </div>
-                                </div>
-                              </Link>
-                            </li>
-                            <li className="max-w-xl">
-                              <Link
-                                to={`/client/information/notes?clientId=${clientId}`}
-                              >
-                                <div className="flex justify-between items-center border-b-2 py-2 hover:bg-gray-50">
-                                  <div className="flex flex-col gap-1">
-                                    <h4 className="m-0">Notes</h4>
-                                    <p className="m-0">
-                                      View list of roles used on the system
-                                    </p>
-                                  </div>
-                                  <div className="text-lg pr-2">
-                                    <IoMdArrowDropright />
-                                  </div>
-                                </div>
-                              </Link>
-                            </li>
-                          </ul>
-                        </div>
-                      </React.Fragment>
-                    );
-                  })}
-              </>
+            {(error || !client?.success || client?.data.length === 0) && (
+              <div className="py-10">
+                <h1 className="text-center text-gray-400 text-base">
+                  Page not found.
+                </h1>
+              </div>
             )}
+            {isLoading && <TableLoading cols={1} count={20} />}
+            {client?.success > 0 &&
+              client?.data.map((item, key) => {
+                return (
+                  <React.Fragment key={key}>
+                    <div className="flex justify-between items-center my-5">
+                      <h1 className="mb-0">{item.client_client_id}</h1>
+                    </div>
+                    <div>
+                      <ul>
+                        <li className="max-w-xl">
+                          <Link
+                            to={`/client/information/main?clientId=${clientId}`}
+                          >
+                            <div className="flex justify-between items-center border-b-2 py-2  hover:bg-gray-50">
+                              <div className="flex flex-col gap-1">
+                                <h4 className="m-0">Main</h4>
+                                <p className="m-0">View list of main</p>
+                              </div>
+                              <div className="text-lg pr-2">
+                                <IoMdArrowDropright />
+                              </div>
+                            </div>
+                          </Link>
+                        </li>
+                        <li className="max-w-xl">
+                          <Link
+                            to={`/client/information/contact-information?clientId=${clientId}`}
+                          >
+                            <div className="flex justify-between items-center border-b-2 py-2 hover:bg-gray-50">
+                              <div className="flex flex-col gap-1">
+                                <h4 className="m-0">Contact Information</h4>
+                                <p className="m-0">View list of main</p>
+                              </div>
+                              <div className="text-lg pr-2">
+                                <IoMdArrowDropright />
+                              </div>
+                            </div>
+                          </Link>
+                        </li>
+                        <li className="max-w-xl">
+                          <Link
+                            to={`/client/information/engagement?clientId=${clientId}`}
+                          >
+                            <div className="flex justify-between items-center border-b-2 py-2 hover:bg-gray-50">
+                              <div className="flex flex-col gap-1">
+                                <h4 className="m-0">Engagement</h4>
+                                <p className="m-0">
+                                  View list of roles used on the system
+                                </p>
+                              </div>
+                              <div className="text-lg pr-2">
+                                <IoMdArrowDropright />
+                              </div>
+                            </div>
+                          </Link>
+                        </li>
+                        <li className="max-w-xl">
+                          <Link
+                            to={`/client/information/billing-ar?clientId=${clientId}`}
+                          >
+                            <div className="flex justify-between items-center border-b-2 py-2 hover:bg-gray-50">
+                              <div className="flex flex-col gap-1">
+                                <h4 className="m-0">Billing and A/R</h4>
+                                <p className="m-0">
+                                  View list of roles used on the system
+                                </p>
+                              </div>
+                              <div className="text-lg pr-2">
+                                <IoMdArrowDropright />
+                              </div>
+                            </div>
+                          </Link>
+                        </li>
+                        <li className="max-w-xl">
+                          <Link
+                            to={`/client/information/custom-fields?clientId=${clientId}`}
+                          >
+                            <div className="flex justify-between items-center border-b-2 py-2 hover:bg-gray-50">
+                              <div className="flex flex-col gap-1">
+                                <h4 className="m-0">Custom Fields</h4>
+                                <p className="m-0">
+                                  View list of roles used on the system
+                                </p>
+                              </div>
+                              <div className="text-lg pr-2">
+                                <IoMdArrowDropright />
+                              </div>
+                            </div>
+                          </Link>
+                        </li>
+                        <li className="max-w-xl">
+                          <Link
+                            to={`/client/information/notes?clientId=${clientId}`}
+                          >
+                            <div className="flex justify-between items-center border-b-2 py-2 hover:bg-gray-50">
+                              <div className="flex flex-col gap-1">
+                                <h4 className="m-0">Notes</h4>
+                                <p className="m-0">
+                                  View list of roles used on the system
+                                </p>
+                              </div>
+                              <div className="text-lg pr-2">
+                                <IoMdArrowDropright />
+                              </div>
+                            </div>
+                          </Link>
+                        </li>
+                      </ul>
+                    </div>
+                  </React.Fragment>
+                );
+              })}
           </div>
           <MainFooter />
         </main>
