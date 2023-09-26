@@ -7,6 +7,7 @@ import Navigation from "../../../partials/Navigation";
 import ModalAddStaff from "./ModalAddStaff";
 import StaffTable from "./StaffTable";
 import Toast from "../../../partials/Toast";
+import ModalValidate from "../../../partials/modals/ModalValidate";
 
 const Staff = () => {
   const { store, dispatch } = React.useContext(StoreContext);

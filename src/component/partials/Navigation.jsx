@@ -2,7 +2,11 @@ import React from "react";
 import { BsGear, BsPersonVcard } from "react-icons/bs";
 import { LiaToolsSolid, LiaBusinessTimeSolid } from "react-icons/lia";
 import { BiUserCircle } from "react-icons/bi";
-import { setIsSettingsOpen, setIsToolsOpen } from "../../store/StoreAction";
+import {
+  setIsSearch,
+  setIsSettingsOpen,
+  setIsToolsOpen,
+} from "../../store/StoreAction";
 import { PiCaretRight } from "react-icons/pi";
 import { devNavUrl } from "../helpers/functions-general";
 import { StoreContext } from "../../store/StoreContext";
@@ -19,6 +23,11 @@ const Navigation = ({ menu, submenu = null, val }) => {
   const handleDropDownSettings = (e) => {
     dispatch(setIsSettingsOpen(!store.isSettingsOpen));
   };
+
+  const handleSearchReset = (e) => {
+    dispatch(setIsSearch(false));
+  };
+
   //   const handleDropDownTimeEntry = (e) => {
   //     dispatch(setIsTimeEntryOpen(!store.isTimeEntryOpen));
   //   };
@@ -111,7 +120,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
         <Link className="nav__link" to={`${urlRolePath}/staff`}>
           <button
             className={`${menu === "staff" ? "bg-[#436c8a]" : ""}`}
-            // onClick={() => handleDropDownStaff()}
+            onClick={() => handleSearchReset()}
           >
             <div className="flex justify-between items-center w-full">
               <div className="flex gap-3 items-center ">
@@ -126,7 +135,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
         <Link className="nav__link" to={`${urlRolePath}/client`}>
           <button
             className={`${menu === "client" ? "bg-[#436c8a]" : ""}`}
-            // onClick={() => handleDropDownClient()}
+            onClick={() => handleSearchReset()}
           >
             <div className="flex justify-between items-center w-full">
               <div className="flex gap-3 items-center ">
@@ -167,6 +176,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
                 className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
                   submenu === "settingsAccessLevel" ? "active__submenu" : ""
                 }`}
+                onClick={() => handleSearchReset()}
               >
                 Access Level
               </Link>
@@ -181,6 +191,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
                 className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
                   submenu === "settingsUsers" ? "active__submenu" : ""
                 }`}
+                onClick={() => handleSearchReset()}
               >
                 Users
               </Link>
@@ -197,6 +208,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
                 className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
                   submenu === "settingsActivity" ? "active__submenu" : ""
                 }`}
+                onClick={() => handleSearchReset()}
               >
                 Activity
               </Link>
@@ -211,6 +223,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
                 className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
                   submenu === "settingsRates" ? "active__submenu" : ""
                 }`}
+                onClick={() => handleSearchReset()}
               >
                 Rates
               </Link>
@@ -227,6 +240,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
                 className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
                   submenu === "settingsEngagement" ? "active__submenu" : ""
                 }`}
+                onClick={() => handleSearchReset()}
               >
                 Engagement
               </Link>
@@ -241,6 +255,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
                 className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
                   submenu === "settingsOffice" ? "active__submenu" : ""
                 }`}
+                onClick={() => handleSearchReset()}
               >
                 Office
               </Link>
@@ -273,6 +288,7 @@ const Navigation = ({ menu, submenu = null, val }) => {
                 className={`text-white border-l-2 hover:!border-accent duration-150 hover:!border-l-2 border-transparent pl-2 w-fit inline-block py-1 ${
                   submenu === "settingsEntities" ? "active__submenu" : ""
                 }`}
+                onClick={() => handleSearchReset()}
               >
                 Entities
               </Link>

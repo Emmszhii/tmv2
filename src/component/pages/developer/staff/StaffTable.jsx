@@ -9,6 +9,7 @@ import {
   setIsAdd,
   setIsConfirm,
   setIsRestore,
+  setIsSearch,
 } from "../../../../store/StoreAction";
 import { StoreContext } from "../../../../store/StoreContext";
 import { queryDataInfinite } from "../../../helpers/queryDataInfinite";
@@ -66,6 +67,8 @@ const StaffTable = ({ setItemEdit }) => {
       return;
     },
     refetchOnWindowFocus: true,
+    // networkMode: "always",
+    // cacheTime: 200,
   });
 
   const { data: staff } = useQueryData(
