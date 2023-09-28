@@ -21,7 +21,7 @@ checkPayload($data);
 if (empty($_GET)) {
     // get task id from query string
     $staff->staff_search = checkIndex($data, "search");
-    $query = checkSearchOffice($staff);
+    $query = checkSearchDepartment($staff);
     http_response_code(200);
     getQueriedData($query);
 }

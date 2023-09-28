@@ -29,6 +29,12 @@ const ModalAddStaff = ({ itemEdit }) => {
   const [searchOffice, setSearchOffice] = React.useState("");
   const [dataOffice, setDataOffice] = React.useState([]);
   const [OfficeId, setOfficeId] = React.useState("");
+  // search department
+  const [loadingDepartment, setLoadingDepartment] = React.useState(false);
+  const [isSearchDepartment, setIsSearchDepartment] = React.useState(false);
+  const [searchDepartment, setSearchDepartment] = React.useState("");
+  const [dataDepartment, setDataDepartment] = React.useState([]);
+  const [DepartmentId, setDepartmentId] = React.useState("");
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -44,6 +50,7 @@ const ModalAddStaff = ({ itemEdit }) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["staff"] });
       setSearchOffice("");
+      setSearchODepartment("");
       if (data.success) {
         dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
@@ -57,16 +64,16 @@ const ModalAddStaff = ({ itemEdit }) => {
     },
   });
 
-  const {
-    loadingDepartment,
-    isFetchingDepartment,
-    errorDepartment,
-    data: department,
-  } = useQueryData(
-    `/v2/controllers/developer/settings/department/department.php`,
-    "get",
-    "settings-department"
-  );
+  // const {
+  //   loadingDepartment,
+  //   isFetchingDepartment,
+  //   errorDepartment,
+  //   data: department,
+  // } = useQueryData(
+  //   `/v2/controllers/developer/settings/department/department.php`,
+  //   "get",
+  //   "settings-department"
+  // );
 
   // const {
   //   loadingOffice,
@@ -91,6 +98,7 @@ const ModalAddStaff = ({ itemEdit }) => {
     staff_date_hired: itemEdit ? itemEdit.staff_date_hired : "",
     staff_office: itemEdit ? itemEdit.staff_office : "",
     searchOffice: "",
+    searchDepartment: "",
   };
 
   const yupSchema = Yup.object({
@@ -103,6 +111,7 @@ const ModalAddStaff = ({ itemEdit }) => {
     staff_date_hired: Yup.string().required("Required"),
     staff_office: Yup.string().required("Required"),
     searchOffice: Yup.string().required("Required"),
+    searchDepartment: Yup.string().required("Required"),
   });
 
   const handleClose = () => {
@@ -136,6 +145,7 @@ const ModalAddStaff = ({ itemEdit }) => {
                 mutation.mutate({
                   ...values,
                   settings_office_name: OfficeId,
+                  settings_department_name: DepartmentId,
                 });
                 resetForm();
               }}
@@ -193,7 +203,23 @@ const ModalAddStaff = ({ itemEdit }) => {
                         />
                       </div>
                       <div className="form__wrap">
-                        <InputSelect
+                        <Search
+                          label="Department"
+                          name="searchDepartment"
+                          disabled={mutation.isLoading}
+                          endpoint={`/v2/controllers/developer/staff/search-department.php`}
+                          setSearch={setSearchDepartment}
+                          setIsSearch={setIsSearchDepartment}
+                          handleSearchModal={handleSearchModal}
+                          setLoading={setLoadingDepartment}
+                          setData={setDataDepartment}
+                          search={searchDepartment}
+                          isSearch={isSearchDepartment}
+                          loading={loadingDepartment}
+                          data={dataDepartment}
+                          setId={setDepartmentId}
+                        />
+                        {/* <InputSelect
                           label="Department"
                           type="text"
                           name="staff_department"
@@ -229,7 +255,7 @@ const ModalAddStaff = ({ itemEdit }) => {
                               )}
                             </optgroup>
                           )}
-                        </InputSelect>
+                        </InputSelect> */}
                       </div>
                       <div className="form__wrap">
                         <Search

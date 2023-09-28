@@ -11,7 +11,15 @@ function checkReadAllDepartmentByIdAndStaffId($object)
 function checkSearchOffice($object)
 {
     $query = $object->searchOffice();
-    checkQuery($query, "Empty records. (search individual)");
+    checkQuery($query, "Empty records. (search office)");
+    return $query;
+}
+
+// Read search office
+function checkSearchDepartment($object)
+{
+    $query = $object->searchDepartment();
+    checkQuery($query, "Empty records. (search department)");
     return $query;
 }
  
