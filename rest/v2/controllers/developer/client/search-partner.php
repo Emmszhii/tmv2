@@ -21,7 +21,7 @@ checkPayload($data);
 if (empty($_GET)) {
     // get task id from query string
     $client->client_search = checkIndex($data, "search");
-    $query = checkSearchEntities($client);
+    $query = checkSearchPartner($client);
     http_response_code(200);
     getQueriedData($query);
 }

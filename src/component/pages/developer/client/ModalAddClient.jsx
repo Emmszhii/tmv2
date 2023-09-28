@@ -15,6 +15,7 @@ import { handleEscape } from "../../../helpers/functions-general";
 import { queryData } from "../../../helpers/queryData";
 import ButtonSpinner from "../../../partials/spinners/ButtonSpinner";
 import SearchEntity from "./search/SearchEntity";
+import SearchPartner from "./search/SearchPartner";
 
 const ModalAddClient = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
@@ -25,6 +26,24 @@ const ModalAddClient = ({ itemEdit }) => {
   const [searchEntity, setSearchEntity] = React.useState("");
   const [dataEntity, setDataEntity] = React.useState([]);
   const [entityId, setEntityId] = React.useState("");
+  // search Partner
+  const [loadingPartner, setLoadingPartner] = React.useState(false);
+  const [isSearchPartner, setIsSearchPartner] = React.useState(false);
+  const [searchPartner, setSearchPartner] = React.useState("");
+  const [dataPartner, setDataPartner] = React.useState([]);
+  const [partnerId, setPartnerId] = React.useState("");
+  // search Manager
+  const [loadingManager, setLoadingManager] = React.useState(false);
+  const [isSearchManager, setIsSearchManager] = React.useState(false);
+  const [searchManager, setSearchManager] = React.useState("");
+  const [dataManager, setDataManager] = React.useState([]);
+  const [managerId, setManagerId] = React.useState("");
+  // search Associate
+  const [loadingAssociate, setLoadingAssociate] = React.useState(false);
+  const [isSearchAssociate, setIsSearchAssociate] = React.useState(false);
+  const [searchAssociate, setSearchAssociate] = React.useState("");
+  const [dataAssociate, setDataAssociate] = React.useState([]);
+  const [associateId, setAssociateId] = React.useState("");
 
   const mutation = useMutation({
     mutationFn: (values) =>
@@ -59,17 +78,24 @@ const ModalAddClient = ({ itemEdit }) => {
     client_client_id_old: itemEdit ? itemEdit.client_client_id : "",
     client_description_old: itemEdit ? itemEdit.client_description : "",
     searchEntity: "",
+    searchPartner: "",
+    searchManager: "",
+    searchAssociate: "",
   };
 
   const yupSchema = Yup.object({
     client_client_id: Yup.string().required("Required"),
     client_name: Yup.string().required("Required"),
     client_description: Yup.string().required("Required"),
+    searchPartner: Yup.string().required("Required"),
+    searchManager: Yup.string().required("Required"),
+    searchAssociate: Yup.string().required("Required"),
     searchEntity: Yup.string().required("Required"),
   });
 
   const handleSearchModal = () => {
     setIsSearchEntity(false);
+    setIsSearchPartner(false);
   };
 
   const handleClose = () => {
@@ -96,7 +122,13 @@ const ModalAddClient = ({ itemEdit }) => {
               validationSchema={yupSchema}
               onSubmit={async (values, { setSubmitting, resetForm }) => {
                 // mutate data
-                mutation.mutate({ ...values, client_entities_id: entityId });
+                mutation.mutate({
+                  ...values,
+                  client_partner_id: partnerId,
+                  client_manager_id: managerId,
+                  client_associate_id: associateId,
+                  client_entities_id: entityId,
+                });
               }}
             >
               {(props) => {
@@ -125,6 +157,24 @@ const ModalAddClient = ({ itemEdit }) => {
                           type="text"
                           name="client_description"
                           disabled={mutation.isLoading}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <SearchPartner
+                          label="Partner"
+                          name="searchPartner"
+                          disabled={mutation.isLoading}
+                          endpoint={`/v2/controllers/developer/client/search-partner.php`}
+                          setSearch={setSearchPartner}
+                          setIsSearch={setIsSearchPartner}
+                          handleSearchModal={handleSearchModal}
+                          setLoading={setLoadingPartner}
+                          setData={setDataPartner}
+                          search={searchPartner}
+                          isSearch={isSearchPartner}
+                          loading={loadingPartner}
+                          data={dataPartner}
+                          setId={setPartnerId}
                         />
                       </div>
                       <div className="form__wrap">

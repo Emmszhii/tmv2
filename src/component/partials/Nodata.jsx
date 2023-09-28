@@ -8,7 +8,9 @@ const Nodata = ({ width = 90, height = 110, txtSize = "text-5xl" }) => {
         <span className={`${txtSize} text-gray-400`}>
           <IconNoData width={width} height={height} />
         </span>
-        <span className="font-bold text-gray-300 text-base">No Data Found</span>
+        <span className={`font-bold text-gray-300 ${txtSize}`}>
+          No Data Found
+        </span>
       </div>
     </>
   );

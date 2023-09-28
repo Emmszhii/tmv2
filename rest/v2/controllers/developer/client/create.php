@@ -14,6 +14,7 @@ checkPayload($data);
 $client->client_client_id = strtoupper(checkIndex($data, "client_client_id"));
 $client->client_name = strtoupper(checkIndex($data, "client_name"));
 $client->client_description = checkIndex($data, "client_description");
+$client->client_partner_id = checkIndex($data, "client_partner_id");
 $client->client_entities_id = checkIndex($data, "client_entities_id");
 $client->client_is_active = 1;
 $client->client_created_at = date("Y-m-d H:i:s");
