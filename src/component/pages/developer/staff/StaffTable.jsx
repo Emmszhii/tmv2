@@ -26,6 +26,8 @@ import ModalDeleteAndRestore from "../../../partials/modals/ModalDeleteAndRestor
 import useQueryData from "../../../custom-hooks/useQueryData";
 import TableSpinner from "../../../partials/spinners/TableSpinner";
 import Pills from "../../../partials/Pills";
+import { Link } from "react-router-dom";
+import { devNavUrl } from "../../../helpers/functions-general";
 
 const StaffTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -196,13 +198,13 @@ const StaffTable = ({ setItemEdit }) => {
                         {item.staff_is_active === 1 ? (
                           <ul className=" flex items-center  gap-4 bg-">
                             <li>
-                              <button
+                              <Link
+                                to={`${devNavUrl}/staff/information?staffId=${item.staff_aid}`}
                                 className="tooltip"
                                 data-tooltip="View"
-                                // onClick={() => handleEdit(item)}
                               >
                                 <FaRegEye />
-                              </button>
+                              </Link>
                             </li>
                             <li>
                               <button
