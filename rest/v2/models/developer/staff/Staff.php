@@ -23,11 +23,15 @@ class Staff
     public $connection;
     public $lastInsertedId;
     public $tblStaff;
+    public $tblSettingsOffice;
+    public $tblSettingsDepartment;
 
     public function __construct($db)
     {
         $this->connection = $db;
         $this->tblStaff = "tmv2_staff";
+        $this->tblSettingsOffice = "tmv2_settings_office";
+        $this->tblSettingsDepartment = "tmv2_settings_department";
     }
 
     // create
@@ -239,4 +243,49 @@ class Staff
         }
         return $query;
     }
+
+       // search
+       public function searchOffice()
+       {
+           try {
+               $sql = "select ";
+               $sql .= "settings_office_is_active, ";
+               $sql .= "settings_office_aid as id, ";
+               $sql .= "settings_office_name as name ";
+               $sql .= "from {$this->tblSettingsOffice} ";
+               $sql .= "where settings_office_is_active = '1' ";
+               $sql .= "and settings_office_name like :settings_office_name ";
+               $sql .= "order by settings_office_is_active desc, ";
+               $sql .= "settings_office_name asc ";
+               $query = $this->connection->prepare($sql);
+               $query->execute([
+                   "settings_office_name" => "%{$this->staff_search}%",
+               ]);
+           } catch (PDOException $ex) {
+               $query = false;
+           }
+           return $query;
+       }
+       // search
+       public function searchDepartment()
+       {
+           try {
+               $sql = "select ";
+               $sql .= "settings_department_is_active, ";
+               $sql .= "settings_department_aid as id, ";
+               $sql .= "settings_department_name as name ";
+               $sql .= "from {$this->tblSettingsDepartment} ";
+               $sql .= "where settings_department_is_active = '1' ";
+               $sql .= "and settings_department_name like :settings_department_name ";
+               $sql .= "order by settings_department_is_active desc, ";
+               $sql .= "settings_department_name asc ";
+               $query = $this->connection->prepare($sql);
+               $query->execute([
+                   "settings_department_name" => "%{$this->staff_search}%",
+               ]);
+           } catch (PDOException $ex) {
+               $query = false;
+           }
+           return $query;
+       }
 }

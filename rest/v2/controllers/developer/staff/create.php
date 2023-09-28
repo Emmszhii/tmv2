@@ -26,4 +26,4 @@ $staff->staff_updated_at = date("Y-m-d H:i:s");
 isNameExist($staff, $staff->staff_id);
 // create
 $query = checkCreate($staff);
-returnSuccess($staff, "Client", $query);
+returnSuccess($staff, "Staff", $query);
