@@ -1,15 +1,4 @@
 import React from "react";
-// import { StoreContext } from "../../../../../../store/StoreContext";
-// import Header from "../../../../../partials/Header";
-// import Navigation from "../../../../../partials/Navigation";
-// import BreadCrumbs from "../../../../../partials/Breadcrumbs";
-// import MainFooter from "../../../../../partials/MainFooter";
-// import { getUrlParam } from "../../../../../helpers/functions-general";
-// import useQueryData from "../../../../../custom-hooks/useQueryData";
-// import FetchingSpinner from "../../../../../partials/spinners/FetchingSpinner";
-// import ServerError from "../../../../../partials/ServerError";
-// import TableLoading from "../../../../../partials/TableLoading";
-// import Nodata from "../../../../../partials/Nodata";
 import { BiChevronDown, BiChevronRight } from "react-icons/bi";
 import { FiEdit3 } from "react-icons/fi";
 import { StoreContext } from "../../../../../store/StoreContext";
@@ -25,9 +14,6 @@ import { setIsAdd } from "../../../../../store/StoreAction";
 import { getUrlParam } from "../../../../helpers/functions-general";
 import FetchingSpinner from "../../../../partials/spinners/FetchingSpinner";
 import BreadCrumbs from "../../../../partials/Breadcrumbs";
-// import ModalAddClient from "../../ModalAddClient";
-// import ModalValidate from "../../../../../partials/modals/ModalValidate";
-// import Toast from "../../../../../partials/Toast";
 
 const StaffInformation = () => {
   const { store, dispatch } = React.useContext(StoreContext);

@@ -19,9 +19,16 @@ import {
 } from "../../../helpers/FormInputs";
 import ButtonSpinner from "../../../partials/spinners/ButtonSpinner";
 import useQueryData from "../../../custom-hooks/useQueryData";
+import Search from "./Search";
 
 const ModalAddStaff = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
+  // search Office
+  const [loadingOffice, setLoadingOffice] = React.useState(false);
+  const [isSearchOffice, setIsSearchOffice] = React.useState(false);
+  const [searchOffice, setSearchOffice] = React.useState("");
+  const [dataOffice, setDataOffice] = React.useState([]);
+  const [OfficeId, setOfficeId] = React.useState("");
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -36,6 +43,7 @@ const ModalAddStaff = ({ itemEdit }) => {
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["staff"] });
+      setSearchOffice("");
       if (data.success) {
         dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
@@ -60,16 +68,16 @@ const ModalAddStaff = ({ itemEdit }) => {
     "settings-department"
   );
 
-  const {
-    loadingOffice,
-    isFetchingOffice,
-    errorOffice,
-    data: office,
-  } = useQueryData(
-    `/v2/controllers/developer/settings/office/office.php`,
-    "get",
-    "settings-office"
-  );
+  // const {
+  //   loadingOffice,
+  //   isFetchingOffice,
+  //   errorOffice,
+  //   data: office,
+  // } = useQueryData(
+  //   `/v2/controllers/developer/settings/office/office.php`,
+  //   "get",
+  //   "settings-office"
+  // );
 
   const initVal = {
     staff_id_old: itemEdit ? itemEdit.staff_id : "",
@@ -82,6 +90,7 @@ const ModalAddStaff = ({ itemEdit }) => {
     staff_department: itemEdit ? itemEdit.staff_department : "",
     staff_date_hired: itemEdit ? itemEdit.staff_date_hired : "",
     staff_office: itemEdit ? itemEdit.staff_office : "",
+    searchOffice: "",
   };
 
   const yupSchema = Yup.object({
@@ -93,10 +102,15 @@ const ModalAddStaff = ({ itemEdit }) => {
     staff_department: Yup.string().required("Required"),
     staff_date_hired: Yup.string().required("Required"),
     staff_office: Yup.string().required("Required"),
+    searchOffice: Yup.string().required("Required"),
   });
 
   const handleClose = () => {
     dispatch(setIsAdd(false));
+  };
+
+  const handleSearchModal = () => {
+    setIsSearchOffice(false);
   };
 
   handleEscape(() => handleClose());
@@ -119,7 +133,11 @@ const ModalAddStaff = ({ itemEdit }) => {
               validationSchema={yupSchema}
               onSubmit={async (values, { setSubmitting, resetForm }) => {
                 // mutate data
-                mutation.mutate(values);
+                mutation.mutate({
+                  ...values,
+                  settings_office_name: OfficeId,
+                });
+                resetForm();
               }}
             >
               {(props) => {
@@ -214,7 +232,23 @@ const ModalAddStaff = ({ itemEdit }) => {
                         </InputSelect>
                       </div>
                       <div className="form__wrap">
-                        <InputSelect
+                        <Search
+                          label="Office"
+                          name="searchOffice"
+                          disabled={mutation.isLoading}
+                          endpoint={`/v2/controllers/developer/staff/search-office.php`}
+                          setSearch={setSearchOffice}
+                          setIsSearch={setIsSearchOffice}
+                          handleSearchModal={handleSearchModal}
+                          setLoading={setLoadingOffice}
+                          setData={setDataOffice}
+                          search={searchOffice}
+                          isSearch={isSearchOffice}
+                          loading={loadingOffice}
+                          data={dataOffice}
+                          setId={setOfficeId}
+                        />
+                        {/* <InputSelect
                           label="Office"
                           type="text"
                           name="staff_office"
@@ -250,7 +284,7 @@ const ModalAddStaff = ({ itemEdit }) => {
                               )}
                             </optgroup>
                           )}
-                        </InputSelect>
+                        </InputSelect> */}
                       </div>
 
                       <div className="modal__action flex justify-end mt-6 gap-2">
