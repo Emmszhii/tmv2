@@ -14,3 +14,30 @@ export const getClientCountRecord = (client) => {
 
   return { active, inactive };
 };
+
+export const getStaffName = (data, id) => {
+  let name = "";
+
+  if (data?.count > 0) {
+    data?.data.filter((item) => {
+      if (item.staff_aid === Number(id)) {
+        name = `${item.staff_first_name} ${item.staff_last_name}`;
+      }
+    });
+  }
+
+  return name;
+};
+
+export const getEntity = (data, id) => {
+  let name = "";
+
+  if (data?.count > 0) {
+    data?.data.filter((item) => {
+      if (item.entities_aid === Number(id)) {
+        name = item.entities_id;
+      }
+    });
+  }
+  return name;
+};

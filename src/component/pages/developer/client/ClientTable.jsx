@@ -19,7 +19,11 @@ import { useInView } from "react-intersection-observer";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { queryDataInfinite } from "../../../helpers/queryDataInfinite";
 import useQueryData from "../../../custom-hooks/useQueryData";
-import { getClientCountRecord } from "./functions-client";
+import {
+  getClientCountRecord,
+  getEntity,
+  getStaffName,
+} from "./functions-client";
 import {
   setIsConfirm,
   setIsRestore,
@@ -72,6 +76,16 @@ const ClientTable = ({ setItemEdit }) => {
     `/v2/controllers/developer/client/client.php`,
     "get",
     "client"
+  );
+  const { isLoading: staffLoading, data: staff } = useQueryData(
+    `/v2/controllers/developer/staff/staff.php`,
+    "get",
+    "staff"
+  );
+  const { isLoading: entityLoading, data: entity } = useQueryData(
+    `/v2/controllers/developer/settings/entities/entities.php`,
+    "get",
+    "entity"
   );
 
   React.useEffect(() => {
@@ -132,11 +146,15 @@ const ClientTable = ({ setItemEdit }) => {
           <thead>
             <tr>
               <th>#</th>
-              <th width={`100px`}>Status</th>
-              <th width={`100px`}></th>
-              <th width={`170px`}>Client ID</th>
-              <th width={`170px`}>Description</th>
-              <th>Name</th>
+              <th width={`50px`}>Status</th>
+              <th width={`50px`}></th>
+              <th width={`50px`}>Client ID</th>
+              <th width={`50px`}>Description</th>
+              <th width={`50px`}>Name</th>
+              <th width={`50px`}>Partner</th>
+              <th width={`50px`}>Manager</th>
+              <th width={`50px`}>Assoiate</th>
+              <th width={`50px`}>Entity</th>
               <th className="action lg:hidden"></th>
             </tr>
           </thead>
@@ -162,8 +180,6 @@ const ClientTable = ({ setItemEdit }) => {
             {result?.pages.map((page, key) => (
               <React.Fragment key={key}>
                 {page.data.map((item, key) => {
-                  active += item.client_is_active === 1;
-                  inactive += item.client_is_active === 0;
                   return (
                     <tr key={key}>
                       <td>{counter++}.</td>
@@ -184,6 +200,27 @@ const ClientTable = ({ setItemEdit }) => {
                       <td>{item.client_client_id}</td>
                       <td>{item.client_description}</td>
                       <td>{item.client_name}</td>
+                      <td>
+                        {staffLoading
+                          ? "Loading.."
+                          : getStaffName(staff, item.client_partner_id)}
+                      </td>
+                      <td>
+                        {staffLoading
+                          ? "Loading..."
+                          : getStaffName(staff, item.client_manager_id)}
+                      </td>
+                      <td>
+                        {staffLoading
+                          ? "Loading..."
+                          : getStaffName(staff, item.client_associate_id)}
+                      </td>
+                      <td>
+                        {entityLoading
+                          ? "Loading..."
+                          : getEntity(entity, item.client_entities_id)}
+                      </td>
+
                       <td
                         className="table__action top-0 right-5 "
                         data-ellipsis=". . ."
