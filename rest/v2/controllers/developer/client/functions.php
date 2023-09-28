@@ -22,3 +22,10 @@ function checkSearchPartner($object)
     checkQuery($query, "Empty records. (search Partner)");
     return $query;
 }
+// Read search Staff in Table Staff
+function checkSearchStaff($object)
+{
+    $query = $object->searchStaff();
+    checkQuery($query, "Empty records. (search Staff)");
+    return $query;
+}

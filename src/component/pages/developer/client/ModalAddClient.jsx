@@ -16,6 +16,8 @@ import { queryData } from "../../../helpers/queryData";
 import ButtonSpinner from "../../../partials/spinners/ButtonSpinner";
 import SearchEntity from "./search/SearchEntity";
 import SearchPartner from "./search/SearchPartner";
+import SearchManager from "./search/SearchManager";
+import SearchAssociate from "./search/SearchAssociate";
 
 const ModalAddClient = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
@@ -175,6 +177,42 @@ const ModalAddClient = ({ itemEdit }) => {
                           loading={loadingPartner}
                           data={dataPartner}
                           setId={setPartnerId}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <SearchManager
+                          label="Manager"
+                          name="searchManager"
+                          disabled={mutation.isLoading}
+                          endpoint={`/v2/controllers/developer/client/search-staff.php`}
+                          setSearch={setSearchManager}
+                          setIsSearch={setIsSearchManager}
+                          handleSearchModal={handleSearchModal}
+                          setLoading={setLoadingManager}
+                          setData={setDataManager}
+                          search={searchManager}
+                          isSearch={isSearchManager}
+                          loading={loadingManager}
+                          data={dataManager}
+                          setId={setManagerId}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <SearchAssociate
+                          label="Associate"
+                          name="searchAssociate"
+                          disabled={mutation.isLoading}
+                          endpoint={`/v2/controllers/developer/client/search-staff.php`}
+                          setSearch={setSearchAssociate}
+                          setIsSearch={setIsSearchAssociate}
+                          handleSearchModal={handleSearchModal}
+                          setLoading={setLoadingAssociate}
+                          setData={setDataAssociate}
+                          search={searchAssociate}
+                          isSearch={isSearchAssociate}
+                          loading={loadingAssociate}
+                          data={dataAssociate}
+                          setId={setAssociateId}
                         />
                       </div>
                       <div className="form__wrap">
