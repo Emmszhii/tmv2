@@ -155,7 +155,7 @@ const ClientTable = ({ setItemEdit }) => {
               <th width={`50px`}>Manager</th>
               <th width={`50px`}>Assoiate</th>
               <th width={`50px`}>Entity</th>
-              <th className="action lg:hidden"></th>
+              <th className="action"></th>
             </tr>
           </thead>
           <tbody>
@@ -221,12 +221,12 @@ const ClientTable = ({ setItemEdit }) => {
                           : getEntity(entity, item.client_entities_id)}
                       </td>
 
-                      <td
-                        className="table__action top-0 right-5 "
-                        data-ellipsis=". . ."
-                      >
+                      <td>
                         {item.client_is_active === 1 ? (
-                          <ul className=" flex items-center  gap-4 bg-">
+                          <ul
+                            className=" flex items-center  gap-4 table__action top-0 right-5"
+                            data-ellipsis=". . ."
+                          >
                             <li>
                               <Link
                                 to={`/client/information?clientId=${item.client_aid}`}
