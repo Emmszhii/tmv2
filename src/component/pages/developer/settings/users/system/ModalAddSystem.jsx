@@ -121,43 +121,7 @@ const ModalAddSystem = ({ itemEdit }) => {
                         />
                       </div>
                       <div className="form__wrap">
-                        <InputSelect
-                          label="Role"
-                          type="text"
-                          name="settings_system_roles_id"
-                          disabled={mutation.isLoading}
-                          onChange={(e) => e}
-                        >
-                          {loadingRoles ? (
-                            <option value="" hidden>
-                              Loading..
-                            </option>
-                          ) : errorRoles ? (
-                            <option value="" disabled>
-                              Error
-                            </option>
-                          ) : (
-                            <optgroup label="Select Role">
-                              <option value="" hidden></option>
-                              {roles?.data.length > 0 ? (
-                                roles?.data.map((item, key) => {
-                                  return (
-                                    <option
-                                      value={item.settings_roles_aid}
-                                      key={key}
-                                    >
-                                      {item.settings_roles_name}
-                                    </option>
-                                  );
-                                })
-                              ) : (
-                                <option value="" disabled>
-                                  No data
-                                </option>
-                              )}
-                            </optgroup>
-                          )}
-                        </InputSelect>
+                                 
                       </div>
 
                       <div className="modal__action flex justify-end mt-6 gap-2">

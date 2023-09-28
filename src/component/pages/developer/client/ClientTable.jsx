@@ -133,6 +133,7 @@ const ClientTable = ({ setItemEdit }) => {
             <tr>
               <th>#</th>
               <th width={`100px`}>Status</th>
+              <th width={`100px`}></th>
               <th width={`170px`}>Client ID</th>
               <th width={`170px`}>Description</th>
               <th>Name</th>
@@ -172,6 +173,13 @@ const ClientTable = ({ setItemEdit }) => {
                         ) : (
                           <Pills label="Inactive" tc="text-archive" />
                         )}
+                      </td>
+                      <td>
+                        <img
+                          src="https://placehold.co/50x40"
+                          alt=""
+                          className="rounded-md"
+                        />
                       </td>
                       <td>{item.client_client_id}</td>
                       <td>{item.client_description}</td>

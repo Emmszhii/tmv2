@@ -11,8 +11,8 @@ import ClientTable from "./ClientTable";
 import MainFooter from "../../../partials/MainFooter";
 
 const Client = () => {
-  const [itemEdit, setItemEdit] = React.useState(null);
   const { store, dispatch } = React.useContext(StoreContext);
+  const [itemEdit, setItemEdit] = React.useState(null);
   const handleAdd = () => {
     setItemEdit(null);
     dispatch(setIsAdd(true));

@@ -2,19 +2,19 @@ import React from "react";
 import { IoMdArrowDropright } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { StoreContext } from "../../../../../store/StoreContext";
+import useQueryData from "../../../../custom-hooks/useQueryData";
 import { getUrlParam } from "../../../../helpers/functions-general";
 import BreadCrumbs from "../../../../partials/Breadcrumbs";
 import Header from "../../../../partials/Header";
 import MainFooter from "../../../../partials/MainFooter";
 import Navigation from "../../../../partials/Navigation";
-import useQueryData from "../../../../custom-hooks/useQueryData";
-import TableSpinner from "../../../../partials/spinners/TableSpinner";
-import ServerError from "../../../../partials/ServerError";
 import TableLoading from "../../../../partials/TableLoading";
-import Nodata from "../../../../partials/Nodata";
+import Toast from "../../../../partials/Toast";
+import ModalValidate from "../../../../partials/modals/ModalValidate";
+import TableSpinner from "../../../../partials/spinners/TableSpinner";
 
 const ClientInformation = () => {
-  const { store, dispatch } = React.useContext(StoreContext);
+  const { store } = React.useContext(StoreContext);
   const clientId = getUrlParam().get("clientId");
 
   const {
@@ -166,6 +166,8 @@ const ClientInformation = () => {
           <MainFooter />
         </main>
       </section>
+      {store.validate && <ModalValidate />}
+      {store.success && <Toast />}
     </>
   );
 };

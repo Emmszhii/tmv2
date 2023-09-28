@@ -14,10 +14,23 @@ import { InputText } from "../../../helpers/FormInputs";
 import { handleEscape } from "../../../helpers/functions-general";
 import ButtonSpinner from "../../../partials/spinners/ButtonSpinner";
 import { queryData } from "../../../helpers/queryData";
+import Search from "./Search";
 
 const ModalAddClient = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
+  // search Entity
+  const [loadingEntity, setLoadingEntity] = React.useState(false);
+  const [isSearchEntity, setIsSearchEntity] = React.useState(false);
+  const [searchEntity, setSearchEntity] = React.useState("");
+  const [dataEntity, setDataEntity] = React.useState([]);
+  const [entityId, setEntityId] = React.useState("");
+  // search Partner
+  const [loadingPartner, setLoadingPartner] = React.useState(false);
+  const [isSearchPartner, setIsSearchPartner] = React.useState(false);
+  const [searchPartner, setSearchPartner] = React.useState("");
+  const [dataPartner, setDataPartner] = React.useState([]);
+  const [partnerId, setPartnerId] = React.useState("");
 
   const mutation = useMutation({
     mutationFn: (values) =>
@@ -31,6 +44,9 @@ const ModalAddClient = ({ itemEdit }) => {
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["client"] });
+      // show error search box
+      setSearchEntity("");
+      setSearchPartner("");
       if (data.success) {
         dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
@@ -49,15 +65,25 @@ const ModalAddClient = ({ itemEdit }) => {
     client_name: itemEdit ? itemEdit.client_name : "",
     client_description: itemEdit ? itemEdit.client_description : "",
 
+    searchEntity: "",
+    searchPartner: "",
+
     client_client_id_old: itemEdit ? itemEdit.client_client_id : "",
     client_description_old: itemEdit ? itemEdit.client_description : "",
   };
 
   const yupSchema = Yup.object({
     client_client_id: Yup.string().required("Required"),
-    // client_name: Yup.string().required("Required"),
+    client_name: Yup.string().required("Required"),
     client_description: Yup.string().required("Required"),
+    searchEntity: Yup.string().required("Required"),
+    searchPartner: Yup.string().required("Required"),
   });
+
+  const handleSearchModal = () => {
+    setIsSearchEntity(false);
+    setIsSearchPartner(false);
+  };
 
   const handleClose = () => {
     dispatch(setIsAdd(false));
@@ -83,7 +109,11 @@ const ModalAddClient = ({ itemEdit }) => {
               validationSchema={yupSchema}
               onSubmit={async (values, { setSubmitting, resetForm }) => {
                 // mutate data
-                mutation.mutate(values);
+                mutation.mutate({
+                  ...values,
+                  client_entities_id: entityId,
+                  client_partner_id: partnerId,
+                });
               }}
             >
               {(props) => {
@@ -96,6 +126,7 @@ const ModalAddClient = ({ itemEdit }) => {
                           type="text"
                           name="client_client_id"
                           disabled={mutation.isLoading}
+                          onClick={handleSearchModal}
                         />
                       </div>
                       <div className="form__wrap">
@@ -104,6 +135,7 @@ const ModalAddClient = ({ itemEdit }) => {
                           type="text"
                           name="client_name"
                           disabled={mutation.isLoading}
+                          onClick={handleSearchModal}
                         />
                       </div>
                       <div className="form__wrap">
@@ -112,6 +144,43 @@ const ModalAddClient = ({ itemEdit }) => {
                           type="text"
                           name="client_description"
                           disabled={mutation.isLoading}
+                          onClick={handleSearchModal}
+                        />
+                      </div>
+                      {/* <div className="form__wrap">
+                        <Search
+                          label="Partner"
+                          name="searchPartner"
+                          disabled={mutation.isLoading}
+                          endpoint={`/v2/controllers/developer/client/search-partner.php`}
+                          setSearch={setSearchPartner}
+                          setIsSearch={setIsSearchPartner}
+                          handleSearchModal={handleSearchModal}
+                          setLoading={setLoadingPartner}
+                          setData={setDataPartner}
+                          search={searchPartner}
+                          isSearch={isSearchPartner}
+                          loading={loadingPartner}
+                          data={dataPartner}
+                          setId={setPartnerId}
+                        />
+                      </div> */}
+                      <div className="form__wrap">
+                        <Search
+                          label="Entities"
+                          name="searchEntity"
+                          disabled={mutation.isLoading}
+                          endpoint={`/v2/controllers/developer/client/search-entities.php`}
+                          setSearch={setSearchEntity}
+                          setIsSearch={setIsSearchEntity}
+                          handleSearchModal={handleSearchModal}
+                          setLoading={setLoadingEntity}
+                          setData={setDataEntity}
+                          search={searchEntity}
+                          isSearch={isSearchEntity}
+                          loading={loadingEntity}
+                          data={dataEntity}
+                          setId={setEntityId}
                         />
                       </div>
 

@@ -5,6 +5,8 @@ class Client
     public $client_client_id;
     public $client_name;
     public $client_description;
+    public $client_entities_id;
+    public $client_partner_id;
     public $client_is_active;
     public $client_created_at;
     public $client_updated_at;
@@ -18,11 +20,15 @@ class Client
     public $connection;
     public $lastInsertedId;
     public $tblClient;
+    public $tblEntities;
+    public $tblStaff;
 
     public function __construct($db)
     {
         $this->connection = $db;
         $this->tblClient = "tmv2_client";
+        $this->tblEntities = "tmv2_entities";
+        $this->tblStaff = "tmv2_staff";
     }
 
     // create
@@ -33,12 +39,14 @@ class Client
             $sql .= "( client_client_id, ";
             $sql .= "client_name, ";
             $sql .= "client_description, ";
+            $sql .= "client_entities_id, ";
             $sql .= "client_is_active, ";
             $sql .= "client_created_at, ";
             $sql .= "client_updated_at ) values ( ";
             $sql .= ":client_client_id, ";
             $sql .= ":client_name, ";
             $sql .= ":client_description, ";
+            $sql .= ":client_entities_id, ";
             $sql .= ":client_is_active, ";
             $sql .= ":client_created_at, ";
             $sql .= ":client_updated_at ) ";
@@ -47,6 +55,7 @@ class Client
                 "client_client_id" => $this->client_client_id,
                 "client_name" => $this->client_name,
                 "client_description" => $this->client_description,
+                "client_entities_id" => $this->client_entities_id,
                 "client_is_active" => $this->client_is_active,
                 "client_created_at" => $this->client_created_at,
                 "client_updated_at" => $this->client_updated_at,
@@ -141,6 +150,7 @@ class Client
             $sql .= "client_client_id = :client_client_id, ";
             $sql .= "client_name = :client_name, ";
             $sql .= "client_description = :client_description, ";
+            $sql .= "client_entities_id = :client_entities_id, ";
             $sql .= "client_updated_at = :client_updated_at ";
             $sql .= "where client_aid = :client_aid ";
             $query = $this->connection->prepare($sql);
@@ -148,6 +158,7 @@ class Client
                 "client_client_id" => $this->client_client_id,
                 "client_name" => $this->client_name,
                 "client_description" => $this->client_description,
+                "client_entities_id" => $this->client_entities_id,
                 "client_updated_at" => $this->client_updated_at,
                 "client_aid" => $this->client_aid,
             ]);
@@ -203,6 +214,51 @@ class Client
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "client_client_id" => "{$this->client_client_id}",
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // search Entities in add modal client of tbl Entities
+    public function searchEntities()
+    {
+        try {
+            $sql = "select ";
+            $sql .= "staff_is_active, ";
+            $sql .= "entities_aid as id, ";
+            $sql .= "entities_id as name ";
+            $sql .= "from {$this->tblEntities} ";
+            $sql .= "where entities_is_active = '1' ";
+            $sql .= "and entities_id like :entities_search_id ";
+            $sql .= "order by entities_is_active desc, ";
+            $sql .= "entities_id asc ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "entities_search_id" => "%{$this->client_search}%",
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+    // search Partner in add modal client of tbl Staff
+    public function searchPartner()
+    {
+        try {
+            $sql = "select ";
+            $sql .= "staff_is_active, ";
+            $sql .= "staff_aid as id, ";
+            $sql .= "staff_id as name ";
+            $sql .= "from {$this->tblStaff} ";
+            $sql .= "where staff_is_active = '1' ";
+            $sql .= "and staff_id like :staff_search_id ";
+            $sql .= "order by staff_is_active desc, ";
+            $sql .= "staff_id asc ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "staff_search_id" => "%{$this->client_search}%",
             ]);
         } catch (PDOException $ex) {
             $query = false;
