@@ -226,7 +226,7 @@ class Client
     {
         try {
             $sql = "select ";
-            $sql .= "staff_is_active, ";
+            $sql .= "entities_is_active, ";
             $sql .= "entities_aid as id, ";
             $sql .= "entities_id as name ";
             $sql .= "from {$this->tblEntities} ";
@@ -244,25 +244,25 @@ class Client
         return $query;
     }
     // search Partner in add modal client of tbl Staff
-    public function searchPartner()
-    {
-        try {
-            $sql = "select ";
-            $sql .= "staff_is_active, ";
-            $sql .= "staff_aid as id, ";
-            $sql .= "staff_id as name ";
-            $sql .= "from {$this->tblStaff} ";
-            $sql .= "where staff_is_active = '1' ";
-            $sql .= "and staff_id like :staff_search_id ";
-            $sql .= "order by staff_is_active desc, ";
-            $sql .= "staff_id asc ";
-            $query = $this->connection->prepare($sql);
-            $query->execute([
-                "staff_search_id" => "%{$this->client_search}%",
-            ]);
-        } catch (PDOException $ex) {
-            $query = false;
-        }
-        return $query;
-    }
+    // public function searchPartner()
+    // {
+    //     try {
+    //         $sql = "select ";
+    //         $sql .= "staff_is_active, ";
+    //         $sql .= "staff_aid as id, ";
+    //         $sql .= "staff_id as name ";
+    //         $sql .= "from {$this->tblStaff} ";
+    //         $sql .= "where staff_is_active = '1' ";
+    //         $sql .= "and staff_id like :staff_search_id ";
+    //         $sql .= "order by staff_is_active desc, ";
+    //         $sql .= "staff_id asc ";
+    //         $query = $this->connection->prepare($sql);
+    //         $query->execute([
+    //             "staff_search_id" => "%{$this->client_search}%",
+    //         ]);
+    //     } catch (PDOException $ex) {
+    //         $query = false;
+    //     }
+    //     return $query;
+    // }
 }

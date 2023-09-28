@@ -1,9 +1,10 @@
-import { InputSearch } from "../../../helpers/FormInputs";
-import { pesoSign } from "../../../helpers/functions-general";
-import ButtonSpinner from "../../../partials/spinners/ButtonSpinner";
+import { InputSearch } from "../../../../helpers/FormInputs";
+import Nodata from "../../../../partials/Nodata";
+import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
+import FetchingSpinner from "../../../../partials/spinners/FetchingSpinner";
 import { handleClick, handleSearch } from "./functions-client-search";
 
-const Search = ({
+const SearchEntity = ({
   label,
   name,
   disabled,
@@ -27,15 +28,7 @@ const Search = ({
         disabled={disabled}
         name={name}
         onChange={(e) =>
-          handleSearch(
-            e,
-            setSearch,
-            setIsSearch,
-            setLoading,
-            endpoint,
-            setData,
-            e.target.value
-          )
+          handleSearch(e, setSearch, setIsSearch, setLoading, endpoint, setData)
         }
         value={search}
         placeholder="Search..."
@@ -49,16 +42,16 @@ const Search = ({
       )}
 
       {isSearch && (
-        <ul className="absolute z-50 max-h-32 overflow-y-auto top-16 w-full bg-white shadow-3xl rounded-md custom__scroll">
+        <ul className="custom__scroll absolute z-50 max-h-32 overflow-y-auto top-16 w-full bg-white shadow-3xl rounded-md">
           {loading ? (
-            <li className=" p-2 w-full text-center bg-gray-100  focus:bg-gray-200 border-b border-gray-200">
-              Loading...
+            <li className=" p-2 w-full text-center bg-gray-100  focus:bg-gray-200 ">
+              <FetchingSpinner />
             </li>
           ) : data.length > 0 ? (
             data.map((item, key) => (
               <button
                 type="button"
-                className="p-2 w-full text-center bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 cursor-pointer duration-200 border-b border-gray-200"
+                className="p-2 w-full text-center bg-gray-100 hover:bg-gray-200 focus:bg-gray-200 cursor-pointer duration-200 "
                 key={key}
                 onClick={() =>
                   handleClick(
@@ -70,14 +63,12 @@ const Search = ({
                   )
                 }
               >
-                {item.name} {item.price !== undefined && pesoSign}
-                {item.price !== undefined &&
-                  ` ${Number(item.price).toFixed(2)}`}
+                {item.name}
               </button>
             ))
           ) : (
-            <li className=" p-2 w-full text-center bg-gray-100  focus:bg-gray-200 border-b border-gray-200">
-              No data
+            <li className="w-full text-center bg-gray-100  focus:bg-gray-200">
+              <Nodata width={50} height={50} txtSize="text-sm" />
             </li>
           )}
         </ul>
@@ -86,4 +77,4 @@ const Search = ({
   );
 };
 
-export default Search;
+export default SearchEntity;

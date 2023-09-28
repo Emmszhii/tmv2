@@ -14,6 +14,7 @@ function checkSearchEntities($object)
     checkQuery($query, "Empty records. (search Entities)");
     return $query;
 }
+
 // Read search Partner
 function checkSearchPartner($object)
 {
