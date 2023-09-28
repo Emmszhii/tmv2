@@ -17,9 +17,9 @@ if (array_key_exists("staffId", $_GET)) {
     $staff->staff_last_name = checkIndex($data, "staff_last_name");
     $staff->staff_first_name = checkIndex($data, "staff_first_name");
     $staff->staff_middle_name = checkIndex($data, "staff_middle_name");
-    $staff->staff_department = checkIndex($data, "staff_department");
+    $staff->staff_department = checkIndex($data, "settings_department_name");
     $staff->staff_date_hired = checkIndex($data, "staff_date_hired");
-    $staff->staff_office = checkIndex($data, "staff_office");
+    $staff->staff_office = checkIndex($data, "settings_office_name");
     $staff->staff_updated_at = date("Y-m-d H:i:s");
     checkId($staff->staff_aid);
 
