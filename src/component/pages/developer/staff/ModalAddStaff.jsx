@@ -50,7 +50,7 @@ const ModalAddStaff = ({ itemEdit }) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["staff"] });
       setSearchOffice("");
-      setSearchODepartment("");
+      setSearchDepartment("");
       if (data.success) {
         dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
@@ -88,15 +88,12 @@ const ModalAddStaff = ({ itemEdit }) => {
 
   const initVal = {
     staff_id_old: itemEdit ? itemEdit.staff_id : "",
-    staff_aid: itemEdit ? itemEdit.staff_aid : "",
     staff_id: itemEdit ? itemEdit.staff_id : "",
     staff_description: itemEdit ? itemEdit.staff_description : "",
     staff_first_name: itemEdit ? itemEdit.staff_first_name : "",
     staff_middle_name: itemEdit ? itemEdit.staff_middle_name : "",
     staff_last_name: itemEdit ? itemEdit.staff_last_name : "",
-    staff_department: itemEdit ? itemEdit.staff_department : "",
     staff_date_hired: itemEdit ? itemEdit.staff_date_hired : "",
-    staff_office: itemEdit ? itemEdit.staff_office : "",
     searchOffice: "",
     searchDepartment: "",
   };
@@ -107,9 +104,7 @@ const ModalAddStaff = ({ itemEdit }) => {
     staff_first_name: Yup.string().required("Required"),
     staff_middle_name: Yup.string().required("Required"),
     staff_last_name: Yup.string().required("Required"),
-    staff_department: Yup.string().required("Required"),
     staff_date_hired: Yup.string().required("Required"),
-    staff_office: Yup.string().required("Required"),
     searchOffice: Yup.string().required("Required"),
     searchDepartment: Yup.string().required("Required"),
   });
