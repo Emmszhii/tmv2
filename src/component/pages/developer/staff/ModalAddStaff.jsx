@@ -50,7 +50,7 @@ const ModalAddStaff = ({ itemEdit }) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["staff"] });
       setSearchOffice("");
-      setSearchODepartment("");
+      setSearchDepartment("");
       if (data.success) {
         dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
