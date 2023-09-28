@@ -15,10 +15,24 @@ function checkSearchOffice($object)
     return $query;
 }
 
+function checkOfficeSearch($object)
+{
+    $query = $object->officeSearch();
+    checkQuery($query, "Empty records. (search office)");
+    return $query;
+}
+
 // Read search office
 function checkSearchDepartment($object)
 {
     $query = $object->searchDepartment();
+    checkQuery($query, "Empty records. (search department)");
+    return $query;
+}
+
+function checkDepartmentSearch($object)
+{
+    $query = $object->departmentSearch();
     checkQuery($query, "Empty records. (search department)");
     return $query;
 }
