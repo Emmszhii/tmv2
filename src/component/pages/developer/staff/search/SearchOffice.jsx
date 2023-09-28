@@ -1,9 +1,9 @@
 import React from "react";
-import { InputSearch } from "../../../helpers/FormInputs";
-import ButtonSpinner from "../../../partials/spinners/ButtonSpinner";
-import { handleClick, handleSearch } from "./funtions-staff";
+import { InputSearch } from "../../../../helpers/FormInputs";
+import { handleClick, handleSearch } from "./functions-staff-search";
+import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
 
-const Search = ({
+const SearchOffice = ({
   label,
   name,
   disabled,
@@ -62,15 +62,15 @@ const Search = ({
                 key={key}
                 onClick={() =>
                   handleClick(
-                    `${item.name}`,
-                    item.id,
+                    `${item.settings_office_name}`,
+                    item.settings_office_aid,
                     setSearch,
                     setIsSearch,
                     setId
                   )
                 }
               >
-                {item.name}
+                {item.settings_office_name}
               </button>
             ))
           ) : (
@@ -84,4 +84,4 @@ const Search = ({
   );
 };
 
-export default Search;
+export default SearchOffice;

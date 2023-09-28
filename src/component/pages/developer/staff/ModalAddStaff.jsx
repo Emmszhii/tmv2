@@ -3,23 +3,20 @@ import { Form, Formik } from "formik";
 import React from "react";
 import { FaTimes } from "react-icons/fa";
 import * as Yup from "yup";
-import { StoreContext } from "../../../../store/StoreContext";
-import { queryData } from "../../../helpers/queryData";
 import {
   setIsAdd,
   setMessage,
   setSuccess,
   setValidate,
 } from "../../../../store/StoreAction";
+import { StoreContext } from "../../../../store/StoreContext";
+import { InputText, InputTextArea } from "../../../helpers/FormInputs";
 import { handleEscape } from "../../../helpers/functions-general";
-import {
-  InputSelect,
-  InputText,
-  InputTextArea,
-} from "../../../helpers/FormInputs";
+import { queryData } from "../../../helpers/queryData";
 import ButtonSpinner from "../../../partials/spinners/ButtonSpinner";
-import useQueryData from "../../../custom-hooks/useQueryData";
 import Search from "./Search";
+import SearchOffice from "./search/SearchOffice";
+import SearchDepartment from "./search/SearchDepartment";
 
 const ModalAddStaff = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
@@ -49,8 +46,9 @@ const ModalAddStaff = ({ itemEdit }) => {
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["staff"] });
-      setSearchOffice("");
-      setSearchDepartment("");
+      // search reset
+      // setSearchOffice("");
+      // setSearchDepartment("");
       if (data.success) {
         dispatch(setIsAdd(false));
         dispatch(setSuccess(true));
@@ -142,7 +140,8 @@ const ModalAddStaff = ({ itemEdit }) => {
                   settings_office_name: OfficeId,
                   settings_department_name: DepartmentId,
                 });
-                resetForm();
+                //reset search
+                // resetForm();
               }}
             >
               {(props) => {
@@ -198,11 +197,11 @@ const ModalAddStaff = ({ itemEdit }) => {
                         />
                       </div>
                       <div className="form__wrap">
-                        <Search
+                        <SearchDepartment
                           label="Department"
                           name="searchDepartment"
                           disabled={mutation.isLoading}
-                          endpoint={`/v2/controllers/developer/staff/search-department.php`}
+                          endpoint={`/v2/controllers/developer/staff/department-search.php`}
                           setSearch={setSearchDepartment}
                           setIsSearch={setIsSearchDepartment}
                           handleSearchModal={handleSearchModal}
@@ -253,11 +252,11 @@ const ModalAddStaff = ({ itemEdit }) => {
                         </InputSelect> */}
                       </div>
                       <div className="form__wrap">
-                        <Search
+                        <SearchOffice
                           label="Office"
                           name="searchOffice"
                           disabled={mutation.isLoading}
-                          endpoint={`/v2/controllers/developer/staff/search-office.php`}
+                          endpoint={`/v2/controllers/developer/staff/office-search.php`}
                           setSearch={setSearchOffice}
                           setIsSearch={setIsSearchOffice}
                           handleSearchModal={handleSearchModal}
