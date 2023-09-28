@@ -161,7 +161,7 @@ const ModalAddClient = ({ itemEdit }) => {
                           disabled={mutation.isLoading}
                         />
                       </div>
-                      <div className="form__wrap">
+                      <div className="form__wrap text-left">
                         <SearchPartner
                           label="Partner"
                           name="searchPartner"
@@ -179,7 +179,7 @@ const ModalAddClient = ({ itemEdit }) => {
                           setId={setPartnerId}
                         />
                       </div>
-                      <div className="form__wrap">
+                      <div className="form__wrap text-left">
                         <SearchManager
                           label="Manager"
                           name="searchManager"
@@ -197,7 +197,7 @@ const ModalAddClient = ({ itemEdit }) => {
                           setId={setManagerId}
                         />
                       </div>
-                      <div className="form__wrap">
+                      <div className="form__wrap text-left">
                         <SearchAssociate
                           label="Associate"
                           name="searchAssociate"
@@ -215,7 +215,7 @@ const ModalAddClient = ({ itemEdit }) => {
                           setId={setAssociateId}
                         />
                       </div>
-                      <div className="form__wrap">
+                      <div className="form__wrap text-left">
                         <SearchEntity
                           label="Entity"
                           name="searchEntity"
