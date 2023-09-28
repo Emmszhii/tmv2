@@ -17,6 +17,8 @@ if (array_key_exists("clientId", $_GET)) {
     $client->client_description = checkIndex($data, "client_description");
     $client->client_partner_id = checkIndex($data, "client_partner_id");
     $client->client_entities_id = checkIndex($data, "client_entities_id");
+    $client->client_manager_id = checkIndex($data, "client_manager_id");
+    $client->client_associate_id = checkIndex($data, "client_associate_id");
     $client->client_updated_at = date("Y-m-d H:i:s");
     checkId($client->client_aid);
 

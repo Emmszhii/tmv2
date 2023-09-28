@@ -7,6 +7,8 @@ class Client
     public $client_description;
     public $client_entities_id;
     public $client_partner_id;
+    public $client_manager_id;
+    public $client_associate_id;
     public $client_is_active;
     public $client_created_at;
     public $client_updated_at;
@@ -40,6 +42,9 @@ class Client
             $sql .= "client_name, ";
             $sql .= "client_description, ";
             $sql .= "client_entities_id, ";
+            $sql .= "client_partner_id, ";
+            $sql .= "client_manager_id, ";
+            $sql .= "client_associate_id, ";
             $sql .= "client_is_active, ";
             $sql .= "client_created_at, ";
             $sql .= "client_updated_at ) values ( ";
@@ -47,6 +52,9 @@ class Client
             $sql .= ":client_name, ";
             $sql .= ":client_description, ";
             $sql .= ":client_entities_id, ";
+            $sql .= ":client_partner_id, ";
+            $sql .= ":client_manager_id, ";
+            $sql .= ":client_associate_id, ";
             $sql .= ":client_is_active, ";
             $sql .= ":client_created_at, ";
             $sql .= ":client_updated_at ) ";
@@ -56,6 +64,9 @@ class Client
                 "client_name" => $this->client_name,
                 "client_description" => $this->client_description,
                 "client_entities_id" => $this->client_entities_id,
+                "client_partner_id" => $this->client_partner_id,
+                "client_manager_id" => $this->client_manager_id,
+                "client_associate_id" => $this->client_associate_id,
                 "client_is_active" => $this->client_is_active,
                 "client_created_at" => $this->client_created_at,
                 "client_updated_at" => $this->client_updated_at,
@@ -151,6 +162,9 @@ class Client
             $sql .= "client_name = :client_name, ";
             $sql .= "client_description = :client_description, ";
             $sql .= "client_entities_id = :client_entities_id, ";
+            $sql .= "client_partner_id = :client_partner_id, ";
+            $sql .= "client_manager_id = :client_manager_id, ";
+            $sql .= "client_associate_id = :client_associate_id, ";
             $sql .= "client_updated_at = :client_updated_at ";
             $sql .= "where client_aid = :client_aid ";
             $query = $this->connection->prepare($sql);
@@ -159,6 +173,9 @@ class Client
                 "client_name" => $this->client_name,
                 "client_description" => $this->client_description,
                 "client_entities_id" => $this->client_entities_id,
+                "client_partner_id" => $this->client_partner_id,
+                "client_manager_id" => $this->client_manager_id,
+                "client_associate_id" => $this->client_associate_id,
                 "client_updated_at" => $this->client_updated_at,
                 "client_aid" => $this->client_aid,
             ]);
@@ -245,6 +262,28 @@ class Client
     }
     // search Partner in add modal client of tbl Staff
     public function searchPartner()
+    {
+        try {
+            $sql = "select ";
+            $sql .= "staff_is_active, ";
+            $sql .= "staff_aid as id, ";
+            $sql .= "staff_id as name ";
+            $sql .= "from {$this->tblStaff} ";
+            $sql .= "where staff_is_active = '1' ";
+            $sql .= "and staff_id like :staff_search_id ";
+            $sql .= "order by staff_is_active desc, ";
+            $sql .= "staff_id asc ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "staff_search_id" => "%{$this->client_search}%",
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+    // search Staff in add modal client of tbl Staff
+    public function searchStaff()
     {
         try {
             $sql = "select ";
