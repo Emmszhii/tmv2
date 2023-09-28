@@ -32,11 +32,21 @@ const Navigation = ({ menu, submenu = null, val }) => {
   //   const handleDropDownTimeEntry = (e) => {
   //     dispatch(setIsTimeEntryOpen(!store.isTimeEntryOpen));
   //   };
+  const handleScroll = (e) => {
+    console.log(e.target.scrollTop);
+    dispatch(setNavHeight(e.target.scrollTop));
+  };
+
+  React.useEffect(() => {
+    const nav = document.querySelector(".navigation").pageYOffset;
+    console.log(nav);
+  }, []);
 
   return (
     <div
-      className="px-2 py-4 bg-tm-gradient h-full custom__scroll overflow-y-auto"
+      className="navigation px-2 py-4 bg-tm-gradient h-full custom__scroll overflow-y-auto"
       ref={ref}
+      onScroll={handleScroll}
     >
       <ul className="">
         <li className="nav__link has__dropdown">

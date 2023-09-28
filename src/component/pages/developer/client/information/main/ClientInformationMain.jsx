@@ -72,6 +72,7 @@ const ClientInformationMain = () => {
             )}
             {client?.success &&
               client?.data.map((item, key) => {
+                console.log(client);
                 return (
                   <React.Fragment key={key}>
                     <div className="py-5">

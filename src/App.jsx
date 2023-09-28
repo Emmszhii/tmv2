@@ -41,7 +41,7 @@ function App() {
         <StoreProvider>
           <Router>
             <Routes>
-              <Route path={`*`} element={<Test />} />
+              <Route path={`*`} element={<Staff />} />
               <Route path={`/staff`} element={<Staff />} />
               <Route path={`/client`} element={<Client />} />
               <Route
