@@ -103,8 +103,8 @@ const ModalAddStaff = ({ itemEdit }) => {
     staff_middle_name: Yup.string().required("Required"),
     staff_last_name: Yup.string().required("Required"),
     staff_date_hired: Yup.string().required("Required"),
-    searchOffice: Yup.string().required("Required"),
-    searchDepartment: Yup.string().required("Required"),
+    // searchOffice: Yup.string().required("Required"),
+    // searchDepartment: Yup.string().required("Required"),
   });
 
   const handleClose = () => {
