@@ -63,7 +63,7 @@ const SearchOffice = ({
                 onClick={() =>
                   handleClick(
                     `${item.settings_office_name}`,
-                    item.settings_office_aid,
+                    item.settings_office_name,
                     setSearch,
                     setIsSearch,
                     setId

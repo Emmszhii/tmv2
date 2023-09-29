@@ -63,7 +63,7 @@ const SearchDepartment = ({
                 onClick={() =>
                   handleClick(
                     `${item.settings_department_name}`,
-                    item.settings_department_aid,
+                    item.settings_department_name,
                     setSearch,
                     setIsSearch,
                     setId

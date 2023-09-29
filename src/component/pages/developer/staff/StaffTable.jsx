@@ -19,7 +19,11 @@ import Searchbar from "../../../partials/Searchbar";
 import ServerError from "../../../partials/ServerError";
 import TableLoading from "../../../partials/TableLoading";
 import UserIcon from "../../../partials/UserIcon";
-import { getStaffCountRecord } from "./funtions-staff";
+import {
+  getDepartmentName,
+  getOfficeName,
+  getStaffCountRecord,
+} from "./funtions-staff";
 import Loadmore from "../../../partials/Loadmore";
 import ModalConfirm from "../../../partials/modals/ModalConfirm";
 import ModalDeleteAndRestore from "../../../partials/modals/ModalDeleteAndRestore";
@@ -77,6 +81,18 @@ const StaffTable = ({ setItemEdit }) => {
     `/v2/controllers/developer/staff/staff.php`,
     "get",
     "staff"
+  );
+
+  const { data: department, isLoading: departmentLoading } = useQueryData(
+    `/v2/controllers/developer/settings/department/department.php`,
+    "get",
+    "department"
+  );
+
+  const { data: office, isLoading: officeLoading } = useQueryData(
+    `/v2/controllers/developer/settings/office/office.php`,
+    "get",
+    "office"
   );
 
   React.useEffect(() => {
@@ -188,8 +204,19 @@ const StaffTable = ({ setItemEdit }) => {
                       <td>
                         {item.staff_last_name}, {item.staff_first_name}
                       </td>
-                      <td>{item.staff_department}</td>
-                      <td>{item.staff_office}</td>
+                      <td>
+                        {departmentLoading
+                          ? "Loading data..."
+                          : getDepartmentName(
+                              department,
+                              item.staff_department
+                            )}
+                      </td>
+                      <td>
+                        {officeLoading
+                          ? "Loading data..."
+                          : getOfficeName(office, item.staff_office)}
+                      </td>
 
                       <td
                         className="table__action top-0 right-5 "

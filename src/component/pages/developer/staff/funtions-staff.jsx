@@ -61,3 +61,31 @@ export const handleClick = (name, id, setSearch, setIsSearch, setId) => {
   setIsSearch(false);
   setId(id);
 };
+
+export const getDepartmentName = (data, id) => {
+  let name = "";
+
+  if (data?.count > 0) {
+    data?.data.filter((item) => {
+      if (item.settings_department_aid === Number(id)) {
+        name = `${item.settings_department_name}`;
+      }
+    });
+  }
+
+  return name;
+};
+
+export const getOfficeName = (data, id) => {
+  let name = "";
+
+  if (data?.count > 0) {
+    data?.data.filter((item) => {
+      if (item.settings_office_aid === Number(id)) {
+        name = `${item.settings_office_name}`;
+      }
+    });
+  }
+
+  return name;
+};

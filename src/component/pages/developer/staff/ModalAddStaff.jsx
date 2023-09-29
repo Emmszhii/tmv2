@@ -113,6 +113,7 @@ const ModalAddStaff = ({ itemEdit }) => {
 
   const handleSearchModal = () => {
     setIsSearchOffice(false);
+    setIsSearchDepartment(false);
   };
 
   handleEscape(() => handleClose());
@@ -137,8 +138,8 @@ const ModalAddStaff = ({ itemEdit }) => {
                 // mutate data
                 mutation.mutate({
                   ...values,
-                  settings_office_name: OfficeId,
-                  settings_department_name: DepartmentId,
+                  staff_office: OfficeId,
+                  staff_department: DepartmentId,
                 });
                 //reset search
                 // resetForm();
