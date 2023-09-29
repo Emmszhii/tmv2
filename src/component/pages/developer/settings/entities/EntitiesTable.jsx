@@ -30,14 +30,12 @@ const EntitiesTable = ({ setItemEdit }) => {
   const [dataItem, setData] = React.useState(null);
   const [id, setId] = React.useState(null);
   const [isDel, setDel] = React.useState(false);
-
-  const [page, setPage] = React.useState(1);
-  const search = React.useRef(null);
-  const { ref, inView } = useInView();
-
   let counter = 1;
-  let active = 0;
-  let inactive = 0;
+
+  // for load more and search
+  const [page, setPage] = React.useState(1);
+  const search = React.useRef("");
+  const { ref, inView } = useInView();
 
   // use if with loadmore button and search bar
   const {
@@ -49,7 +47,7 @@ const EntitiesTable = ({ setItemEdit }) => {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["settings-entities", store.isSearch],
+    queryKey: ["settings-entities", search.current.value, store.isSearch],
     queryFn: async ({ pageParam = 1 }) =>
       await queryDataInfinite(
         `/v2/controllers/developer/settings/entities/search.php`, // search endpoint
@@ -160,8 +158,6 @@ const EntitiesTable = ({ setItemEdit }) => {
             {result?.pages.map((page, key) => (
               <React.Fragment key={key}>
                 {page.data.map((item, key) => {
-                  active += item.entities_is_active === 1;
-                  inactive += item.entities_is_active === 0;
                   return (
                     <tr key={key}>
                       <td>{counter++}.</td>

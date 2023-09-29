@@ -26,17 +26,16 @@ import Loadmore from "../../../../partials/Loadmore";
 
 const OfficeTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
+  // for data
   const [dataItem, setData] = React.useState(null);
   const [id, setId] = React.useState(null);
   const [isDel, setDel] = React.useState(false);
-
+  // for loadmore and search
   const [page, setPage] = React.useState(1);
-  const search = React.useRef(null);
+  const search = React.useRef("");
   const { ref, inView } = useInView();
 
   let counter = 1;
-  let active = 0;
-  let inactive = 0;
 
   // use if with loadmore button and search bar
   const {
@@ -48,7 +47,7 @@ const OfficeTable = ({ setItemEdit }) => {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["settings-office", store.isSearch],
+    queryKey: ["settings-office", search.current.value, store.isSearch],
     queryFn: async ({ pageParam = 1 }) =>
       await queryDataInfinite(
         `/v2/controllers/developer/settings/office/search.php`, // search endpoint
@@ -132,7 +131,7 @@ const OfficeTable = ({ setItemEdit }) => {
               <th width="50px">Status</th>
               <th width="50px">Name</th>
               <th>Description</th>
-              <th className="action lg:hidden"></th>
+              <th className="action"></th>
             </tr>
           </thead>
           <tbody>
@@ -157,8 +156,6 @@ const OfficeTable = ({ setItemEdit }) => {
             {result?.pages.map((page, key) => (
               <React.Fragment key={key}>
                 {page.data.map((item, key) => {
-                  active += item.settings_office_is_active === 1;
-                  inactive += item.settings_office_is_active === 0;
                   return (
                     <tr key={key}>
                       <td>{counter++}.</td>
@@ -172,12 +169,12 @@ const OfficeTable = ({ setItemEdit }) => {
                       <td>{item.settings_office_name}</td>
                       <td>{item.settings_office_description}</td>
 
-                      <td
-                        className="table__action top-0 right-5 "
-                        data-ellipsis=". . ."
-                      >
+                      <td>
                         {item.settings_office_is_active === 1 ? (
-                          <ul className=" flex items-center  gap-4 bg-">
+                          <ul
+                            data-ellipsis=". . ."
+                            className="table__action top-0 right-5  flex items-center  gap-4 bg-"
+                          >
                             <li>
                               <button
                                 className="tooltip"
@@ -198,7 +195,10 @@ const OfficeTable = ({ setItemEdit }) => {
                             </li>
                           </ul>
                         ) : (
-                          <ul className="flex items-center gap-4">
+                          <ul
+                            data-ellipsis=". . ."
+                            className="table__action top-0 right-5 flex items-center gap-4"
+                          >
                             <li>
                               <button
                                 className="tooltip"

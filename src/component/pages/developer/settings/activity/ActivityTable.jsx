@@ -31,7 +31,7 @@ const ActivitiesTable = ({ setItemEdit }) => {
   const [isDel, setDel] = React.useState(false);
 
   const [page, setPage] = React.useState(1);
-  const search = React.useRef(null);
+  const search = React.useRef("");
   const { ref, inView } = useInView();
 
   let counter = 1;
@@ -48,7 +48,7 @@ const ActivitiesTable = ({ setItemEdit }) => {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["settings-activity", store.isSearch],
+    queryKey: ["settings-activity", search.current.value, store.isSearch],
     queryFn: async ({ pageParam = 1 }) =>
       await queryDataInfinite(
         `/v2/controllers/developer/settings/activity/search.php`, // search endpoint

@@ -16,6 +16,11 @@ import { setIsAdd } from "../../../../../../store/StoreAction";
 import ModalAddClient from "../../ModalAddClient";
 import ModalValidate from "../../../../../partials/modals/ModalValidate";
 import Toast from "../../../../../partials/Toast";
+import ClientIndividual from "./individual/ClientIndividual";
+import ClientSpouse from "./spouse/ClientSpouse";
+import ClientInformation from "./client-information/ClientInformation";
+import ClientRetentionInformation from "./client-retention-information/ClientRetentionInformation";
+import ClientIdentification from "./identification/ClientIdentification";
 
 const ClientInformationMain = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -47,7 +52,7 @@ const ClientInformationMain = () => {
     "get",
     "client"
   );
-  console.log(client);
+
   return (
     <>
       <Header />
@@ -72,91 +77,45 @@ const ClientInformationMain = () => {
             )}
             {client?.success &&
               client?.data.map((item, key) => {
-                console.log(client);
                 return (
                   <React.Fragment key={key}>
                     <div className="py-5">
                       <h1>{item.client_client_id}</h1>
                       <ul>
                         <li>
-                          <div>
-                            <div className="flex items-center justify-between gap-2 text-sm cursor-pointer hover:bg-gray-50 border-b-2">
-                              <div
-                                className="flex items-center justify-between w-full py-4 "
+                          <div className="flex items-center justify-between gap-2 text-sm cursor-pointer hover:bg-gray-50 border-b-2">
+                            <div
+                              className="flex items-center justify-between w-full py-4 "
+                              onClick={handlerShowIdentity}
+                            >
+                              <h4 className="mb-0">Identification</h4>
+
+                              <button
+                                className={`tooltip`}
+                                data-tooltip={`${
+                                  identityShow ? "Close" : "Open"
+                                }`}
                                 onClick={handlerShowIdentity}
                               >
-                                <h4 className="mb-0">Identification</h4>
-
-                                <button
-                                  className={`tooltip`}
-                                  data-tooltip={`${
-                                    identityShow ? "Close" : "Open"
-                                  }`}
-                                  onClick={handlerShowIdentity}
-                                >
-                                  {identityShow ? (
-                                    <BiChevronDown />
-                                  ) : (
-                                    <BiChevronRight />
-                                  )}
-                                </button>
-                              </div>
-                              <button
-                                className="tooltip"
-                                data-tooltip={`Edit`}
-                                onClick={() => handlerEdit(item)}
-                              >
-                                <FiEdit3 />
+                                {identityShow ? (
+                                  <BiChevronDown />
+                                ) : (
+                                  <BiChevronRight />
+                                )}
                               </button>
                             </div>
-                            {identityShow && (
-                              <div className="p-4">
-                                <ul className="flex flex-col gap-2">
-                                  <li className="grid grid-cols-[200px_1fr] items-center">
-                                    <h4 className="mb-0 ">Logo</h4>
-                                    <img
-                                      src="https://placehold.jp/80x80.png"
-                                      alt=""
-                                      className="rounded-md"
-                                    />
-                                  </li>
-                                  <li className="grid grid-cols-[200px_1fr] items-center">
-                                    <h4 className="mb-0">ID:</h4>
-                                    <p className="mb-0">
-                                      {item.client_client_id}
-                                    </p>
-                                  </li>
-                                  <li className="grid grid-cols-[200px_1fr] items-center">
-                                    <h4 className="mb-0">Description:</h4>
-                                    <p className="mb-0">
-                                      {item.client_description || "No data"}
-                                    </p>
-                                  </li>
-                                  <li className="grid grid-cols-[200px_1fr] items-center">
-                                    <h4 className="mb-0">EIN/SSN:</h4>
-                                    <p className="mb-0">
-                                      {item.client_ein_ssn || "No data"}
-                                    </p>
-                                  </li>
-                                  <li className="grid grid-cols-[200px_1fr] items-center">
-                                    <h4 className="mb-0">Name 1:</h4>
-                                    <p className="mb-0">
-                                      {item.client_name || "No data"}
-                                    </p>
-                                  </li>
-                                  <li className="grid grid-cols-[200px_1fr] items-center">
-                                    <h4 className="mb-0">Name 2:</h4>
-                                    <p className="mb-0">
-                                      {item.client_name_2 || "No data"}
-                                    </p>
-                                  </li>
-                                </ul>
-                              </div>
-                            )}
+                            <button
+                              className="tooltip"
+                              data-tooltip={`Edit`}
+                              onClick={() => handlerEdit(item)}
+                            >
+                              <FiEdit3 />
+                            </button>
                           </div>
+                          {identityShow && <ClientIdentification item={item} />}
                         </li>
-                        <li className="cursor-pointer hover:bg-gray-50 border-b-2">
-                          <div className="flex items-center justify-between gap-2 text-sm">
+                        <li>
+                          <div className="flex items-center justify-between gap-2 text-sm cursor-pointer hover:bg-gray-50 border-b-2">
                             <div
                               className="flex items-center justify-between w-full py-4 "
                               onClick={handlerIndividual}
@@ -164,9 +123,7 @@ const ClientInformationMain = () => {
                               <h4 className="mb-0">Individual</h4>
                               <button
                                 className={`tooltip`}
-                                data-tooltip={`${
-                                  individualShow ? "Close" : "Open"
-                                }`}
+                                data-tooltip={individualShow ? "Close" : "Open"}
                                 onClick={handlerIndividual}
                               >
                                 {individualShow ? (
@@ -176,85 +133,92 @@ const ClientInformationMain = () => {
                                 )}
                               </button>
                             </div>
-
                             <button className="tooltip" data-tooltip={`Edit`}>
                               <FiEdit3 />
                             </button>
                           </div>
+                          {individualShow && <ClientIndividual item={item} />}
                         </li>
-                        <li
-                          onClick={handlerSpouse}
-                          className="cursor-pointer hover:bg-gray-50  border-b-2"
-                        >
-                          <div className="flex items-center justify-between text-sm py-4 ">
-                            <h4 className="mb-0">Spouse</h4>
-                            <div className={`flex items-center gap-2`}>
+                        <li>
+                          <div className="flex items-center justify-between gap-2 text-sm cursor-pointer hover:bg-gray-50 border-b-2">
+                            <div
+                              className="flex items-center justify-between w-full py-4 "
+                              onClick={handlerSpouse}
+                            >
+                              <h4 className="mb-0">Spouse</h4>
                               <button
-                                className={`tooltip   ${
-                                  spouseShow ? "rotate-90" : ""
-                                }`}
-                                data-tooltip={`${
-                                  spouseShow ? "Close" : "Open"
-                                }`}
+                                className={`tooltip`}
+                                data-tooltip={spouseShow ? "Close" : "Open"}
                                 onClick={handlerSpouse}
                               >
-                                <BiChevronRight />
-                              </button>
-                              <button className="tooltip" data-tooltip={`Edit`}>
-                                <FiEdit3 />
+                                {individualShow ? (
+                                  <BiChevronDown />
+                                ) : (
+                                  <BiChevronRight />
+                                )}
                               </button>
                             </div>
+                            <button className="tooltip" data-tooltip={`Edit`}>
+                              <FiEdit3 />
+                            </button>
                           </div>
+                          {spouseShow && <ClientSpouse item={item} />}
                         </li>
-                        <li
-                          onClick={handlerInfo}
-                          className="cursor-pointer hover:bg-gray-50  border-b-2"
-                        >
-                          <div className="flex items-center justify-between text-sm py-4 ">
-                            <h4 className="mb-0">Client Information</h4>
-                            <div className={`flex items-center gap-2`}>
+                        <li>
+                          <div className="flex items-center justify-between gap-2 text-sm cursor-pointer hover:bg-gray-50 border-b-2">
+                            <div
+                              className="flex items-center justify-between w-full py-4 "
+                              onClick={handlerInfo}
+                            >
+                              <h4 className="mb-0">Client Information</h4>
                               <button
-                                className={`tooltip   ${
-                                  clientInfoShow ? "rotate-90" : ""
-                                }`}
-                                data-tooltip={`${
-                                  clientInfoShow ? "Close" : "Open"
-                                }`}
+                                className={`tooltip`}
+                                data-tooltip={clientInfoShow ? "Close" : "Open"}
                                 onClick={handlerInfo}
                               >
-                                <BiChevronRight />
-                              </button>
-                              <button className="tooltip" data-tooltip={`Edit`}>
-                                <FiEdit3 />
+                                {clientInfoShow ? (
+                                  <BiChevronDown />
+                                ) : (
+                                  <BiChevronRight />
+                                )}
                               </button>
                             </div>
+                            <button className="tooltip" data-tooltip={`Edit`}>
+                              <FiEdit3 />
+                            </button>
                           </div>
+                          {clientInfoShow && <ClientInformation item={item} />}
                         </li>
-                        <li
-                          onClick={handlerReten}
-                          className="cursor-pointer hover:bg-gray-50  border-b-2"
-                        >
-                          <div className="flex items-center justify-between text-sm py-4 ">
-                            <h4 className="mb-0">
-                              Client Retention Information
-                            </h4>
-                            <div className={`flex items-center gap-2`}>
+                        <li>
+                          <div className="flex items-center justify-between gap-2 text-sm cursor-pointer hover:bg-gray-50 border-b-2">
+                            <div
+                              className="flex items-center justify-between w-full py-4 "
+                              onClick={handlerReten}
+                            >
+                              <h4 className="mb-0">
+                                Client Retention Information
+                              </h4>
                               <button
-                                className={`tooltip   ${
-                                  clientRetenShow ? "rotate-90" : ""
-                                }`}
-                                data-tooltip={`${
+                                className={`tooltip`}
+                                data-tooltip={
                                   clientRetenShow ? "Close" : "Open"
-                                }`}
+                                }
                                 onClick={handlerReten}
                               >
-                                <BiChevronRight />
-                              </button>
-                              <button className="tooltip" data-tooltip={`Edit`}>
-                                <FiEdit3 />
+                                {clientRetenShow ? (
+                                  <BiChevronDown />
+                                ) : (
+                                  <BiChevronRight />
+                                )}
                               </button>
                             </div>
+                            <button className="tooltip" data-tooltip={`Edit`}>
+                              <FiEdit3 />
+                            </button>
                           </div>
+                          {clientRetenShow && (
+                            <ClientRetentionInformation item={item} />
+                          )}
                         </li>
                       </ul>
                     </div>

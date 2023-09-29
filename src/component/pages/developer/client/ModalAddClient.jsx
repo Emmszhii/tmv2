@@ -77,6 +77,7 @@ const ModalAddClient = ({ itemEdit }) => {
     client_client_id: itemEdit ? itemEdit.client_client_id : "",
     client_name: itemEdit ? itemEdit.client_name : "",
     client_description: itemEdit ? itemEdit.client_description : "",
+    client_start_date: itemEdit ? itemEdit.client_start_date : "",
     client_client_id_old: itemEdit ? itemEdit.client_client_id : "",
     client_description_old: itemEdit ? itemEdit.client_description : "",
     searchEntity: "",
@@ -89,10 +90,7 @@ const ModalAddClient = ({ itemEdit }) => {
     client_client_id: Yup.string().required("Required"),
     client_name: Yup.string().required("Required"),
     client_description: Yup.string().required("Required"),
-    searchPartner: Yup.string().required("Required"),
-    searchManager: Yup.string().required("Required"),
-    searchAssociate: Yup.string().required("Required"),
-    searchEntity: Yup.string().required("Required"),
+   
   });
 
   const handleSearchModal = () => {
@@ -158,6 +156,14 @@ const ModalAddClient = ({ itemEdit }) => {
                           label="Client Description"
                           type="text"
                           name="client_description"
+                          disabled={mutation.isLoading}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputText
+                          label="Start Date"
+                          type="date"
+                          name="client_start_date"
                           disabled={mutation.isLoading}
                         />
                       </div>

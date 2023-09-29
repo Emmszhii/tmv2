@@ -32,18 +32,15 @@ import {
 
 const ClientTable = ({ setItemEdit }) => {
   const { store, dispatch } = React.useContext(StoreContext);
+  // for data
+  let counter = 1;
   const [dataItem, setData] = React.useState(null);
   const [id, setId] = React.useState(null);
   const [isDel, setDel] = React.useState(false);
-
+  // for loadmore and search
   const [page, setPage] = React.useState(1);
-  const search = React.useRef(null);
+  const search = React.useRef("");
   const { ref, inView } = useInView();
-
-  let counter = 1;
-  let active = 0;
-  let inactive = 0;
-
   // use if with loadmore button and search bar
   const {
     data: result,
@@ -54,7 +51,7 @@ const ClientTable = ({ setItemEdit }) => {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery({
-    queryKey: ["client", store.isSearch],
+    queryKey: ["client", search.current.value, store.isSearch],
     queryFn: async ({ pageParam = 1 }) =>
       await queryDataInfinite(
         `/v2/controllers/developer/client/search.php`, // search endpoint
@@ -151,10 +148,7 @@ const ClientTable = ({ setItemEdit }) => {
               <th width={`50px`}>Client ID</th>
               <th width={`50px`}>Description</th>
               <th width={`50px`}>Name</th>
-              <th width={`50px`}>Partner</th>
-              <th width={`50px`}>Manager</th>
-              <th width={`50px`}>Assoiate</th>
-              <th width={`50px`}>Entity</th>
+
               <th className="action"></th>
             </tr>
           </thead>
@@ -200,31 +194,11 @@ const ClientTable = ({ setItemEdit }) => {
                       <td>{item.client_client_id}</td>
                       <td>{item.client_description}</td>
                       <td>{item.client_name}</td>
-                      <td>
-                        {staffLoading
-                          ? "Loading.."
-                          : getStaffName(staff, item.client_partner_id)}
-                      </td>
-                      <td>
-                        {staffLoading
-                          ? "Loading..."
-                          : getStaffName(staff, item.client_manager_id)}
-                      </td>
-                      <td>
-                        {staffLoading
-                          ? "Loading..."
-                          : getStaffName(staff, item.client_associate_id)}
-                      </td>
-                      <td>
-                        {entityLoading
-                          ? "Loading..."
-                          : getEntity(entity, item.client_entities_id)}
-                      </td>
 
                       <td>
                         {item.client_is_active === 1 ? (
                           <ul
-                            className=" flex items-center  gap-4 table__action top-0 right-5"
+                            className="flex items-center  gap-4 table__action top-0 right-5"
                             data-ellipsis=". . ."
                           >
                             <li>
@@ -247,7 +221,10 @@ const ClientTable = ({ setItemEdit }) => {
                             </li>
                           </ul>
                         ) : (
-                          <ul className="flex items-center gap-4">
+                          <ul
+                            className="flex items-center gap-4  table__action top-0 right-5"
+                            data-ellipsis=". . ."
+                          >
                             <li>
                               <button
                                 className="tooltip"
