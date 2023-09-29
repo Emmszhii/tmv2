@@ -2,6 +2,8 @@ import React from "react";
 import { InputSearch } from "../../../../helpers/FormInputs";
 import { handleClick, handleSearch } from "./functions-staff-search";
 import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
+import Nodata from "../../../../partials/Nodata";
+import TableSpinner from "../../../../partials/spinners/TableSpinner";
 
 const SearchOffice = ({
   label,
@@ -49,16 +51,16 @@ const SearchOffice = ({
       )}
 
       {isSearch && (
-        <ul className="absolute z-50 max-h-32 overflow-y-auto top-16 w-full bg-white shadow-3xl rounded-md">
+        <ul className="absolute z-50 h-36 overflow-y-auto top-16 w-full bg-white shadow-3xl rounded-md border border-gray-200">
           {loading ? (
-            <li className=" p-2 w-full text-center bg-gray-100  focus:bg-gray-200 border-b border-gray-200">
-              Loading...
-            </li>
+            <div className=" p-2 w-full text-center bg-gray-100  focus:bg-gray-200 border-b border-gray-200">
+              <TableSpinner />
+            </div>
           ) : data.length > 0 ? (
             data.map((item, key) => (
               <button
                 type="button"
-                className="p-2 w-full text-left hover:bg-gray-200 focus:bg-gray-200 cursor-pointer duration-200 border-r border-l last:border-b border-gray-200 "
+                className="p-2 w-full text-left hover:bg-gray-200 focus:bg-gray-200 cursor-pointer duration-200"
                 key={key}
                 onClick={() =>
                   handleClick(
@@ -74,8 +76,8 @@ const SearchOffice = ({
               </button>
             ))
           ) : (
-            <li className=" p-2 w-full text-center bg-gray-100  focus:bg-gray-200 border-b border-gray-200">
-              No data
+            <li className=" p-2 w-full text-center focus:bg-gray-200 border-b border-gray-200">
+              <Nodata width="60" height="80" txtSize="text-xl" />
             </li>
           )}
         </ul>
