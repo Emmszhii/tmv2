@@ -92,9 +92,7 @@ class SettingsSystem
             $sql .= "settings_system_updated_at ";
             $sql .= "from {$this->tblSettingsSystem} as system , ";
             $sql .= "{$this->tblSettingsRoles} as roles ";
-            $sql .= "where ";
-            $sql .= "system.settings_system_roles_id = ";
-            $sql .= "roles.settings_roles_aid ";
+            $sql .= "where system.settings_system_roles_id = roles.settings_roles_aid ";
             $sql .= "order by system.settings_system_is_active desc, ";
             $sql .= "system.settings_system_name asc ";
             $sql .= "limit :start, ";
