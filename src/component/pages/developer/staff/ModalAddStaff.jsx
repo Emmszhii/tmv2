@@ -92,19 +92,19 @@ const ModalAddStaff = ({ itemEdit }) => {
     staff_middle_name: itemEdit ? itemEdit.staff_middle_name : "",
     staff_last_name: itemEdit ? itemEdit.staff_last_name : "",
     staff_date_hired: itemEdit ? itemEdit.staff_date_hired : "",
-    searchOffice: "",
     searchDepartment: "",
+    searchOffice: "",
+
+    // searchOffice: "",
+    // searchDepartment: "",
   };
 
   const yupSchema = Yup.object({
     staff_id: Yup.string().required("Required"),
     staff_description: Yup.string().required("Required"),
     staff_first_name: Yup.string().required("Required"),
-    staff_middle_name: Yup.string().required("Required"),
     staff_last_name: Yup.string().required("Required"),
     staff_date_hired: Yup.string().required("Required"),
-    // searchOffice: Yup.string().required("Required"),
-    // searchDepartment: Yup.string().required("Required"),
   });
 
   const handleClose = () => {
