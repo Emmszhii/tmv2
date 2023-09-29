@@ -67,47 +67,6 @@ class SettingsRoles
         return $query;
     }
 
-    // read all limit
-    // public function readLimit()
-    // {
-    //     try {
-    //         $sql = "select ";
-    //         $sql .= "* ";
-    //         $sql .= "from {$this->tblSettingsRoles} ";
-    //         $sql .= "order by settings_roles_is_active desc, ";
-    //         $sql .= "settings_roles_name asc ";
-    //         $sql .= "limit :start, ";
-    //         $sql .= ":total ";
-    //         $query = $this->connection->prepare($sql);
-    //         $query->execute([
-    //             "start" => $this->settings_system_start - 1,
-    //             "total" => $this->settings_system_total,
-    //         ]);
-    //     } catch (PDOException $ex) {
-    //         $query = false;
-    //     }
-    //     return $query;
-    // }
-
-    // public function search()
-    // {
-    //     try {
-    //         $sql = "select ";
-    //         $sql .= "* ";
-    //         $sql .= "from {$this->tblSettingsRoles} ";
-    //         $sql .= "where settings_roles_name like :search ";
-    //         $sql .= "order by settings_roles_is_active desc, ";
-    //         $sql .= "settings_roles_name asc ";
-    //         $query = $this->connection->prepare($sql);
-    //         $query->execute([
-    //             "search" => "%{$this->settings_system_search}%",
-    //         ]);
-    //     } catch (PDOException $ex) {
-    //         $query = false;
-    //     }
-    //     return $query;
-    // }
-
     // read by id
     public function readById()
     {
