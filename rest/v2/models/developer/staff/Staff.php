@@ -10,6 +10,11 @@ class Staff
     public $staff_department;
     public $staff_date_hired;
     public $staff_office;
+    public $staff_education_met;
+    public $staff_experience_met;
+    public $staff_exam_passed;
+    public $staff_date_certified;
+    public $staff_certification_number;
     public $staff_is_active;
     public $staff_created_at;
     public $staff_updated_at;
@@ -183,6 +188,66 @@ class Staff
                 "staff_date_hired" => $this->staff_date_hired,
                 "staff_office" => $this->staff_office,
                 "staff_updated_at" => $this->staff_updated_at,
+                "staff_aid" => $this->staff_aid,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // update staff Info
+    public function updateStaffInfo()
+    {
+        try {
+            $sql = "update {$this->tblStaff} set ";
+            $sql .= "staff_id = :staff_id, ";
+            $sql .= "staff_description = :staff_description, ";
+            $sql .= "staff_last_name = :staff_last_name, ";
+            $sql .= "staff_first_name = :staff_first_name, ";
+            $sql .= "staff_middle_name = :staff_middle_name, ";
+            $sql .= "staff_department = :staff_department, ";
+            $sql .= "staff_date_hired = :staff_date_hired, ";
+            $sql .= "staff_office = :staff_office, ";
+            $sql .= "staff_updated_at = :staff_updated_at ";
+            $sql .= "where staff_aid = :staff_aid ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "staff_id" => $this->staff_id,
+                "staff_description" => $this->staff_description,
+                "staff_last_name" => $this->staff_last_name,
+                "staff_first_name" => $this->staff_first_name,
+                "staff_middle_name" => $this->staff_middle_name,
+                "staff_department" => $this->staff_department,
+                "staff_date_hired" => $this->staff_date_hired,
+                "staff_office" => $this->staff_office,
+                "staff_updated_at" => $this->staff_updated_at,
+                "staff_aid" => $this->staff_aid,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // update staff Info
+    public function updateStaffCpaInfo()
+    {
+        try {
+            $sql = "update {$this->tblStaff} set ";
+            $sql .= "staff_education_met = :staff_education_met, ";
+            $sql .= "staff_experience_met = :staff_experience_met, ";
+            $sql .= "staff_last_name = :staff_last_name, ";
+            $sql .= "staff_date_certified = :staff_date_certified, ";
+            $sql .= "staff_certification_number = :staff_certification_number, ";
+            $sql .= "where staff_aid = :staff_aid ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "staff_education_met" => $this->staff_education_met,
+                "staff_experience_met" => $this->staff_experience_met,
+                "staff_last_name" => $this->staff_last_name,
+                "staff_date_certified" => $this->staff_date_certified,
+                "staff_certification_number" => $this->staff_certification_number,
                 "staff_aid" => $this->staff_aid,
             ]);
         } catch (PDOException $ex) {

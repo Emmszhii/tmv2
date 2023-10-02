@@ -14,11 +14,13 @@ import { setIsAdd } from "../../../../../store/StoreAction";
 import { getUrlParam } from "../../../../helpers/functions-general";
 import FetchingSpinner from "../../../../partials/spinners/FetchingSpinner";
 import BreadCrumbs from "../../../../partials/Breadcrumbs";
+import ModalUpdateStaffInfo from "./ModalUpdateStaffInfo";
 
 const StaffInformation = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const staffId = getUrlParam().get("staffId");
   const [itemEdit, setItemEdit] = React.useState(null);
+  const [isUpdateStaffInfo, setUpdateStaffInfo] = React.useState(false);
   const [staffInformationShow, setStaffInformation] = React.useState(true);
   const [cpaInformationShow, setCpaInformation] = React.useState(false);
   const [contactInformationShow, setContactInformation] = React.useState(false);
@@ -29,7 +31,17 @@ const StaffInformation = () => {
   const handlerContactInformation = () =>
     setContactInformation(!contactInformationShow);
 
-  const handlerEdit = (item) => {
+  const handlerEditStaffInfo = (item) => {
+    setItemEdit(item);
+    setUpdateStaffInfo(true);
+  };
+
+  const handlerEditStaffCpaInfo = (item) => {
+    setItemEdit(item);
+    dispatch(setIsAdd(true));
+  };
+
+  const handlerEditStaffContactInfo = (item) => {
     setItemEdit(item);
     dispatch(setIsAdd(true));
   };
@@ -99,7 +111,7 @@ const StaffInformation = () => {
                               <button
                                 className="tooltip"
                                 data-tooltip={`Edit`}
-                                onClick={() => handlerEdit(item)}
+                                onClick={() => handlerEditStaffInfo(item)}
                               >
                                 <FiEdit3 />
                               </button>
@@ -200,12 +212,47 @@ const StaffInformation = () => {
                                 )}
                               </button>
                             </div>
-
                             <button className="tooltip" data-tooltip={`Edit`}>
                               <FiEdit3 />
                             </button>
                           </div>
                         </li>
+                        {cpaInformationShow && (
+                          <div className="p-4">
+                            <ul className="flex flex-col gap-2">
+                              <li className="grid grid-cols-[200px_1fr] items-center">
+                                <h4 className="mb-0">Education Met:</h4>
+                                <p className="mb-0">
+                                  {item.staff_education_met || "No data"},
+                                </p>
+                              </li>
+                              <li className="grid grid-cols-[200px_1fr] items-center">
+                                <h4 className="mb-0">Experience Met:</h4>
+                                <p className="mb-0">
+                                  {item.staff_experience_met || "No data"}
+                                </p>
+                              </li>
+                              <li className="grid grid-cols-[200px_1fr] items-center">
+                                <h4 className="mb-0">Exam Passed:</h4>
+                                <p className="mb-0">
+                                  {item.staff_exam_passed || "No data"}
+                                </p>
+                              </li>
+                              <li className="grid grid-cols-[200px_1fr] items-center">
+                                <h4 className="mb-0">Date Certified:</h4>
+                                <p className="mb-0">
+                                  {item.staff_date_certified || "No data"}
+                                </p>
+                              </li>
+                              <li className="grid grid-cols-[200px_1fr] items-center">
+                                <h4 className="mb-0">Certifiacation Number:</h4>
+                                <p className="mb-0">
+                                  {item.staff_certification_number || "No data"}
+                                </p>
+                              </li>
+                            </ul>
+                          </div>
+                        )}
                         <li
                           onClick={handlerContactInformation}
                           className="cursor-pointer hover:bg-gray-50  border-b-2"
@@ -230,6 +277,54 @@ const StaffInformation = () => {
                             </div>
                           </div>
                         </li>
+                        {contactInformationShow && (
+                          <div className="p-4">
+                            <ul className="flex flex-col gap-2">
+                              <li className="grid grid-cols-[200px_1fr] items-center">
+                                <h4 className="mb-0">Name:</h4>
+                                <p className="mb-0">
+                                  {item.staff_contact_name || "No data"}
+                                </p>
+                              </li>
+                              <li className="grid grid-cols-[200px_1fr] items-center">
+                                <h4 className="mb-0">Email:</h4>
+                                <p className="mb-0">
+                                  {item.staff_contact_email || "No data"}
+                                </p>
+                              </li>
+                              <li className="grid grid-cols-[200px_1fr] items-center">
+                                <h4 className="mb-0">Mobile No:</h4>
+                                <p className="mb-0">
+                                  {item.staff_contact_mobile_no || "No data"}
+                                </p>
+                              </li>
+                              <li className="grid grid-cols-[200px_1fr] items-center">
+                                <h4 className="mb-0">Home No:</h4>
+                                <p className="mb-0">
+                                  {item.staff_contact_home_no || "No data"}
+                                </p>
+                              </li>
+                              <li className="grid grid-cols-[200px_1fr] items-center">
+                                <h4 className="mb-0">File as:</h4>
+                                <p className="mb-0">
+                                  {item.staff_contact_file_as || "No data"}
+                                </p>
+                              </li>
+                              <li className="grid grid-cols-[200px_1fr] items-center">
+                                <h4 className="mb-0">Company:</h4>
+                                <p className="mb-0">
+                                  {item.staff_contact_company || "No data"}
+                                </p>
+                              </li>
+                              <li className="grid grid-cols-[200px_1fr] items-center">
+                                <h4 className="mb-0">Business no:</h4>
+                                <p className="mb-0">
+                                  {item.staff_contact_business_no || "No data"}
+                                </p>
+                              </li>
+                            </ul>
+                          </div>
+                        )}
                       </ul>
                     </div>
                   </React.Fragment>
@@ -239,7 +334,12 @@ const StaffInformation = () => {
           <MainFooter />
         </main>
       </section>
-      {store.isAdd && <ModalAddStaff itemEdit={itemEdit} />}
+      {isUpdateStaffInfo && (
+        <ModalUpdateStaffInfo
+          itemEdit={itemEdit}
+          setUpdateStaffInfo={setUpdateStaffInfo}
+        />
+      )}
       {store.validate && <ModalValidate />}
       {store.success && <Toast />}
     </>
