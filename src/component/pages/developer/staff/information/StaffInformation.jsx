@@ -15,12 +15,16 @@ import { getUrlParam } from "../../../../helpers/functions-general";
 import FetchingSpinner from "../../../../partials/spinners/FetchingSpinner";
 import BreadCrumbs from "../../../../partials/Breadcrumbs";
 import ModalUpdateStaffInfo from "./ModalUpdateStaffInfo";
+import ModalUpdateStaffCpaInfo from "./ModalUpdateStaffCpaInfo";
+import ModalUpdateStaffContactInfo from "./ModalUpdateStaffContactInfo";
 
 const StaffInformation = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const staffId = getUrlParam().get("staffId");
   const [itemEdit, setItemEdit] = React.useState(null);
-  const [isUpdateStaffInfo, setUpdateStaffInfo] = React.useState(false);
+  const [updateStaffInfoShow, setUpdateStaffInfo] = React.useState(false);
+  const [updateStaffCpaInfoShow, setUpdateStaffCpaInfo] = React.useState(false);
+  const [updateStaffContactInfoShow, setUpdateStaffContactInfo] = React.useState(false);
   const [staffInformationShow, setStaffInformation] = React.useState(true);
   const [cpaInformationShow, setCpaInformation] = React.useState(false);
   const [contactInformationShow, setContactInformation] = React.useState(false);
@@ -38,12 +42,12 @@ const StaffInformation = () => {
 
   const handlerEditStaffCpaInfo = (item) => {
     setItemEdit(item);
-    dispatch(setIsAdd(true));
+    setUpdateStaffCpaInfo(true);
   };
 
   const handlerEditStaffContactInfo = (item) => {
     setItemEdit(item);
-    dispatch(setIsAdd(true));
+    setUpdateStaffContactInfo(true);
   };
   const {
     isLoading,
@@ -212,7 +216,7 @@ const StaffInformation = () => {
                                 )}
                               </button>
                             </div>
-                            <button className="tooltip" data-tooltip={`Edit`}>
+                            <button className="tooltip" data-tooltip={`Edit`} onClick={() => handlerEditStaffCpaInfo(item)}>
                               <FiEdit3 />
                             </button>
                           </div>
@@ -271,7 +275,7 @@ const StaffInformation = () => {
                               >
                                 <BiChevronRight />
                               </button>
-                              <button className="tooltip" data-tooltip={`Edit`}>
+                              <button className="tooltip" data-tooltip={`Edit`}onClick={() => handlerEditStaffContactInfo(item)}>
                                 <FiEdit3 />
                               </button>
                             </div>
@@ -334,12 +338,24 @@ const StaffInformation = () => {
           <MainFooter />
         </main>
       </section>
-      {isUpdateStaffInfo && (
+      {updateStaffInfoShow && (
         <ModalUpdateStaffInfo
           itemEdit={itemEdit}
           setUpdateStaffInfo={setUpdateStaffInfo}
         />
-      )}
+      )}    
+      {updateStaffCpaInfoShow && (
+        <ModalUpdateStaffCpaInfo
+          itemEdit={itemEdit}
+          setUpdateStaffCpaInfo={setUpdateStaffCpaInfo}
+        />
+      )}    
+      {updateStaffContactInfoShow && (
+        <ModalUpdateStaffContactInfo
+          itemEdit={itemEdit}
+          setUpdateStaffContactInfo={setUpdateStaffContactInfo}
+        />
+      )}    
       {store.validate && <ModalValidate />}
       {store.success && <Toast />}
     </>

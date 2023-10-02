@@ -32,7 +32,43 @@ if ($isUpdate === "staffInfo") {
     }
     
     // update
-    $query = checkUpdate($staff);
+    $query = checkUpdateStaffInfo($staff);
+    returnSuccess($staff, "Staff", $query);
+
+}
+
+if ($isUpdate === "cpaInfo") {
+    // get staff info data
+    $staff->staff_aid = $_GET['staffId'];
+    $staff->staff_education_met = $data["staff_education_met"];
+    $staff->staff_experience_met = $data["staff_experience_met"];
+    $staff->staff_exam_passed = $data["staff_exam_passed"];
+    $staff->staff_date_certified = $data["staff_date_certified"];
+    $staff->staff_certification_number = $data["staff_certification_number"];
+    $staff->staff_updated_at = date("Y-m-d H:i:s");
+    checkId($staff->staff_aid);
+    
+    // update staff cpa info
+    $query = checkUpdateStaffCpaInfo($staff);
+    returnSuccess($staff, "Staff", $query);
+
+}
+
+if ($isUpdate === "contactInfo") {
+    // get staff info data
+    $staff->staff_aid = $_GET['staffId'];
+    $staff->staff_contact_name = $data["staff_contact_name"];
+    $staff->staff_contact_email = $data["staff_contact_email"];
+    $staff->staff_contact_mobile_no = $data["staff_contact_mobile_no"];
+    $staff->staff_contact_home_no =  $data["staff_contact_home_no"];
+    $staff->staff_contact_file_as = $data["staff_contact_file_as"];
+    $staff->staff_contact_company = $data["staff_contact_company"];
+    $staff->staff_contact_business_no = $data["staff_contact_business_no"];
+    $staff->staff_updated_at = date("Y-m-d H:i:s");
+    checkId($staff->staff_aid);
+    
+    // update staff cpa info
+    $query = checkUpdateStaffContactInfo($staff);
     returnSuccess($staff, "Staff", $query);
 
 }

@@ -15,7 +15,7 @@ import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
 import { queryData } from "../../../../helpers/queryData";
 import { handleEscape } from "../../../../helpers/functions-general";
 
-const ModalUpdateStaffCpaInfo = ({ itemEdit }) => {
+const ModalUpdateStaffCpaInfo = ({ itemEdit, setUpdateStaffCpaInfo}) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -29,7 +29,7 @@ const ModalUpdateStaffCpaInfo = ({ itemEdit }) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["staff"] });
       if (data.success) {
-        dispatch(setIsAdd(false));
+        dispatch(setUpdateStaffCpaInfo(false));
         dispatch(setSuccess(true));
         dispatch(setMessage("Successfully updated"));
       }
@@ -49,19 +49,11 @@ const ModalUpdateStaffCpaInfo = ({ itemEdit }) => {
     staff_certification_number: itemEdit
       ? itemEdit.staff_certification_number
       : "",
-    isUpdate: "CpaInfo",
+    isUpdate: "cpaInfo",
   };
 
-  const yupSchema = Yup.object({
-    staff_education_met: Yup.string().required("Required"),
-    staff_experience_met: Yup.string().required("Required"),
-    staff_exam_passed: Yup.string().required("Required"),
-    staff_date_certified: Yup.string().required("Required"),
-    staff_certification_numberr: Yup.string().required("Required"),
-  });
-
   const handleClose = () => {
-    dispatch(setIsAdd(false));
+    setUpdateStaffCpaInfo(false);
   };
 
   handleEscape(() => handleClose());
@@ -81,7 +73,6 @@ const ModalUpdateStaffCpaInfo = ({ itemEdit }) => {
           <div className="modal__body overflow-auto max-h-[50vh]">
             <Formik
               initialValues={initVal}
-              validationSchema={yupSchema}
               onSubmit={async (values, { setSubmitting, resetForm }) => {
                 // mutate data
                 mutation.mutate({
@@ -127,7 +118,7 @@ const ModalUpdateStaffCpaInfo = ({ itemEdit }) => {
                       </div>
                       <div className="form__wrap">
                         <InputText
-                          label="Middle Name"
+                          label="Certification Number"
                           type="text"
                           name="staff_certification_number"
                           disabled={mutation.isLoading}

@@ -15,6 +15,13 @@ class Staff
     public $staff_exam_passed;
     public $staff_date_certified;
     public $staff_certification_number;
+    public $staff_contact_name;
+    public $staff_contact_email;
+    public $staff_contact_mobile_no;
+    public $staff_contact_home_no;
+    public $staff_contact_file_as;
+    public $staff_contact_company;
+    public $staff_contact_business_no;
     public $staff_is_active;
     public $staff_created_at;
     public $staff_updated_at;
@@ -196,7 +203,7 @@ class Staff
         return $query;
     }
 
-    // update staff Info
+    // update staff Information
     public function updateStaffInfo()
     {
         try {
@@ -230,7 +237,7 @@ class Staff
         return $query;
     }
 
-    // update staff Info
+    // update staff CPA Information
     public function updateStaffCpaInfo()
     {
         try {
@@ -248,6 +255,36 @@ class Staff
                 "staff_last_name" => $this->staff_last_name,
                 "staff_date_certified" => $this->staff_date_certified,
                 "staff_certification_number" => $this->staff_certification_number,
+                "staff_aid" => $this->staff_aid,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+
+    // update Staff Contact Information
+    public function updateStaffContactInfo()
+    {
+        try {
+            $sql = "update {$this->tblStaff} set ";
+            $sql .= "staff_contact_name = :staff_contact_name, ";
+            $sql .= "staff_contact_email = :staff_contact_email, ";
+            $sql .= "staff_contact_mobile_no = :staff_contact_mobile_no, ";
+            $sql .= "staff_contact_home_no = :staff_contact_home_no, ";
+            $sql .= "staff_contact_file_as = :staff_contact_file_as, ";
+            $sql .= "staff_contact_company = :staff_contact_company, ";
+            $sql .= "staff_contact_business_no = :staff_contact_business_no, ";
+            $sql .= "where staff_aid = :staff_aid ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "staff_contact_name" => $this->staff_contact_name,
+                "staff_contact_email" => $this->staff_contact_email,
+                "staff_contact_mobile_no" => $this->staff_contact_mobile_no,
+                "staff_contact_home_no" => $this->staff_contact_home_no,
+                "staff_contact_file_as" => $this->staff_certification_number,
+                "staff_contact_company" => $this->staff_contact_company,
+                "staff_contact_business_no" => $this->staff_contact_business_no,
                 "staff_aid" => $this->staff_aid,
             ]);
         } catch (PDOException $ex) {

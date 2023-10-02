@@ -1,23 +1,20 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import React from "react";
 import { FaTimes } from "react-icons/fa";
-import * as Yup from "yup";
-import { StoreContext } from "../../../../../store/StoreContext";
 import {
   setIsAdd,
   setMessage,
   setSuccess,
   setValidate,
 } from "../../../../../store/StoreAction";
-import { queryData } from "../../../../helpers/queryData";
+import { StoreContext } from "../../../../../store/StoreContext";
+import { InputText } from "../../../../helpers/FormInputs";
 import { handleEscape } from "../../../../helpers/functions-general";
-import { InputText, InputTextArea } from "../../../../helpers/FormInputs";
-import SearchDepartment from "../search/SearchDepartment";
-import SearchOffice from "../search/SearchOffice";
+import { queryData } from "../../../../helpers/queryData";
 import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
 
-const ModalUpdateStaffContactInfo = ({ itemEdit }) => {
+const ModalUpdateStaffContactInfo = ({ itemEdit, setUpdateStaffContactInfo }) => {
   const { dispatch } = React.useContext(StoreContext);
   const mutation = useMutation({
     mutationFn: (values) =>
@@ -77,7 +74,7 @@ const ModalUpdateStaffContactInfo = ({ itemEdit }) => {
   };
 
   const handleClose = () => {
-    dispatch(setIsAdd(false));
+    setUpdateStaffContactInfo(false);
   };
 
   handleEscape(() => handleClose());
@@ -97,7 +94,7 @@ const ModalUpdateStaffContactInfo = ({ itemEdit }) => {
           <div className="modal__body overflow-auto max-h-[50vh]">
             <Formik
               initialValues={initVal}
-              validationSchema={yupSchema}
+              // validationSchema={yupSchema}
               onSubmit={async (values, { setSubmitting, resetForm }) => {
                 // mutate data
                 mutation.mutate({
