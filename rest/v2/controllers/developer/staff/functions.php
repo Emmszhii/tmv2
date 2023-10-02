@@ -37,3 +37,26 @@ function checkDepartmentSearch($object)
     return $query;
 }
  
+// Update staff info
+function checkUpdateStaffInfo($object)
+{
+    $query = $object->updateStaffInfo();
+    checkQuery($query, "There's a problem processing your request. (update)");
+    return $query;
+}
+
+// Update staff cpa info
+function checkUpdateStaffCpaInfo($object)
+{
+    $query = $object->updateStaffCpaInfo();
+    checkQuery($query, "There's a problem processing your request. (update)");
+    return $query;
+}
+
+// Update staff contact info
+function checkUpdateStaffContactInfo($object)
+{
+    $query = $object->updateStaffContactInfo();
+    checkQuery($query, "There's a problem processing your request. (update)");
+    return $query;
+}

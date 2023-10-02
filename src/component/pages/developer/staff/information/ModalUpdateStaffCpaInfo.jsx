@@ -15,7 +15,7 @@ import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
 import { queryData } from "../../../../helpers/queryData";
 import { handleEscape } from "../../../../helpers/functions-general";
 
-const ModalUpdateStaffCpaInfo = ({ itemEdit }) => {
+const ModalUpdateStaffCpaInfo = ({ itemEdit, setUpdateStaffCpaInfo}) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -49,7 +49,7 @@ const ModalUpdateStaffCpaInfo = ({ itemEdit }) => {
     staff_certification_number: itemEdit
       ? itemEdit.staff_certification_number
       : "",
-    isUpdate: "CpaInfo",
+    isUpdate: "cpaInfo",
   };
 
   const yupSchema = Yup.object({
@@ -61,7 +61,7 @@ const ModalUpdateStaffCpaInfo = ({ itemEdit }) => {
   });
 
   const handleClose = () => {
-    dispatch(setIsAdd(false));
+    setUpdateStaffCpaInfo(false);
   };
 
   handleEscape(() => handleClose());
