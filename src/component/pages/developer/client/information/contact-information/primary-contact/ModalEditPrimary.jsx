@@ -13,6 +13,7 @@ import { InputText, InputTextArea } from "../../../../../../helpers/FormInputs";
 import { Form, Formik } from "formik";
 import { FaTimes } from "react-icons/fa";
 import * as Yup from "yup";
+import { queryData } from "../../../../../../helpers/queryData";
 
 const ModalEditPrimary = ({ itemEdit }) => {
   const { dispatch } = React.useContext(StoreContext);
@@ -20,10 +21,8 @@ const ModalEditPrimary = ({ itemEdit }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        itemEdit
-          ? `/v2/controllers/developer/information/contact-information/primary-contact/primary-contact.php?clientId=${itemEdit.client_aid}` //update
-          : "/v2/controllers/developer/information/contact-information/primary-contact/primary-contact.php", //add
-        itemEdit ? "put" : "post",
+        `/v2/controllers/developer/information/contact-information/primary-contact/primary-contact.php?clientId=${itemEdit.client_aid}`, //update
+        "put",
         values
       ),
     onSuccess: (data) => {
