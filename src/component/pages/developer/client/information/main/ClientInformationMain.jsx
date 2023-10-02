@@ -53,6 +53,12 @@ const ClientInformationMain = () => {
     "client"
   );
 
+  const { data: entity } = useQueryData(
+    `/v2/controllers/developer/settings/entities/entities.php`,
+    "get",
+    "entity"
+  );
+
   return (
     <>
       <Header />
@@ -229,7 +235,7 @@ const ClientInformationMain = () => {
           <MainFooter />
         </main>
       </section>
-      {store.isAdd && <ModalAddClient itemEdit={itemEdit} />}
+      {store.isAdd && <ModalAddClient itemEdit={itemEdit} entity={entity} />}
       {store.validate && <ModalValidate />}
       {store.success && <Toast />}
     </>
