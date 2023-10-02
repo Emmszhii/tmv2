@@ -79,11 +79,7 @@ const ClientTable = ({ setItemEdit }) => {
     "get",
     "staff"
   );
-  const { isLoading: entityLoading, data: entity } = useQueryData(
-    `/v2/controllers/developer/settings/entities/entities.php`,
-    "get",
-    "entity"
-  );
+  
 
   React.useEffect(() => {
     dispatch(setIsSearch(false));

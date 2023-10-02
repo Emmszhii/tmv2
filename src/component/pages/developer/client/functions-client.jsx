@@ -17,7 +17,7 @@ export const getClientCountRecord = (client) => {
 
 export const getStaffName = (data, id) => {
   let name = "";
-  
+
   if (data?.count > 0) {
     data?.data.filter((item) => {
       if (item.staff_aid === Number(id)) {
@@ -30,12 +30,8 @@ export const getStaffName = (data, id) => {
 
 export const getEntity = (data, id) => {
   let name = "";
-  if (data?.count > 0) {
-    data?.data.filter((item) => {
-      if (item.entities_aid === Number(id)) {
-        name = item.entities_id;
-      }
-    });
-  }
+  const result = data?.data.filter((item) => item.entities_aid === Number(id));
+  name = result?.length > 0 ? result[0].entities_id : "";
+
   return name;
 };

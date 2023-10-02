@@ -20,10 +20,6 @@ const ClientIdentification = ({ item }) => {
             <p className="mb-0">{item.client_client_id}</p>
           </li>
           <li className="grid grid-cols-[200px_1fr] items-center">
-            <h4 className="mb-0">ID:</h4>
-            <p className="mb-0">{item.client_client_id}</p>
-          </li>
-          <li className="grid grid-cols-[200px_1fr] items-center">
             <h4 className="mb-0">Description:</h4>
             <p className="mb-0">{item.client_description || "No data"}</p>
           </li>

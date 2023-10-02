@@ -14,18 +14,21 @@ import { InputText } from "../../../helpers/FormInputs";
 import { handleEscape } from "../../../helpers/functions-general";
 import { queryData } from "../../../helpers/queryData";
 import ButtonSpinner from "../../../partials/spinners/ButtonSpinner";
-import SearchEntity from "./search/SearchEntity";
-import SearchPartner from "./search/SearchPartner";
-import SearchManager from "./search/SearchManager";
+import { getEntity } from "./functions-client";
 import SearchAssociate from "./search/SearchAssociate";
+import SearchEntity from "./search/SearchEntity";
+import SearchManager from "./search/SearchManager";
+import SearchPartner from "./search/SearchPartner";
 
-const ModalAddClient = ({ itemEdit }) => {
+const ModalAddClient = ({ itemEdit, entity }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
   // search Entity
   const [loadingEntity, setLoadingEntity] = React.useState(false);
   const [isSearchEntity, setIsSearchEntity] = React.useState(false);
-  const [searchEntity, setSearchEntity] = React.useState("");
+  const [searchEntity, setSearchEntity] = React.useState(
+    itemEdit ? getEntity(entity, itemEdit.client_entities_id) : ""
+  );
   const [dataEntity, setDataEntity] = React.useState([]);
   const [entityId, setEntityId] = React.useState("");
   // search Partner
@@ -90,7 +93,6 @@ const ModalAddClient = ({ itemEdit }) => {
     client_client_id: Yup.string().required("Required"),
     client_name: Yup.string().required("Required"),
     client_description: Yup.string().required("Required"),
-   
   });
 
   const handleSearchModal = () => {

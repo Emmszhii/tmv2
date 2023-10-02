@@ -1,4 +1,5 @@
 <?php
+require 'functions.php';
 // check database connection
 $conn = null;
 $conn = checkDbConnection();
@@ -26,4 +27,8 @@ isNameExist($client, $client->client_client_id);
 isNameExist($client, $client->client_name);
 // create
 $query = checkCreate($client);
+checkCreateContactPrimary($client);
+checkCreateContactPreferred($client);
+checkCreateContactBilling($client);
+checkCreateContactCustomeField($client);
 returnSuccess($client, "Client", $query);

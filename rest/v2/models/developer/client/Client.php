@@ -24,6 +24,10 @@ class Client
     public $tblClient;
     public $tblEntities;
     public $tblStaff;
+    public $tblPrimaryContact;
+    public $tblPreferredContact;
+    public $tblBillingContact;
+    public $tblCustomeField;
 
     public function __construct($db)
     {
@@ -31,6 +35,10 @@ class Client
         $this->tblClient = "tmv2_client";
         $this->tblEntities = "tmv2_entities";
         $this->tblStaff = "tmv2_staff";
+        $this->tblPrimaryContact = "tmv2_primary_contact";
+        $this->tblPreferredContact = "tmv2_preferred_contact";
+        $this->tblBillingContact = "tmv2_billing_contact";
+        $this->tblCustomeField = "tmv2_custom_field";
     }
 
     // create
@@ -298,6 +306,94 @@ class Client
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "staff_search_id" => "%{$this->client_search}%",
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+    // create Contact Primary
+    public function createContactPrimary()
+    {
+        try {
+            $sql = "insert into {$this->tblPrimaryContact} ";
+            $sql .= "( primary_contact_client_id, ";
+            $sql .= "primary_contact_created_at, ";
+            $sql .= "primary_contact_updated_at ) values ( ";
+            $sql .= ":primary_contact_client_id, ";
+            $sql .= ":primary_contact_created_at, ";
+            $sql .= ":primary_contact_updated_at ) ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "primary_contact_client_id" => $this->lastInsertedId,
+                "primary_contact_created_at" => $this->client_created_at,
+                "primary_contact_updated_at" => $this->client_updated_at,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+    // create Contact Preferred
+    public function createContactPreferred()
+    {
+        try {
+            $sql = "insert into {$this->tblPreferredContact} ";
+            $sql .= "( preferred_contact_client_id, ";
+            $sql .= "preferred_contact_created_at, ";
+            $sql .= "preferred_contact_updated_at ) values ( ";
+            $sql .= ":preferred_contact_client_id, ";
+            $sql .= ":preferred_contact_created_at, ";
+            $sql .= ":preferred_contact_updated_at ) ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "preferred_contact_client_id" => $this->lastInsertedId,
+                "preferred_contact_created_at" => $this->client_created_at,
+                "preferred_contact_updated_at" => $this->client_updated_at,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+    // create Contact Billing
+    public function createContactBilling()
+    {
+        try {
+            $sql = "insert into {$this->tblBillingContact} ";
+            $sql .= "( billing_contact_client_id, ";
+            $sql .= "billing_contact_created_at, ";
+            $sql .= "billing_contact_updated_at ) values ( ";
+            $sql .= ":billing_contact_client_id, ";
+            $sql .= ":billing_contact_created_at, ";
+            $sql .= ":billing_contact_updated_at ) ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "billing_contact_client_id" => $this->lastInsertedId,
+                "billing_contact_created_at" => $this->client_created_at,
+                "billing_contact_updated_at" => $this->client_updated_at,
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+    // create custom field
+    public function createContactCustomeField()
+    {
+        try {
+            $sql = "insert into {$this->tblCustomeField} ";
+            $sql .= "( custom_field_client_id, ";
+            $sql .= "custom_field_created_at, ";
+            $sql .= "custom_field_updated_at ) values ( ";
+            $sql .= ":custom_field_client_id, ";
+            $sql .= ":custom_field_created_at, ";
+            $sql .= ":custom_field_updated_at ) ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "custom_field_client_id" => $this->lastInsertedId,
+                "custom_field_created_at" => $this->client_created_at,
+                "custom_field_updated_at" => $this->client_updated_at,
             ]);
         } catch (PDOException $ex) {
             $query = false;

@@ -9,6 +9,7 @@ import ModalValidate from "../../../partials/modals/ModalValidate";
 import Toast from "../../../partials/Toast";
 import ClientTable from "./ClientTable";
 import MainFooter from "../../../partials/MainFooter";
+import useQueryData from "../../../custom-hooks/useQueryData";
 
 const Client = () => {
   const { store, dispatch } = React.useContext(StoreContext);
