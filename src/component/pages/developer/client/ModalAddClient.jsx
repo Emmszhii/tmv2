@@ -23,6 +23,7 @@ import SearchPartner from "./search/SearchPartner";
 const ModalAddClient = ({ itemEdit, entity }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
+
   // search Entity
   const [loadingEntity, setLoadingEntity] = React.useState(false);
   const [isSearchEntity, setIsSearchEntity] = React.useState(false);
