@@ -29,7 +29,7 @@ const ModalUpdateStaffCpaInfo = ({ itemEdit, setUpdateStaffCpaInfo}) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["staff"] });
       if (data.success) {
-        dispatch(setIsAdd(false));
+        dispatch(setUpdateStaffCpaInfo(false));
         dispatch(setSuccess(true));
         dispatch(setMessage("Successfully updated"));
       }
@@ -52,14 +52,6 @@ const ModalUpdateStaffCpaInfo = ({ itemEdit, setUpdateStaffCpaInfo}) => {
     isUpdate: "cpaInfo",
   };
 
-  const yupSchema = Yup.object({
-    staff_education_met: Yup.string().required("Required"),
-    staff_experience_met: Yup.string().required("Required"),
-    staff_exam_passed: Yup.string().required("Required"),
-    staff_date_certified: Yup.string().required("Required"),
-    staff_certification_numberr: Yup.string().required("Required"),
-  });
-
   const handleClose = () => {
     setUpdateStaffCpaInfo(false);
   };
@@ -81,7 +73,6 @@ const ModalUpdateStaffCpaInfo = ({ itemEdit, setUpdateStaffCpaInfo}) => {
           <div className="modal__body overflow-auto max-h-[50vh]">
             <Formik
               initialValues={initVal}
-              validationSchema={yupSchema}
               onSubmit={async (values, { setSubmitting, resetForm }) => {
                 // mutate data
                 mutation.mutate({
@@ -127,7 +118,7 @@ const ModalUpdateStaffCpaInfo = ({ itemEdit, setUpdateStaffCpaInfo}) => {
                       </div>
                       <div className="form__wrap">
                         <InputText
-                          label="Middle Name"
+                          label="Certification Number"
                           type="text"
                           name="staff_certification_number"
                           disabled={mutation.isLoading}
