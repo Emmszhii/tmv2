@@ -372,6 +372,8 @@ const StaffInformation = () => {
         <ModalUpdateStaffInfo
           itemEdit={itemEdit}
           setUpdateStaffInfo={setUpdateStaffInfo}
+          department={department}
+          office={office}
         />
       )}
       {updateStaffCpaInfoShow && (

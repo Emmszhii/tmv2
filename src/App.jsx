@@ -33,6 +33,8 @@ import ClientNotes from "./component/pages/developer/client/information/notes/Cl
 import ClientInformation from "./component/pages/developer/client/information/ClientInformation";
 import ClientInformationMain from "./component/pages/developer/client/information/main/ClientInformationMain";
 import StaffInformation from "./component/pages/developer/staff/information/StaffInformation";
+import Form1099List from "./component/pages/developer/tools/form1099/Form1099List";
+import Form1099ZipCodeFinder from "./component/pages/developer/tools/form1099/zip-code-finder/Form1099ZipCodeFinder";
 
 function App() {
   const queryClient = new QueryClient();
@@ -44,6 +46,11 @@ function App() {
             <Routes>
               <Route path={`*`} element={<Staff />} />
               <Route path={`/staff`} element={<Staff />} />
+              <Route path={`/tools/form-1099`} element={<Form1099List />} />
+              <Route
+                path={`/tools/form-1099/zip-code-finder`}
+                element={<Form1099ZipCodeFinder />}
+              />
               <Route
                 path={`/staff/information`}
                 element={<StaffInformation />}

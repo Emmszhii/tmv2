@@ -3,36 +3,51 @@ import { Form, Formik } from "formik";
 import React from "react";
 import { FaTimes } from "react-icons/fa";
 import * as Yup from "yup";
-import { StoreContext } from "../../../../../store/StoreContext";
 import {
-  setIsAdd,
   setMessage,
   setSuccess,
   setValidate,
 } from "../../../../../store/StoreAction";
-import { queryData } from "../../../../helpers/queryData";
-import { handleEscape } from "../../../../helpers/functions-general";
+import { StoreContext } from "../../../../../store/StoreContext";
 import { InputText, InputTextArea } from "../../../../helpers/FormInputs";
+import {
+  consoleLog,
+  handleEscape,
+} from "../../../../helpers/functions-general";
+import { queryData } from "../../../../helpers/queryData";
+import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
+import { getNameDepartment, getNameOffice } from "../funtions-staff";
 import SearchDepartment from "../search/SearchDepartment";
 import SearchOffice from "../search/SearchOffice";
-import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
 
-const ModalUpdateStaffInfo = ({ itemEdit, setUpdateStaffInfo }) => {
+const ModalUpdateStaffInfo = ({
+  itemEdit,
+  setUpdateStaffInfo,
+  department,
+  office,
+}) => {
   const { dispatch } = React.useContext(StoreContext);
   // search Office
   const [loadingOffice, setLoadingOffice] = React.useState(false);
   const [isSearchOffice, setIsSearchOffice] = React.useState(false);
-  const [searchOffice, setSearchOffice] = React.useState("");
+  const [searchOffice, setSearchOffice] = React.useState(
+    itemEdit ? getNameOffice(office, itemEdit.staff_office) : ""
+  );
   const [dataOffice, setDataOffice] = React.useState([]);
-  const [OfficeId, setOfficeId] = React.useState("");
+  const [OfficeId, setOfficeId] = React.useState(
+    itemEdit ? itemEdit.staff_office : ""
+  );
   // search department
   const [loadingDepartment, setLoadingDepartment] = React.useState(false);
   const [isSearchDepartment, setIsSearchDepartment] = React.useState(false);
-  const [searchDepartment, setSearchDepartment] = React.useState("");
+  const [searchDepartment, setSearchDepartment] = React.useState(
+    itemEdit ? getNameDepartment(department, itemEdit.staff_department) : ""
+  );
   const [dataDepartment, setDataDepartment] = React.useState([]);
-  const [DepartmentId, setDepartmentId] = React.useState("");
+  const [DepartmentId, setDepartmentId] = React.useState(
+    itemEdit ? itemEdit.staff_department : ""
+  );
   const queryClient = useQueryClient();
-
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
@@ -43,6 +58,7 @@ const ModalUpdateStaffInfo = ({ itemEdit, setUpdateStaffInfo }) => {
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["staff"] });
+      s;
       if (data.success) {
         setUpdateStaffInfo(false);
         dispatch(setSuccess(true));
@@ -55,17 +71,6 @@ const ModalUpdateStaffInfo = ({ itemEdit, setUpdateStaffInfo }) => {
       }
     },
   });
-
-  // const {
-  //   loadingDepartment,
-  //   isFetchingDepartment,
-  //   errorDepartment,
-  //   data: department,
-  // } = useQueryData(
-  //   `/v2/controllers/developer/settings/department/department.php`,
-  //   "get",
-  //   "settings-department"
-  // );
 
   // const {
   //   loadingOffice,
