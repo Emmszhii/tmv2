@@ -31,7 +31,9 @@ const ModalAddClient = ({ itemEdit, entity }) => {
     itemEdit ? getEntity(entity, itemEdit.client_entities_id) : ""
   );
   const [dataEntity, setDataEntity] = React.useState([]);
-  const [entityId, setEntityId] = React.useState("");
+  const [entityId, setEntityId] = React.useState(
+    itemEdit ? itemEdit.client_entities_id : ""
+  );
   // search Partner
   const [loadingPartner, setLoadingPartner] = React.useState(false);
   const [isSearchPartner, setIsSearchPartner] = React.useState(false);
