@@ -21,27 +21,26 @@ import ClientSpouse from "./spouse/ClientSpouse";
 import ClientInformation from "./client-information/ClientInformation";
 import ClientRetentionInformation from "./client-retention-information/ClientRetentionInformation";
 import ClientIdentification from "./identification/ClientIdentification";
+import ModalEditClientRetention from "./client-retention-information/ModalEditClientRetention";
 
 const ClientInformationMain = () => {
   const { store, dispatch } = React.useContext(StoreContext);
   const clientId = getUrlParam().get("clientId");
   const [itemEdit, setItemEdit] = React.useState(null);
+  // tab state
   const [identityShow, setIdentityShow] = React.useState(true);
   const [individualShow, setIndividualShow] = React.useState(false);
   const [spouseShow, setSpouseShow] = React.useState(false);
   const [clientInfoShow, setclientInfoShow] = React.useState(false);
   const [clientRetenShow, setclientRetenShow] = React.useState(false);
-
   const handlerShowIdentity = () => setIdentityShow(!identityShow);
   const handlerIndividual = () => setIndividualShow(!individualShow);
   const handlerSpouse = () => setSpouseShow(!spouseShow);
   const handlerInfo = () => setclientInfoShow(!clientInfoShow);
   const handlerReten = () => setclientRetenShow(!clientRetenShow);
+  // modal state
+  const [isRetentionShow, setIsRetentionShow] = React.useState(false);
 
-  const handlerEdit = (item) => {
-    setItemEdit(item);
-    dispatch(setIsAdd(true));
-  };
   const {
     isLoading,
     isFetching,
@@ -58,6 +57,37 @@ const ClientInformationMain = () => {
     "get",
     "entity"
   );
+
+  const { data: referredType } = useQueryData(
+    `/v2/controllers/developer/settings/referral-type/referral-type.php`,
+    "get",
+    "referral-type"
+  );
+  const { data: wonReason } = useQueryData(
+    `/v2/controllers/developer/settings/won-reason/won-reason.php`,
+    "get",
+    "won-reason"
+  );
+  const { data: lostReason } = useQueryData(
+    `/v2/controllers/developer/settings/lost-reason/lost-reason.php`,
+    "get",
+    "lost-reason"
+  );
+  const { data: lostTo } = useQueryData(
+    `/v2/controllers/developer/settings/lost-to/lost-to.php`,
+    "get",
+    "lost-to"
+  );
+  console.log(referredType);
+  const handlerEdit = (item) => {
+    setItemEdit(item);
+    dispatch(setIsAdd(true));
+  };
+
+  const handleRetentionShow = (item) => {
+    setItemEdit(item);
+    setIsRetentionShow(true);
+  };
 
   return (
     <>
@@ -218,7 +248,11 @@ const ClientInformationMain = () => {
                                 )}
                               </button>
                             </div>
-                            <button className="tooltip" data-tooltip={`Edit`}>
+                            <button
+                              className="tooltip"
+                              data-tooltip={`Edit`}
+                              onClick={() => handleRetentionShow(item)}
+                            >
                               <FiEdit3 />
                             </button>
                           </div>
@@ -236,6 +270,13 @@ const ClientInformationMain = () => {
         </main>
       </section>
       {store.isAdd && <ModalAddClient itemEdit={itemEdit} entity={entity} />}
+      {isRetentionShow && (
+        <ModalEditClientRetention
+          itemEdit={itemEdit}
+          referredType={referredType}
+          setIsRetentionShow={setIsRetentionShow}
+        />
+      )}
       {store.validate && <ModalValidate />}
       {store.success && <Toast />}
     </>

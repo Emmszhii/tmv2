@@ -21,13 +21,13 @@ const ModalEditBilling = ({ itemEdit, setBillingModalShow }) => {
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        `/v2/controllers/developer/client/information/contact-information/preferred-contact/preferred-contact.php?preferredContactId=${itemEdit.preferred_contact_client_id}`, //update
+        `/v2/controllers/developer/client/information/contact-information/billing-contact/billing-contact.php?billingContactId=${itemEdit.billing_contact_client_id}`, //update
         "put",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["preferred-contact"] });
+      queryClient.invalidateQueries({ queryKey: ["billing-contact"] });
 
       if (data.success) {
         setBillingModalShow(false);
@@ -43,31 +43,23 @@ const ModalEditBilling = ({ itemEdit, setBillingModalShow }) => {
   });
 
   const initVal = {
-    preferred_contact_name: itemEdit ? itemEdit.preferred_contact_name : "",
-    preferred_contact_title: itemEdit ? itemEdit.preferred_contact_title : "",
-    preferred_contact_company: itemEdit
-      ? itemEdit.preferred_contact_company
+    billing_contact_name: itemEdit ? itemEdit.billing_contact_name : "",
+    billing_contact_title: itemEdit ? itemEdit.billing_contact_title : "",
+    billing_contact_company: itemEdit ? itemEdit.billing_contact_company : "",
+    billing_contact_file_as: itemEdit ? itemEdit.billing_contact_file_as : "",
+    billing_contact_business_number: itemEdit
+      ? itemEdit.billing_contact_business_number
       : "",
-    preferred_contact_file_as: itemEdit
-      ? itemEdit.preferred_contact_file_as
+    billing_contact_home_number: itemEdit
+      ? itemEdit.billing_contact_home_number
       : "",
-    preferred_contact_business_number: itemEdit
-      ? itemEdit.preferred_contact_business_number
+    billing_contact_mobile_number: itemEdit
+      ? itemEdit.billing_contact_mobile_number
       : "",
-    preferred_contact_home_number: itemEdit
-      ? itemEdit.preferred_contact_home_number
-      : "",
-    primary_contact_mobile_number: itemEdit
-      ? itemEdit.primary_contact_mobile_number
-      : "",
-    preferred_contact_address: itemEdit
-      ? itemEdit.preferred_contact_address
-      : "",
-    preferred_contact_country: itemEdit
-      ? itemEdit.preferred_contact_country
-      : "",
-    preferred_contact_zip: itemEdit ? itemEdit.preferred_contact_zip : "",
-    preferred_contact_email: itemEdit ? itemEdit.preferred_contact_email : "",
+    billing_contact_address: itemEdit ? itemEdit.billing_contact_address : "",
+    billing_contact_country: itemEdit ? itemEdit.billing_contact_country : "",
+    billing_contact_zip: itemEdit ? itemEdit.billing_contact_zip : "",
+    billing_contact_email: itemEdit ? itemEdit.billing_contact_email : "",
   };
 
   const yupSchema = Yup.object({});
@@ -109,7 +101,7 @@ const ModalEditBilling = ({ itemEdit, setBillingModalShow }) => {
                         <InputText
                           label="Contact Person"
                           type="text"
-                          name="preferred_contact_name"
+                          name="billing_contact_name"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -117,7 +109,7 @@ const ModalEditBilling = ({ itemEdit, setBillingModalShow }) => {
                         <InputText
                           label="Title"
                           type="text"
-                          name="preferred_contact_title"
+                          name="billing_contact_title"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -125,7 +117,7 @@ const ModalEditBilling = ({ itemEdit, setBillingModalShow }) => {
                         <InputText
                           label="Company"
                           type="text"
-                          name="preferred_contact_company"
+                          name="billing_contact_company"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -133,7 +125,7 @@ const ModalEditBilling = ({ itemEdit, setBillingModalShow }) => {
                         <InputText
                           label="File as"
                           type="text"
-                          name="preferred_contact_file_as"
+                          name="billing_contact_file_as"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -149,7 +141,7 @@ const ModalEditBilling = ({ itemEdit, setBillingModalShow }) => {
                         <InputText
                           label="Home number"
                           mobile="mobile"
-                          name="preferred_contact_home_number"
+                          name="billing_contact_home_number"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -157,7 +149,7 @@ const ModalEditBilling = ({ itemEdit, setBillingModalShow }) => {
                         <InputText
                           label="Mobile Number"
                           mobile="mobile"
-                          name="primary_contact_mobile_number"
+                          name="billing_contact_mobile_number"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -165,7 +157,7 @@ const ModalEditBilling = ({ itemEdit, setBillingModalShow }) => {
                         <InputTextArea
                           label="Address"
                           type="text"
-                          name="preferred_contact_address"
+                          name="billing_contact_address"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -173,7 +165,7 @@ const ModalEditBilling = ({ itemEdit, setBillingModalShow }) => {
                         <InputText
                           label="Country"
                           type="text"
-                          name="preferred_contact_country"
+                          name="billing_contact_country"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -181,7 +173,7 @@ const ModalEditBilling = ({ itemEdit, setBillingModalShow }) => {
                         <InputText
                           label="Zip"
                           type="text"
-                          name="preferred_contact_zip"
+                          name="billing_contact_zip"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -189,7 +181,7 @@ const ModalEditBilling = ({ itemEdit, setBillingModalShow }) => {
                         <InputText
                           label="Email"
                           type="text"
-                          name="preferred_contact_email"
+                          name="billing_contact_email"
                           disabled={mutation.isLoading}
                         />
                       </div>

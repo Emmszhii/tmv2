@@ -89,12 +89,6 @@ const ModalEditPrimary = ({ itemEdit, setPrimaryModalShow }) => {
               onSubmit={async (values, { setSubmitting, resetForm }) => {
                 console.log(values);
                 // mutate data
-                if (!Number(values.primary_contact_business_number))
-                  primary_contact_business_number = "";
-                if (!Number(values.primary_contact_home_number))
-                  primary_contact_home_number = "";
-                if (!Number(values.primary_contact_mobile_number))
-                  primary_contact_mobile_number = "";
                 mutation.mutate(values);
               }}
             >

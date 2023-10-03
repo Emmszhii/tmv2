@@ -7,6 +7,7 @@ class BillingContact
     public $billing_contact_company;
     public $billing_contact_file_as;
     public $billing_contact_business_number;
+    public $billing_contact_mobile_number;
     public $billing_contact_home_number;
     public $billing_contact_address;
     public $billing_contact_country;
@@ -70,6 +71,7 @@ class BillingContact
             $sql .= "billing_contact_company = :billing_contact_company, ";
             $sql .= "billing_contact_file_as = :billing_contact_file_as, ";
             $sql .= "billing_contact_business_number = :billing_contact_business_number, ";
+            $sql .= "billing_contact_mobile_number = :billing_contact_mobile_number, ";
             $sql .= "billing_contact_home_number = :billing_contact_home_number, ";
             $sql .= "billing_contact_address = :billing_contact_address, ";
             $sql .= "billing_contact_country = :billing_contact_country, ";
@@ -84,6 +86,7 @@ class BillingContact
                 "billing_contact_company" => $this->billing_contact_company,
                 "billing_contact_file_as" => $this->billing_contact_file_as,
                 "billing_contact_business_number" => $this->billing_contact_business_number,
+                "billing_contact_mobile_number" => $this->billing_contact_mobile_number,
                 "billing_contact_home_number" => $this->billing_contact_home_number,
                 "billing_contact_address" => $this->billing_contact_address,
                 "billing_contact_country" => $this->billing_contact_country,

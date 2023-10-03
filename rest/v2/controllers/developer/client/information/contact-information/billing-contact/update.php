@@ -11,12 +11,13 @@ if (array_key_exists("billingContactId", $_GET)) {
     // check data
     checkPayload($data);
     // get data
-    $primaryContact->billing_contact_client_id = $_GET['primaryContactId'];
+    $primaryContact->billing_contact_client_id = $_GET['billingContactId'];
     $primaryContact->billing_contact_name = $data["billing_contact_name"];
     $primaryContact->billing_contact_title = $data["billing_contact_title"];
     $primaryContact->billing_contact_company = $data["billing_contact_company"];
     $primaryContact->billing_contact_file_as = $data["billing_contact_file_as"];
     $primaryContact->billing_contact_business_number = $data["billing_contact_business_number"];
+    $primaryContact->billing_contact_mobile_number = $data["billing_contact_mobile_number"];
     $primaryContact->billing_contact_home_number = $data["billing_contact_home_number"];
     $primaryContact->billing_contact_address = $data["billing_contact_address"];
     $primaryContact->billing_contact_country = $data["billing_contact_country"];
