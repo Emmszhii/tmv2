@@ -57,6 +57,6 @@ function checkUpdateStaffCpaInfo($object)
 function checkUpdateStaffContactInfo($object)
 {
     $query = $object->updateStaffContactInfo();
-    checkQuery($query, "There's a problem processing your request. (update)");
+    checkQuery($query, "There's a problem processing your request. (update staff contact)");
     return $query;
 }

@@ -2,20 +2,18 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Form, Formik } from "formik";
 import React from "react";
 import { FaTimes } from "react-icons/fa";
-import * as Yup from "yup";
-import { StoreContext } from "../../../../../store/StoreContext";
 import {
-  setIsAdd,
   setMessage,
   setSuccess,
   setValidate,
 } from "../../../../../store/StoreAction";
+import { StoreContext } from "../../../../../store/StoreContext";
 import { InputText } from "../../../../helpers/FormInputs";
-import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
-import { queryData } from "../../../../helpers/queryData";
 import { handleEscape } from "../../../../helpers/functions-general";
+import { queryData } from "../../../../helpers/queryData";
+import ButtonSpinner from "../../../../partials/spinners/ButtonSpinner";
 
-const ModalUpdateStaffCpaInfo = ({ itemEdit, setUpdateStaffCpaInfo}) => {
+const ModalUpdateStaffCpaInfo = ({ itemEdit, setUpdateStaffCpaInfo }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
 
@@ -23,13 +21,14 @@ const ModalUpdateStaffCpaInfo = ({ itemEdit, setUpdateStaffCpaInfo}) => {
     mutationFn: (values) =>
       queryData(
         `/v2/controllers/developer/staff/staff.php?staffId=${itemEdit.staff_aid}`, //update
+        "put",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["staff"] });
       if (data.success) {
-        dispatch(setUpdateStaffCpaInfo(false));
+        setUpdateStaffCpaInfo(false);
         dispatch(setSuccess(true));
         dispatch(setMessage("Successfully updated"));
       }
@@ -52,6 +51,13 @@ const ModalUpdateStaffCpaInfo = ({ itemEdit, setUpdateStaffCpaInfo}) => {
     isUpdate: "cpaInfo",
   };
 
+  // const yupSchema = Yup.object({
+  //   staff_id: Yup.string().required("Required"),
+  //   staff_first_name: Yup.string().required("Required"),
+  //   staff_last_name: Yup.string().required("Required"),
+  //   staff_date_hired: Yup.string().required("Required"),
+  // });
+
   const handleClose = () => {
     setUpdateStaffCpaInfo(false);
   };
@@ -65,7 +71,7 @@ const ModalUpdateStaffCpaInfo = ({ itemEdit, setUpdateStaffCpaInfo}) => {
           className={`modal__main absolute mx-1 bg-white border border-gray-200 rounded-md py-8 px-5 max-w-[420px] w-full shadow-xl`}
         >
           <div className="modal__header relative">
-            <h3> Update CPA Information </h3>
+            <h3>Update Staff Cpa Information </h3>
             <button className="absolute -top-4 right-0 " onClick={handleClose}>
               <FaTimes className="text-gray-700 text-base" />
             </button>
@@ -73,6 +79,7 @@ const ModalUpdateStaffCpaInfo = ({ itemEdit, setUpdateStaffCpaInfo}) => {
           <div className="modal__body overflow-auto max-h-[50vh]">
             <Formik
               initialValues={initVal}
+              // validationSchema={yupSchema}
               onSubmit={async (values, { setSubmitting, resetForm }) => {
                 // mutate data
                 mutation.mutate({
@@ -111,7 +118,7 @@ const ModalUpdateStaffCpaInfo = ({ itemEdit, setUpdateStaffCpaInfo}) => {
                       <div className="form__wrap">
                         <InputText
                           label="Date Certified"
-                          type="date"
+                          type="text"
                           name="staff_date_certified"
                           disabled={mutation.isLoading}
                         />

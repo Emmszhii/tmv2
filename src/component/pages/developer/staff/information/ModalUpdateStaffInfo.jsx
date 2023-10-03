@@ -37,13 +37,14 @@ const ModalUpdateStaffInfo = ({ itemEdit, setUpdateStaffInfo }) => {
     mutationFn: (values) =>
       queryData(
         `/v2/controllers/developer/staff/staff.php?staffId=${itemEdit.staff_aid}`, //update
+        "put",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["staff"] });
       if (data.success) {
-        dispatch(setIsAdd(false));
+        setUpdateStaffInfo(false);
         dispatch(setSuccess(true));
         dispatch(setMessage("Successfully updated"));
       }
@@ -85,6 +86,8 @@ const ModalUpdateStaffInfo = ({ itemEdit, setUpdateStaffInfo }) => {
     staff_middle_name: itemEdit ? itemEdit.staff_middle_name : "",
     staff_last_name: itemEdit ? itemEdit.staff_last_name : "",
     staff_date_hired: itemEdit ? itemEdit.staff_date_hired : "",
+    staff_level: itemEdit ? itemEdit.staff_level : "",
+    staff_supervisor: itemEdit ? itemEdit.staff_supervisor : "",
     searchDepartment: "",
     searchOffice: "",
     isUpdate: "staffInfo",
@@ -92,7 +95,6 @@ const ModalUpdateStaffInfo = ({ itemEdit, setUpdateStaffInfo }) => {
 
   const yupSchema = Yup.object({
     staff_id: Yup.string().required("Required"),
-    staff_description: Yup.string().required("Required"),
     staff_first_name: Yup.string().required("Required"),
     staff_last_name: Yup.string().required("Required"),
     staff_date_hired: Yup.string().required("Required"),
@@ -296,7 +298,22 @@ const ModalUpdateStaffInfo = ({ itemEdit, setUpdateStaffInfo }) => {
                           )}
                         </InputSelect> */}
                       </div>
-
+                      <div className="form__wrap">
+                        <InputText
+                          label="Level"
+                          type="text"
+                          name="staff_level"
+                          disabled={mutation.isLoading}
+                        />
+                      </div>
+                      <div className="form__wrap">
+                        <InputText
+                          label="Supervisor"
+                          type="text"
+                          name="staff_supervisor"
+                          disabled={mutation.isLoading}
+                        />
+                      </div>
                       <div className="modal__action flex justify-end mt-6 gap-2">
                         <button
                           className="btn btn--primary"

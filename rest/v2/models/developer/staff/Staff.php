@@ -10,6 +10,8 @@ class Staff
     public $staff_department;
     public $staff_date_hired;
     public $staff_office;
+    public $staff_level;
+    public $staff_supervisor;
     public $staff_education_met;
     public $staff_experience_met;
     public $staff_exam_passed;
@@ -216,6 +218,8 @@ class Staff
             $sql .= "staff_department = :staff_department, ";
             $sql .= "staff_date_hired = :staff_date_hired, ";
             $sql .= "staff_office = :staff_office, ";
+            $sql .= "staff_level = :staff_level, ";
+            $sql .= "staff_supervisor = :staff_supervisor, ";
             $sql .= "staff_updated_at = :staff_updated_at ";
             $sql .= "where staff_aid = :staff_aid ";
             $query = $this->connection->prepare($sql);
@@ -228,6 +232,8 @@ class Staff
                 "staff_department" => $this->staff_department,
                 "staff_date_hired" => $this->staff_date_hired,
                 "staff_office" => $this->staff_office,
+                "staff_level" => $this->staff_level,
+                "staff_supervisor" => $this->staff_supervisor,
                 "staff_updated_at" => $this->staff_updated_at,
                 "staff_aid" => $this->staff_aid,
             ]);
@@ -244,15 +250,15 @@ class Staff
             $sql = "update {$this->tblStaff} set ";
             $sql .= "staff_education_met = :staff_education_met, ";
             $sql .= "staff_experience_met = :staff_experience_met, ";
-            $sql .= "staff_last_name = :staff_last_name, ";
+            $sql .= "staff_exam_passed = :staff_exam_passed, ";
             $sql .= "staff_date_certified = :staff_date_certified, ";
-            $sql .= "staff_certification_number = :staff_certification_number, ";
+            $sql .= "staff_certification_number = :staff_certification_number ";
             $sql .= "where staff_aid = :staff_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "staff_education_met" => $this->staff_education_met,
                 "staff_experience_met" => $this->staff_experience_met,
-                "staff_last_name" => $this->staff_last_name,
+                "staff_exam_passed" => $this->staff_exam_passed,
                 "staff_date_certified" => $this->staff_date_certified,
                 "staff_certification_number" => $this->staff_certification_number,
                 "staff_aid" => $this->staff_aid,
@@ -274,7 +280,7 @@ class Staff
             $sql .= "staff_contact_home_no = :staff_contact_home_no, ";
             $sql .= "staff_contact_file_as = :staff_contact_file_as, ";
             $sql .= "staff_contact_company = :staff_contact_company, ";
-            $sql .= "staff_contact_business_no = :staff_contact_business_no, ";
+            $sql .= "staff_contact_business_no = :staff_contact_business_no ";
             $sql .= "where staff_aid = :staff_aid ";
             $query = $this->connection->prepare($sql);
             $query->execute([
@@ -282,7 +288,7 @@ class Staff
                 "staff_contact_email" => $this->staff_contact_email,
                 "staff_contact_mobile_no" => $this->staff_contact_mobile_no,
                 "staff_contact_home_no" => $this->staff_contact_home_no,
-                "staff_contact_file_as" => $this->staff_certification_number,
+                "staff_contact_file_as" => $this->staff_contact_file_as,
                 "staff_contact_company" => $this->staff_contact_company,
                 "staff_contact_business_no" => $this->staff_contact_business_no,
                 "staff_aid" => $this->staff_aid,
