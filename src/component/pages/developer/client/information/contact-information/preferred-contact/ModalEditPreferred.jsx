@@ -100,12 +100,7 @@ const ModalEditPreferred = ({ itemEdit, setPreferredModalShow }) => {
               onSubmit={async (values, { setSubmitting, resetForm }) => {
                 console.log(values);
                 // mutate data
-                if (!Number(values.preferred_contact_business_number))
-                  preferred_contact_business_number = "";
-                if (!Number(values.preferred_contact_home_number))
-                  preferred_contact_home_number = "";
-                if (!Number(values.preferred_contact_mobile_number))
-                  preferred_contact_mobile_number = "";
+                
                 mutation.mutate(values);
               }}
             >
