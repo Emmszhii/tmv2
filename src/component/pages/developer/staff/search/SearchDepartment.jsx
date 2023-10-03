@@ -60,7 +60,7 @@ const SearchDepartment = ({
             data.map((item, key) => (
               <button
                 type="button"
-                className="p-2 w-full text-left hover:bg-gray-200 focus:bg-gray-200 cursor-pointer duration-200"
+                className="p-1 w-full text-left hover:bg-gray-200 focus:bg-gray-200 cursor-pointer duration-200"
                 key={key}
                 onClick={() =>
                   handleClick(
@@ -76,7 +76,7 @@ const SearchDepartment = ({
               </button>
             ))
           ) : (
-            <li className=" p-2 w-full text-center focus:bg-gray-200 border-b border-gray-200">
+            <li className="p-2 w-full text-center focus:bg-gray-200 border-b border-gray-200">
               <Nodata width="60" height="80" txtSize="text-xl" />
             </li>
           )}

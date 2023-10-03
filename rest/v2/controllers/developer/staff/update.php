@@ -1,4 +1,5 @@
 <?php
+require 'functions.php';
 // check database connection
 $conn = null;
 $conn = checkDbConnection();
@@ -7,21 +8,23 @@ $staff = new Staff($conn);
 // get $_GET data
 $error = [];
 $returnData = [];
-if (array_key_exists("staffId", $_GET)) {
-    // check data
-    checkPayload($data);
 $isUpdate = checkIndex($data, "isUpdate");
+if (array_key_exists("staffId", $_GET)) {
 if ($isUpdate === "staffInfo") {
+    //check payload data
+    checkPayload($data);
     // get staff info data
     $staff->staff_aid = $_GET['staffId'];
     $staff->staff_id = strtoupper(checkIndex($data, "staff_id"));
-    $staff->staff_description = checkIndex($data, "staff_description");
+    $staff->staff_description = $data["staff_description"];
     $staff->staff_last_name = checkIndex($data, "staff_last_name");
     $staff->staff_first_name = checkIndex($data, "staff_first_name");
     $staff->staff_middle_name = $data["staff_middle_name"];
     $staff->staff_department =  $data["staff_department"];
     $staff->staff_date_hired = checkIndex($data, "staff_date_hired");
     $staff->staff_office = $data["staff_office"];
+    $staff->staff_level = $data["staff_level"];
+    $staff->staff_supervisor = $data["staff_supervisor"];
     $staff->staff_updated_at = date("Y-m-d H:i:s");
     checkId($staff->staff_aid);
 
@@ -38,6 +41,8 @@ if ($isUpdate === "staffInfo") {
 }
 
 if ($isUpdate === "cpaInfo") {
+      //check payload data
+      checkPayload($data);
     // get staff cpa info data
     $staff->staff_aid = $_GET['staffId'];
     $staff->staff_education_met = $data["staff_education_met"];
@@ -55,6 +60,8 @@ if ($isUpdate === "cpaInfo") {
 }
 
 if ($isUpdate === "contactInfo") {
+    //check payload data
+      checkPayload($data);
     // get staff contact info data
     $staff->staff_aid = $_GET['staffId'];
     $staff->staff_contact_name = $data["staff_contact_name"];

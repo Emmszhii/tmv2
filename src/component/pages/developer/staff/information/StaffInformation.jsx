@@ -17,6 +17,7 @@ import BreadCrumbs from "../../../../partials/Breadcrumbs";
 import ModalUpdateStaffInfo from "./ModalUpdateStaffInfo";
 import ModalUpdateStaffCpaInfo from "./ModalUpdateStaffCpaInfo";
 import ModalUpdateStaffContactInfo from "./ModalUpdateStaffContactInfo";
+import { getDepartmentName, getOfficeName } from "../funtions-staff";
 
 const StaffInformation = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -24,7 +25,8 @@ const StaffInformation = () => {
   const [itemEdit, setItemEdit] = React.useState(null);
   const [updateStaffInfoShow, setUpdateStaffInfo] = React.useState(false);
   const [updateStaffCpaInfoShow, setUpdateStaffCpaInfo] = React.useState(false);
-  const [updateStaffContactInfoShow, setUpdateStaffContactInfo] = React.useState(false);
+  const [updateStaffContactInfoShow, setUpdateStaffContactInfo] =
+    React.useState(false);
   const [staffInformationShow, setStaffInformation] = React.useState(true);
   const [cpaInformationShow, setCpaInformation] = React.useState(false);
   const [contactInformationShow, setContactInformation] = React.useState(false);
@@ -58,6 +60,18 @@ const StaffInformation = () => {
     `/v2/controllers/developer/staff/staff.php?staffId=${staffId}`,
     "get",
     "staff"
+  );
+
+  const { data: department } = useQueryData(
+    `/v2/controllers/developer/settings/department/department.php`,
+    "get",
+    "department"
+  );
+
+  const { data: office } = useQueryData(
+    `/v2/controllers/developer/settings/office/office.php`,
+    "get",
+    "office"
   );
 
   return (
@@ -169,19 +183,25 @@ const StaffInformation = () => {
                                   <li className="grid grid-cols-[200px_1fr] items-center">
                                     <h4 className="mb-0">Office:</h4>
                                     <p className="mb-0">
-                                      {item.staff_office || "No data"}
+                                      {getOfficeName(
+                                        office,
+                                        item.staff_office
+                                      ) || "No data"}
                                     </p>
                                   </li>
                                   <li className="grid grid-cols-[200px_1fr] items-center">
                                     <h4 className="mb-0">Department:</h4>
                                     <p className="mb-0">
-                                      {item.staff_department || "No data"}
+                                      {getDepartmentName(
+                                        department,
+                                        item.staff_department
+                                      ) || "No data"}
                                     </p>
                                   </li>
                                   <li className="grid grid-cols-[200px_1fr] items-center">
                                     <h4 className="mb-0">Supervisor:</h4>
                                     <p className="mb-0">
-                                      {item.staff_department || "No data"}
+                                      {item.staff_supervisor || "No data"}
                                     </p>
                                   </li>
                                   <li className="grid grid-cols-[200px_1fr] items-center">
@@ -216,7 +236,11 @@ const StaffInformation = () => {
                                 )}
                               </button>
                             </div>
-                            <button className="tooltip" data-tooltip={`Edit`} onClick={() => handlerEditStaffCpaInfo(item)}>
+                            <button
+                              className="tooltip"
+                              data-tooltip={`Edit`}
+                              onClick={() => handlerEditStaffCpaInfo(item)}
+                            >
                               <FiEdit3 />
                             </button>
                           </div>
@@ -249,7 +273,7 @@ const StaffInformation = () => {
                                 </p>
                               </li>
                               <li className="grid grid-cols-[200px_1fr] items-center">
-                                <h4 className="mb-0">Certifiacation Number:</h4>
+                                <h4 className="mb-0">Certification Number:</h4>
                                 <p className="mb-0">
                                   {item.staff_certification_number || "No data"}
                                 </p>
@@ -275,7 +299,13 @@ const StaffInformation = () => {
                               >
                                 <BiChevronRight />
                               </button>
-                              <button className="tooltip" data-tooltip={`Edit`}onClick={() => handlerEditStaffContactInfo(item)}>
+                              <button
+                                className="tooltip"
+                                data-tooltip={`Edit`}
+                                onClick={() =>
+                                  handlerEditStaffContactInfo(item)
+                                }
+                              >
                                 <FiEdit3 />
                               </button>
                             </div>
@@ -343,19 +373,19 @@ const StaffInformation = () => {
           itemEdit={itemEdit}
           setUpdateStaffInfo={setUpdateStaffInfo}
         />
-      )}    
+      )}
       {updateStaffCpaInfoShow && (
         <ModalUpdateStaffCpaInfo
           itemEdit={itemEdit}
           setUpdateStaffCpaInfo={setUpdateStaffCpaInfo}
         />
-      )}    
+      )}
       {updateStaffContactInfoShow && (
         <ModalUpdateStaffContactInfo
           itemEdit={itemEdit}
           setUpdateStaffContactInfo={setUpdateStaffContactInfo}
         />
-      )}    
+      )}
       {store.validate && <ModalValidate />}
       {store.success && <Toast />}
     </>
