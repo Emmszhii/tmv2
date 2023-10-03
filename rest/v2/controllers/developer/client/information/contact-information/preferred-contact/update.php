@@ -3,41 +3,32 @@
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$client = new Client($conn);
+$preferredContact = new PreferredContact($conn);
 // get $_GET data
 $error = [];
 $returnData = [];
-if (array_key_exists("clientId", $_GET)) {
+if (array_key_exists("preferredContactId", $_GET)) {
     // check data
     checkPayload($data);
     // get data
-    $client->client_aid = $_GET['clientId'];
-    $client->client_client_id = strtoupper(checkIndex($data, "client_client_id"));
-    $client->client_name = strtoupper(checkIndex($data, "client_name"));
-    $client->client_description = checkIndex($data, "client_description");
-    $client->client_partner_id = $data["client_partner_id"];
-    $client->client_manager_id = $data["client_manager_id"];
-    $client->client_associate_id = $data["client_associate_id"];
-    $client->client_entities_id = $data["client_entities_id"];
-    $client->client_updated_at = date("Y-m-d H:i:s");
-    checkId($client->client_aid);
-
-    $client_client_id_old = checkIndex($data, 'client_client_id_old');
-    // $client_description_old = checkIndex($data, "client_description_old");
-
-    // run if old id is not equal to the new id
-    if ($client_client_id_old !== $client->client_client_id) {
-        isNameExist($client, $client->client_client_id);
-    }
-    // 
-    // if ($client_description_old !== $client->$client_description) {
-    //     isNameExist($client, $client->client_description);
-    // }
-
+    $preferredContact->preferred_contact_client_id = $_GET['preferredContactId'];
+    $preferredContact->preferred_contact_name = $data["preferred_contact_name"];
+    $preferredContact->preferred_contact_title = $data["preferred_contact_title"];
+    $preferredContact->preferred_contact_company = $data["preferred_contact_company"];
+    $preferredContact->preferred_contact_file_as = $data["preferred_contact_file_as"];
+    $preferredContact->preferred_contact_business_number = $data["preferred_contact_business_number"];
+    $preferredContact->preferred_contact_mobile_number = $data["preferred_contact_mobile_number"];
+    $preferredContact->preferred_contact_home_number = $data["preferred_contact_home_number"];
+    $preferredContact->preferred_contact_address = $data["preferred_contact_address"];
+    $preferredContact->preferred_contact_country = $data["preferred_contact_country"];
+    $preferredContact->preferred_contact_zip = $data["preferred_contact_zip"];
+    $preferredContact->preferred_contact_email = $data["preferred_contact_email"];
+    $preferredContact->preferred_contact_updated_at = date("Y-m-d H:i:s");
+    checkId($preferredContact->preferred_contact_client_id);
 
     // update
-    $query = checkUpdate($client);
-    returnSuccess($client, "Client", $query);
+    $query = checkUpdate($preferredContact);
+    returnSuccess($preferredContact, "Preferred Contact", $query);
 }
 
 // return 404 error if endpoint not available

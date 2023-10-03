@@ -3,41 +3,31 @@
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$client = new Client($conn);
+$primaryContact = new BillingContact($conn);
 // get $_GET data
 $error = [];
 $returnData = [];
-if (array_key_exists("clientId", $_GET)) {
+if (array_key_exists("billingContactId", $_GET)) {
     // check data
     checkPayload($data);
     // get data
-    $client->client_aid = $_GET['clientId'];
-    $client->client_client_id = strtoupper(checkIndex($data, "client_client_id"));
-    $client->client_name = strtoupper(checkIndex($data, "client_name"));
-    $client->client_description = checkIndex($data, "client_description");
-    $client->client_partner_id = $data["client_partner_id"];
-    $client->client_manager_id = $data["client_manager_id"];
-    $client->client_associate_id = $data["client_associate_id"];
-    $client->client_entities_id = $data["client_entities_id"];
-    $client->client_updated_at = date("Y-m-d H:i:s");
-    checkId($client->client_aid);
-
-    $client_client_id_old = checkIndex($data, 'client_client_id_old');
-    // $client_description_old = checkIndex($data, "client_description_old");
-
-    // run if old id is not equal to the new id
-    if ($client_client_id_old !== $client->client_client_id) {
-        isNameExist($client, $client->client_client_id);
-    }
-    // 
-    // if ($client_description_old !== $client->$client_description) {
-    //     isNameExist($client, $client->client_description);
-    // }
-
+    $primaryContact->billing_contact_client_id = $_GET['primaryContactId'];
+    $primaryContact->billing_contact_name = $data["billing_contact_name"];
+    $primaryContact->billing_contact_title = $data["billing_contact_title"];
+    $primaryContact->billing_contact_company = $data["billing_contact_company"];
+    $primaryContact->billing_contact_file_as = $data["billing_contact_file_as"];
+    $primaryContact->billing_contact_business_number = $data["billing_contact_business_number"];
+    $primaryContact->billing_contact_home_number = $data["billing_contact_home_number"];
+    $primaryContact->billing_contact_address = $data["billing_contact_address"];
+    $primaryContact->billing_contact_country = $data["billing_contact_country"];
+    $primaryContact->billing_contact_zip = $data["billing_contact_zip"];
+    $primaryContact->billing_contact_email = $data["billing_contact_email"];
+    $primaryContact->billing_contact_updated_at = date("Y-m-d H:i:s");
+    checkId($primaryContact->billing_contact_client_id);
 
     // update
-    $query = checkUpdate($client);
-    returnSuccess($client, "Client", $query);
+    $query = checkUpdate($primaryContact);
+    returnSuccess($primaryContact, "Billing Contact", $query);
 }
 
 // return 404 error if endpoint not available

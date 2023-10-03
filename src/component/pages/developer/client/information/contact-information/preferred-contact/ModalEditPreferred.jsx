@@ -15,22 +15,22 @@ import { FaTimes } from "react-icons/fa";
 import * as Yup from "yup";
 import { queryData } from "../../../../../../helpers/queryData";
 
-const ModalEditPrimary = ({ itemEdit, setPrimaryModalShow }) => {
+const ModalEditPreferred = ({ itemEdit, setPreferredModalShow }) => {
   const { dispatch } = React.useContext(StoreContext);
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (values) =>
       queryData(
-        `/v2/controllers/developer/client/information/contact-information/primary-contact/primary-contact.php?primaryContactId=${itemEdit.primary_contact_client_id}`, //update
+        `/v2/controllers/developer/client/information/contact-information/preferred-contact/preferred-contact.php?preferredContactId=${itemEdit.preferred_contact_client_id}`, //update
         "put",
         values
       ),
     onSuccess: (data) => {
       // Invalidate and refetch
-      queryClient.invalidateQueries({ queryKey: ["primary-contact"] });
+      queryClient.invalidateQueries({ queryKey: ["preferred-contact"] });
 
       if (data.success) {
-        setPrimaryModalShow(false);
+        setPreferredModalShow(false);
         dispatch(setSuccess(true));
         dispatch(setMessage(`Successfully ${itemEdit ? `updated` : `added`}.`));
       }
@@ -43,29 +43,40 @@ const ModalEditPrimary = ({ itemEdit, setPrimaryModalShow }) => {
   });
 
   const initVal = {
-    primary_contact_name: itemEdit ? itemEdit.primary_contact_name : "",
-    primary_contact_title: itemEdit ? itemEdit.primary_contact_title : "",
-    primary_contact_company: itemEdit ? itemEdit.primary_contact_company : "",
-    primary_contact_file_as: itemEdit ? itemEdit.primary_contact_file_as : "",
-    primary_contact_business_number: itemEdit
-      ? itemEdit.primary_contact_business_number
+    preferred_contact_name: itemEdit ? itemEdit.preferred_contact_name : "",
+    preferred_contact_title: itemEdit ? itemEdit.preferred_contact_title : "",
+    preferred_contact_company: itemEdit
+      ? itemEdit.preferred_contact_company
       : "",
-    primary_contact_home_number: itemEdit
-      ? itemEdit.primary_contact_home_number
+    preferred_contact_file_as: itemEdit
+      ? itemEdit.preferred_contact_file_as
+      : "",
+    preferred_contact_business_number: itemEdit
+      ? itemEdit.preferred_contact_business_number
+      : "",
+    preferred_contact_mobile_number: itemEdit
+      ? itemEdit.preferred_contact_mobile_number
+      : "",
+    preferred_contact_home_number: itemEdit
+      ? itemEdit.preferred_contact_home_number
       : "",
     primary_contact_mobile_number: itemEdit
       ? itemEdit.primary_contact_mobile_number
       : "",
-    primary_contact_address: itemEdit ? itemEdit.primary_contact_address : "",
-    primary_contact_country: itemEdit ? itemEdit.primary_contact_country : "",
-    primary_contact_zip: itemEdit ? itemEdit.primary_contact_zip : "",
-    primary_contact_email: itemEdit ? itemEdit.primary_contact_email : "",
+    preferred_contact_address: itemEdit
+      ? itemEdit.preferred_contact_address
+      : "",
+    preferred_contact_country: itemEdit
+      ? itemEdit.preferred_contact_country
+      : "",
+    preferred_contact_zip: itemEdit ? itemEdit.preferred_contact_zip : "",
+    preferred_contact_email: itemEdit ? itemEdit.preferred_contact_email : "",
   };
 
   const yupSchema = Yup.object({});
 
   const handleClose = () => {
-    setPrimaryModalShow(false);
+    setPreferredModalShow(false);
   };
 
   handleEscape(() => handleClose());
@@ -77,7 +88,7 @@ const ModalEditPrimary = ({ itemEdit, setPrimaryModalShow }) => {
           className={`modal__main absolute mx-1 bg-white border border-gray-200 rounded-md py-8 px-5 max-w-[420px] w-full shadow-xl`}
         >
           <div className="modal__header relative">
-            <h3> {itemEdit ? "Update" : "Add"} Primary Contact </h3>
+            <h3> {itemEdit ? "Update" : "Add"} Preferred Contact </h3>
             <button className="absolute -top-4 right-0 " onClick={handleClose}>
               <FaTimes className="text-gray-700 text-base" />
             </button>
@@ -89,12 +100,12 @@ const ModalEditPrimary = ({ itemEdit, setPrimaryModalShow }) => {
               onSubmit={async (values, { setSubmitting, resetForm }) => {
                 console.log(values);
                 // mutate data
-                if (!Number(values.primary_contact_business_number))
-                  primary_contact_business_number = "";
-                if (!Number(values.primary_contact_home_number))
-                  primary_contact_home_number = "";
-                if (!Number(values.primary_contact_mobile_number))
-                  primary_contact_mobile_number = "";
+                if (!Number(values.preferred_contact_business_number))
+                  preferred_contact_business_number = "";
+                if (!Number(values.preferred_contact_home_number))
+                  preferred_contact_home_number = "";
+                if (!Number(values.preferred_contact_mobile_number))
+                  preferred_contact_mobile_number = "";
                 mutation.mutate(values);
               }}
             >
@@ -106,7 +117,7 @@ const ModalEditPrimary = ({ itemEdit, setPrimaryModalShow }) => {
                         <InputText
                           label="Contact Person"
                           type="text"
-                          name="primary_contact_name"
+                          name="preferred_contact_name"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -114,7 +125,7 @@ const ModalEditPrimary = ({ itemEdit, setPrimaryModalShow }) => {
                         <InputText
                           label="Title"
                           type="text"
-                          name="primary_contact_title"
+                          name="preferred_contact_title"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -122,7 +133,7 @@ const ModalEditPrimary = ({ itemEdit, setPrimaryModalShow }) => {
                         <InputText
                           label="Company"
                           type="text"
-                          name="primary_contact_company"
+                          name="preferred_contact_company"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -130,7 +141,7 @@ const ModalEditPrimary = ({ itemEdit, setPrimaryModalShow }) => {
                         <InputText
                           label="File as"
                           type="text"
-                          name="primary_contact_file_as"
+                          name="preferred_contact_file_as"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -138,7 +149,7 @@ const ModalEditPrimary = ({ itemEdit, setPrimaryModalShow }) => {
                         <InputText
                           label="Business Number"
                           mobile="mobile"
-                          name="primary_contact_business_number"
+                          name="preferred_contact_business_number"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -146,7 +157,7 @@ const ModalEditPrimary = ({ itemEdit, setPrimaryModalShow }) => {
                         <InputText
                           label="Home number"
                           mobile="mobile"
-                          name="primary_contact_home_number"
+                          name="preferred_contact_home_number"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -154,7 +165,7 @@ const ModalEditPrimary = ({ itemEdit, setPrimaryModalShow }) => {
                         <InputText
                           label="Mobile Number"
                           mobile="mobile"
-                          name="primary_contact_mobile_number"
+                          name="preferred_contact_mobile_number"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -162,7 +173,7 @@ const ModalEditPrimary = ({ itemEdit, setPrimaryModalShow }) => {
                         <InputTextArea
                           label="Address"
                           type="text"
-                          name="primary_contact_address"
+                          name="preferred_contact_address"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -170,7 +181,7 @@ const ModalEditPrimary = ({ itemEdit, setPrimaryModalShow }) => {
                         <InputText
                           label="Country"
                           type="text"
-                          name="primary_contact_country"
+                          name="preferred_contact_country"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -178,7 +189,7 @@ const ModalEditPrimary = ({ itemEdit, setPrimaryModalShow }) => {
                         <InputText
                           label="Zip"
                           type="text"
-                          name="primary_contact_zip"
+                          name="preferred_contact_zip"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -186,7 +197,7 @@ const ModalEditPrimary = ({ itemEdit, setPrimaryModalShow }) => {
                         <InputText
                           label="Email"
                           type="text"
-                          name="primary_contact_email"
+                          name="preferred_contact_email"
                           disabled={mutation.isLoading}
                         />
                       </div>
@@ -226,4 +237,4 @@ const ModalEditPrimary = ({ itemEdit, setPrimaryModalShow }) => {
   );
 };
 
-export default ModalEditPrimary;
+export default ModalEditPreferred;

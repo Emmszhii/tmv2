@@ -3,22 +3,22 @@
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$client = new Client($conn);
+$preferredContact = new PreferredContact($conn);
 // get $_GET data  
 
 
 
-if (array_key_exists("clientId", $_GET)) {
-    $client->client_aid = $_GET['clientId'];
-    
-    checkId($client->client_aid);
-    $query = checkReadById($client);
+if (array_key_exists("preferredContactId", $_GET)) {
+    $preferredContact->preferred_contact_client_id = $_GET['preferredContactId'];
+
+    checkId($preferredContact->preferred_contact_client_id);
+    $query = checkReadById($preferredContact);
     http_response_code(200);
     getQueriedData($query);
 }
 
 if (empty($_GET)) {
-    $query = checkReadAll($client);
+    $query = checkReadAll($preferredContact);
     http_response_code(200);
     getQueriedData($query);
 }

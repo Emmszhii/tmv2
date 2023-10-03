@@ -3,22 +3,22 @@
 $conn = null;
 $conn = checkDbConnection();
 // make instance of classes
-$client = new Client($conn);
+$billingContact = new BillingContact($conn);
 // get $_GET data  
 
 
 
-if (array_key_exists("clientId", $_GET)) {
-    $client->client_aid = $_GET['clientId'];
-    
-    checkId($client->client_aid);
-    $query = checkReadById($client);
+if (array_key_exists("billingContactId", $_GET)) {
+    $billingContact->billing_contact_client_id = $_GET['billingContactId'];
+
+    checkId($billingContact->billing_contact_client_id);
+    $query = checkReadById($billingContact);
     http_response_code(200);
     getQueriedData($query);
 }
 
 if (empty($_GET)) {
-    $query = checkReadAll($client);
+    $query = checkReadAll($billingContact);
     http_response_code(200);
     getQueriedData($query);
 }
