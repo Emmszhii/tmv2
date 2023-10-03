@@ -38,7 +38,7 @@ if ($isUpdate === "staffInfo") {
 }
 
 if ($isUpdate === "cpaInfo") {
-    // get staff info data
+    // get staff cpa info data
     $staff->staff_aid = $_GET['staffId'];
     $staff->staff_education_met = $data["staff_education_met"];
     $staff->staff_experience_met = $data["staff_experience_met"];
@@ -55,7 +55,7 @@ if ($isUpdate === "cpaInfo") {
 }
 
 if ($isUpdate === "contactInfo") {
-    // get staff info data
+    // get staff contact info data
     $staff->staff_aid = $_GET['staffId'];
     $staff->staff_contact_name = $data["staff_contact_name"];
     $staff->staff_contact_email = $data["staff_contact_email"];
