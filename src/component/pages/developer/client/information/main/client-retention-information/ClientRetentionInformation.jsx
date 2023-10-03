@@ -8,7 +8,6 @@ const ClientRetentionInformation = ({
   lostReason,
   lostTo,
 }) => {
-  console.log(referredType);
   return (
     <>
       <div className="p-4">

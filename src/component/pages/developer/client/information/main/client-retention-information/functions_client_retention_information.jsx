@@ -10,9 +10,9 @@ export const getReferralType = (data, id) => {
   let name = "";
   console.log(data);
   const result = data?.data.filter(
-    (item) => item.client_retention_referred_type_id === Number(id)
+    (item) => item.referral_type_aid === Number(id)
   );
-  name = result?.length > 0 ? result[0].entities_id : "";
+  name = result?.length > 0 ? result[0].referral_type_name : "";
 
   return name;
 };

@@ -257,7 +257,10 @@ const ClientInformationMain = () => {
                             </button>
                           </div>
                           {clientRetenShow && (
-                            <ClientRetentionInformation item={item} />
+                            <ClientRetentionInformation
+                              referredType={referredType}
+                              item={item}
+                            />
                           )}
                         </li>
                       </ul>
@@ -273,7 +276,6 @@ const ClientInformationMain = () => {
       {isRetentionShow && (
         <ModalEditClientRetention
           itemEdit={itemEdit}
-          referredType={referredType}
           setIsRetentionShow={setIsRetentionShow}
         />
       )}
