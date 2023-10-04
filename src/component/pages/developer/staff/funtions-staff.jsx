@@ -1,3 +1,4 @@
+import { consoleLog } from "../../../helpers/functions-general";
 import { queryData } from "../../../helpers/queryData";
 
 export const getStaffCountRecord = (staff) => {
@@ -86,6 +87,26 @@ export const getOfficeName = (data, id) => {
       }
     });
   }
+
+  return name;
+};
+
+export const getNameDepartment = (data, id) => {
+  let name = "";
+  const result = data?.data.filter(
+    (item) => item.settings_department_aid === Number(id)
+  );
+  name = result?.length > 0 ? result[0].settings_department_name : "";
+
+  return name;
+};
+
+export const getNameOffice = (data, id) => {
+  let name = "";
+  const result = data?.data.filter(
+    (item) => item.settings_office_aid === Number(id)
+  );
+  name = result?.length > 0 ? result[0].settings_office_name : "";
 
   return name;
 };

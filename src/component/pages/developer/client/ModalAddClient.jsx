@@ -11,7 +11,7 @@ import {
 } from "../../../../store/StoreAction";
 import { StoreContext } from "../../../../store/StoreContext";
 import { InputText } from "../../../helpers/FormInputs";
-import { handleEscape } from "../../../helpers/functions-general";
+import { consoleLog, handleEscape } from "../../../helpers/functions-general";
 import { queryData } from "../../../helpers/queryData";
 import ButtonSpinner from "../../../partials/spinners/ButtonSpinner";
 import { getEntity } from "./functions-client";
