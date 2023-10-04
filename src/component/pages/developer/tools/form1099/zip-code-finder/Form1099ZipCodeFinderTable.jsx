@@ -1,38 +1,15 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
-import { FiArchive, FiEdit3 } from "react-icons/fi";
-import { MdRestore } from "react-icons/md";
-import { RiDeleteBinLine } from "react-icons/ri";
 import { useInView } from "react-intersection-observer";
 import { StoreContext } from "../../../../../../store/StoreContext";
 import { queryDataInfinite } from "../../../../../helpers/queryDataInfinite";
-import Searchbar from "../../../../../partials/Searchbar";
-import RecordCount from "../../../../../partials/RecordCount";
-import TableSpinner from "../../../../../partials/spinners/TableSpinner";
-import TableLoading from "../../../../../partials/TableLoading";
-import Nodata from "../../../../../partials/Nodata";
-import ServerError from "../../../../../partials/ServerError";
 import Loadmore from "../../../../../partials/Loadmore";
-
-// import {
-//   setIsAdd,
-//   setIsConfirm,
-//   setIsRestore,
-// } from "../../../../../../store/StoreAction";
-// import { StoreContext } from "../../../../../../store/StoreContext";
-// import useQueryData from "../../../../../custom-hooks/useQueryData";
-// import { queryDataInfinite } from "../../../../../helpers/queryDataInfinite";
-// import Loadmore from "../../../../../partials/Loadmore";
-// import Nodata from "../../../../../partials/Nodata";
-// import Pills from "../../../../../partials/Pills";
-// import RecordCount from "../../../../../partials/RecordCount";
-// import Searchbar from "../../../../../partials/Searchbar";
-// import ServerError from "../../../../../partials/ServerError";
-// import TableLoading from "../../../../../partials/TableLoading";
-// import ModalConfirm from "../../../../../partials/modals/ModalConfirm";
-// import ModalDeleteAndRestore from "../../../../../partials/modals/ModalDeleteAndRestore";
-// import TableSpinner from "../../../../../partials/spinners/TableSpinner";
-// import { getCategoryCountRecord } from "./funtions-category";
+import Nodata from "../../../../../partials/Nodata";
+import Searchbar from "../../../../../partials/Searchbar";
+import ServerError from "../../../../../partials/ServerError";
+import TableLoading from "../../../../../partials/TableLoading";
+import TableSpinner from "../../../../../partials/spinners/TableSpinner";
+import RecordCountZipCodeFinder from "./RecordCountZipCodeFinder";
 
 const Form1099ZipCodeFinderTable = () => {
   const { store, dispatch } = React.useContext(StoreContext);
@@ -59,8 +36,8 @@ const Form1099ZipCodeFinderTable = () => {
     queryKey: ["tools-form1099", store.isSearch],
     queryFn: async ({ pageParam = 1 }) =>
       await queryDataInfinite(
-        `/v2/controllers/developer/settings/engagement/category/search.php`, // search endpoint
-        `/v2/controllers/developer/settings/engagement/category/page.php?start=${pageParam}`, // list endpoint // list endpoint
+        `/v2/controllers/developer/tools/form1099/zip-code-finder/search.php`, // search endpoint
+        `/v2/controllers/developer/tools/form1099/zip-code-finder/page.php?start=${pageParam}`, // list endpoint // list endpoint
         store.isSearch, // search boolean
         "post",
         { search: search.current.value }
@@ -74,11 +51,11 @@ const Form1099ZipCodeFinderTable = () => {
     refetchOnWindowFocus: true,
   });
 
-  //   const { data: category } = useQueryData(
-  //     `/v2/controllers/developer/settings/engagement/category/category.php`,
-  //     "get",
-  //     "engagement-category"
-  //   );
+  // const { data: form1099 } = useQueryData(
+  //   `/v2/controllers/developer/tools/form1099/zip-code-finder/read.php`,
+  //   "get",
+  //   "tools-form1099"
+  // );
 
   React.useEffect(() => {
     if (inView) {
@@ -86,32 +63,6 @@ const Form1099ZipCodeFinderTable = () => {
       fetchNextPage();
     }
   }, [inView]);
-
-  //   const handleEdit = (item) => {
-  //     dispatch(setIsAdd(true));
-  //     setItemEdit(item);
-  //   };
-
-  //   const handleArchive = (item) => {
-  //     dispatch(setIsConfirm(true));
-  //     setId(item.engagement_category_aid);
-  //     setData(item);
-  //     setDel(null);
-  //   };
-
-  //   const handleRestore = (item) => {
-  //     dispatch(setIsRestore(true));
-  //     setId(item.engagement_category_aid);
-  //     setData(item);
-  //     setDel(null);
-  //   };
-
-  //   const handleDelete = (item) => {
-  //     dispatch(setIsRestore(true));
-  //     setId(item.engagement_category_aid);
-  //     setData(item);
-  //     setDel(true);
-  //   };
 
   return (
     <>
@@ -122,14 +73,11 @@ const Form1099ZipCodeFinderTable = () => {
         result={result?.pages}
         isFetching={isFetching}
       />
-      {/* <RecordCount
+      <RecordCountZipCodeFinder
         record={
           store.isSearch ? result?.pages[0].count : result?.pages[0].total
         }
-        status={getCategoryCountRecord(
-          store.isSearch ? result?.pages[0] : category
-        )}
-      /> */}
+      />
       <div className="table__wrapper relative rounded-md shadow-md overflow-auto mb-8">
         {isFetching && status !== "loading" && <TableSpinner />}
 

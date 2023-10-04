@@ -27,7 +27,7 @@ const Form1099ZipCodeFinder = () => {
         <main className="px-2 lg:pr-10">
           <BreadCrumbs />
           <div className="flex justify-between items-center my-5">
-            <h1 className="mb-0">Form 1099 Zip Code Finder</h1>
+            <h1 className="mb-0">Zip Code Finder</h1>
             <p></p>
           </div>
 
