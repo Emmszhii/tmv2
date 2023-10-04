@@ -15,6 +15,8 @@ import { Form, Formik } from "formik";
 import { InputSelect, InputText } from "../../../../../../helpers/FormInputs";
 import ButtonSpinner from "../../../../../../partials/spinners/ButtonSpinner";
 import useQueryData from "../../../../../../custom-hooks/useQueryData";
+import SearchReferredBy from "./search/SearchReferredBy";
+import { getReferralType } from "./functions_client_retention_information";
 
 const ModalEditClientRetention = ({ itemEdit, setIsRetentionShow }) => {
   const { dispatch } = React.useContext(StoreContext);
@@ -25,6 +27,8 @@ const ModalEditClientRetention = ({ itemEdit, setIsRetentionShow }) => {
   const [searchReferredBy, setSearchReferredBy] = React.useState("");
   const [dataReferredBy, setDataReferredBy] = React.useState([]);
   const [referredById, setReferredById] = React.useState("");
+  // for onchange referral Type
+  const [referralByType, setReferralByTpe] = React.useState();
 
   const mutation = useMutation({
     mutationFn: (values) =>
@@ -106,7 +110,14 @@ const ModalEditClientRetention = ({ itemEdit, setIsRetentionShow }) => {
     "get",
     "lost-reason"
   );
-  console.log(lostReason);
+
+  const handleSearchModal = () => {};
+
+  const handleOnchangeReferralType = (e) => {
+    const name = getReferralType(referredType, e.target.value);
+    setReferralByTpe(name);
+  };
+
   const handleClose = () => {
     setIsRetentionShow(false);
   };
@@ -119,7 +130,7 @@ const ModalEditClientRetention = ({ itemEdit, setIsRetentionShow }) => {
           className={`modal__main absolute mx-1 bg-white border border-gray-200 rounded-md py-8 px-5 max-w-[420px] w-full shadow-xl`}
         >
           <div className="modal__header relative">
-            <h3> {itemEdit ? "Update" : "Add"} Client </h3>
+            <h3> {itemEdit ? "Update" : "Add"} Client Retention </h3>
             <button className="absolute -top-4 right-0 " onClick={handleClose}>
               <FaTimes className="text-gray-700 text-base" />
             </button>
@@ -146,7 +157,7 @@ const ModalEditClientRetention = ({ itemEdit, setIsRetentionShow }) => {
                           type="text"
                           name="client_retention_referred_type_id"
                           disabled={mutation.isLoading}
-                          onChange={(e) => e}
+                          onChange={(e) => handleOnchangeReferralType(e)}
                         >
                           {isLoadingReferredType ? (
                             <option value="" hidden>
@@ -165,6 +176,7 @@ const ModalEditClientRetention = ({ itemEdit, setIsRetentionShow }) => {
                                     <option
                                       value={item.referral_type_aid}
                                       key={key}
+                                      label={item.referral_type_name}
                                     >
                                       {item.referral_type_name}
                                     </option>
@@ -180,11 +192,22 @@ const ModalEditClientRetention = ({ itemEdit, setIsRetentionShow }) => {
                         </InputSelect>
                       </div>
                       <div className="form__wrap">
-                        <InputText
+                        <SearchReferredBy
                           label="Referred By"
-                          type="text"
-                          name="client_client_id"
+                          name="searchReferredBy"
                           disabled={mutation.isLoading}
+                          endpoint={`/v2/controllers/developer/client/information/main/client-retention-information/search-referred-by.php`}
+                          setSearch={setSearchReferredBy}
+                          setIsSearch={setIsSearchReferredBy}
+                          handleSearchModal={handleSearchModal}
+                          setLoading={setLoadingReferredBy}
+                          setData={setDataReferredBy}
+                          search={searchReferredBy}
+                          isSearch={isSearchReferredBy}
+                          loading={loadingReferredBy}
+                          data={dataReferredBy}
+                          setId={setReferredById}
+                          referralByTpe={referralByType}
                         />
                       </div>
                       <div className="form__wrap">

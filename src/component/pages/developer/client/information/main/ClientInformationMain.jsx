@@ -78,7 +78,7 @@ const ClientInformationMain = () => {
     "get",
     "lost-to"
   );
-  console.log(referredType);
+
   const handlerEdit = (item) => {
     setItemEdit(item);
     dispatch(setIsAdd(true));
@@ -259,6 +259,9 @@ const ClientInformationMain = () => {
                           {clientRetenShow && (
                             <ClientRetentionInformation
                               referredType={referredType}
+                              wonReason={wonReason}
+                              lostReason={lostReason}
+                              lostTo={lostTo}
                               item={item}
                             />
                           )}
