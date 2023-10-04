@@ -21,6 +21,9 @@ class ClientRetentionInformation
     public $tblClient;
     public $tblReferralSource;
     public $tblStaff;
+    public $tblPrimaryContact;
+    public $tblPreferredContact;
+    public $tblBillingContact;
 
 
     public function __construct($db)
@@ -29,6 +32,9 @@ class ClientRetentionInformation
         $this->tblClient = "tmv2_client";
         $this->tblReferralSource = "tmv2_referral_source";
         $this->tblStaff = "tmv2_staff";
+        $this->tblPrimaryContact = "tmv2_primary_contact";
+        $this->tblPreferredContact = "tmv2_preferred_contact";
+        $this->tblBillingContact = "tmv2_billing_contact";
     }
 
 
@@ -129,8 +135,8 @@ class ClientRetentionInformation
         }
         return $query;
     }
-    // search Client
-    public function searchContact()
+    // search Contact
+    public function searchClient()
     {
         try {
             $sql = "select ";
@@ -150,7 +156,43 @@ class ClientRetentionInformation
         }
         return $query;
     }
-    // search Client
+    // search Contact
+    public function searchContact()
+    {
+        try {
+            $sql = "select ";
+            $sql .= "client_aid as id, ";
+            $sql .= "client_name as name ";
+            $sql .= "from {$this->tblClient} as client, ";
+            $sql .= "{$this->tblPrimaryContact} as primaryContact, ";
+            $sql .= "{$this->tblPreferredContact} as primaryPreferred, ";
+            $sql .= "{$this->tblBillingContact} as billingContact ";
+            $sql .= "where client_is_active = '1' ";
+            $sql .= "and client.client_aid = primaryContact.primary_contact_client_id ";
+            $sql .= "and client.client_aid = primaryPreferred.preferred_contact_client_id ";
+            $sql .= "and client.client_aid = billingContact.billing_contact_client_id ";
+            $sql .= "and ( not primaryContact.primary_contact_business_number = '' ";
+            $sql .= "or not primaryContact.primary_contact_home_number = '' ";
+            $sql .= "or not primaryContact.primary_contact_mobile_number = '' ";
+            $sql .= "or not primaryPreferred.preferred_contact_business_number = '' ";
+            $sql .= "or not primaryPreferred.preferred_contact_home_number = '' ";
+            $sql .= "or not primaryPreferred.preferred_contact_mobile_number = '' ";
+            $sql .= "or not billingContact.billing_contact_business_number = '' ";
+            $sql .= "or not billingContact.billing_contact_home_number = '' ";
+            $sql .= "or not billingContact.billing_contact_mobile_number = '') ";
+            $sql .= "and client_name like :search ";
+            $sql .= "order by client_is_active desc, ";
+            $sql .= "client_name asc ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "search" => "%{$this->client_search}%",
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+    // search Referral Source
     public function searchReferralSource()
     {
         try {
@@ -171,21 +213,24 @@ class ClientRetentionInformation
         }
         return $query;
     }
-    // search Client
+    // search Staff
     public function searchStaff()
     {
         try {
             $sql = "select ";
-            $sql .= "client_aid as id, ";
-            $sql .= "client_name as name ";
-            $sql .= "from {$this->tblClient} ";
-            $sql .= "where client_is_active = '1' ";
-            $sql .= "and client_name like :search ";
-            $sql .= "order by client_is_active desc, ";
-            $sql .= "client_name asc ";
+            $sql .= "staff_aid as id, ";
+            $sql .= "concat(staff_first_name,' ',staff_last_name) as name ";
+            $sql .= "from {$this->tblStaff} ";
+            $sql .= "where staff_is_active = '1' ";
+            $sql .= "and staff_first_name like :searchFName ";
+            $sql .= "or staff_last_name like :searchLName ";
+            $sql .= "order by staff_is_active desc, ";
+            $sql .= "staff_first_name asc, ";
+            $sql .= "staff_last_name asc ";
             $query = $this->connection->prepare($sql);
             $query->execute([
-                "search" => "%{$this->client_search}%",
+                "searchFName" => "%{$this->client_search}%",
+                "searchLName" => "%{$this->client_search}%",
             ]);
         } catch (PDOException $ex) {
             $query = false;

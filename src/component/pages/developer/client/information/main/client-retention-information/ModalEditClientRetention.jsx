@@ -27,8 +27,6 @@ const ModalEditClientRetention = ({ itemEdit, setIsRetentionShow }) => {
   const [searchReferredBy, setSearchReferredBy] = React.useState("");
   const [dataReferredBy, setDataReferredBy] = React.useState([]);
   const [referredById, setReferredById] = React.useState("");
-  // for onchange referral Type
-  const [referralByType, setReferralByTpe] = React.useState();
 
   const mutation = useMutation({
     mutationFn: (values) =>
@@ -40,7 +38,7 @@ const ModalEditClientRetention = ({ itemEdit, setIsRetentionShow }) => {
     onSuccess: (data) => {
       // Invalidate and refetch
       queryClient.invalidateQueries({ queryKey: ["client"] });
-
+      setSearchReferredBy("");
       if (data.success) {
         setIsRetentionShow(false);
         dispatch(setSuccess(true));
@@ -109,6 +107,16 @@ const ModalEditClientRetention = ({ itemEdit, setIsRetentionShow }) => {
     `/v2/controllers/developer/settings/lost-reason/lost-reason.php`,
     "get",
     "lost-reason"
+  );
+
+  // for onchange referral Type
+  const [referralByType, setReferralByTpe] = React.useState(
+    itemEdit
+      ? getReferralType(
+          referredType,
+          itemEdit.client_retention_referred_type_id
+        )
+      : null
   );
 
   const handleSearchModal = () => {};
