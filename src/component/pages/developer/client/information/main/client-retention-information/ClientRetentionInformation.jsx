@@ -1,5 +1,10 @@
 import React from "react";
-import { getReferralType } from "./functions_client_retention_information";
+import {
+  getLostReason,
+  getLostTo,
+  getReferralType,
+  getWonReason,
+} from "./functions_client_retention_information";
 
 const ClientRetentionInformation = ({
   item,
@@ -15,7 +20,7 @@ const ClientRetentionInformation = ({
           <li className="grid grid-cols-[200px_1fr] items-center">
             <h4 className="mb-0">Referred Type:</h4>
             <p className="mb-0">
-              {item
+              {item.client_retention_referred_type_id
                 ? getReferralType(
                     referredType,
                     item.client_retention_referred_type_id
@@ -32,25 +37,36 @@ const ClientRetentionInformation = ({
           <li className="grid grid-cols-[200px_1fr] items-center">
             <h4 className="mb-0">Won Date: </h4>
             <p className="mb-0">
-              {item?.client_retention_won_date || "No Date"}
+              {item.client_retention_won_date
+                ? item.client_retention_won_date
+                : "No Date"}
             </p>
           </li>
           <li className="grid grid-cols-[200px_1fr] items-center">
             <h4 className="mb-0">Won Reason: </h4>
             <p className="mb-0">
-              {item?.client_retention_won_reason_id || "No Data"}
+              {item.client_retention_won_reason_id
+                ? getWonReason(wonReason, item.client_retention_won_reason_id)
+                : "No Data"}
             </p>
           </li>
           <li className="grid grid-cols-[200px_1fr] items-center">
             <h4 className="mb-0">Lost To: </h4>
             <p className="mb-0">
-              {item?.client_retention_lost_to_id || "No Data"}
+              {item.client_retention_lost_to_id
+                ? getLostTo(lostTo, item.client_retention_lost_to_id)
+                : "No Data"}
             </p>
           </li>
           <li className="grid grid-cols-[200px_1fr] items-center">
             <h4 className="mb-0">Lost Reason: </h4>
             <p className="mb-0">
-              {item?.client_retention_lost_reason_id || "No Data"}
+              {item.client_retention_lost_reason_id
+                ? getLostReason(
+                    lostReason,
+                    item.client_retention_lost_reason_id
+                  )
+                : "No Data"}
             </p>
           </li>
         </ul>

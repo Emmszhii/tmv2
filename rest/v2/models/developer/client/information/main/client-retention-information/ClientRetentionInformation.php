@@ -12,26 +12,23 @@ class ClientRetentionInformation
 
     public $employee_aid;
 
+    // client search
+    public $client_search;
+
+
     public $connection;
     public $lastInsertedId;
     public $tblClient;
-    // public $tblEntities;
-    // public $tblStaff;
-    // public $tblPrimaryContact;
-    // public $tblPreferredContact;
-    // public $tblBillingContact;
-    // public $tblCustomeField;
+    public $tblReferralSource;
+    public $tblStaff;
+
 
     public function __construct($db)
     {
         $this->connection = $db;
         $this->tblClient = "tmv2_client";
-        // $this->tblEntities = "tmv2_entities";
-        // $this->tblStaff = "tmv2_staff";
-        // $this->tblPrimaryContact = "tmv2_primary_contact";
-        // $this->tblPreferredContact = "tmv2_preferred_contact";
-        // $this->tblBillingContact = "tmv2_billing_contact";
-        // $this->tblCustomeField = "tmv2_custom_field";
+        $this->tblReferralSource = "tmv2_referral_source";
+        $this->tblStaff = "tmv2_staff";
     }
 
 
@@ -126,6 +123,69 @@ class ClientRetentionInformation
             $query = $this->connection->prepare($sql);
             $query->execute([
                 "client_retention_referred_type_id" => "{$this->client_retention_referred_type_id}",
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+    // search Client
+    public function searchContact()
+    {
+        try {
+            $sql = "select ";
+            $sql .= "client_aid as id, ";
+            $sql .= "client_name as name ";
+            $sql .= "from {$this->tblClient} ";
+            $sql .= "where client_is_active = '1' ";
+            $sql .= "and client_name like :search ";
+            $sql .= "order by client_is_active desc, ";
+            $sql .= "client_name asc ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "search" => "%{$this->client_search}%",
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+    // search Client
+    public function searchReferralSource()
+    {
+        try {
+            $sql = "select ";
+            $sql .= "referral_source_aid as id, ";
+            $sql .= "referral_source_name as name ";
+            $sql .= "from {$this->tblReferralSource} ";
+            $sql .= "where referral_source_is_active = '1' ";
+            $sql .= "and referral_source_name like :search ";
+            $sql .= "order by referral_source_is_active desc, ";
+            $sql .= "referral_source_name asc ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "search" => "%{$this->client_search}%",
+            ]);
+        } catch (PDOException $ex) {
+            $query = false;
+        }
+        return $query;
+    }
+    // search Client
+    public function searchStaff()
+    {
+        try {
+            $sql = "select ";
+            $sql .= "client_aid as id, ";
+            $sql .= "client_name as name ";
+            $sql .= "from {$this->tblClient} ";
+            $sql .= "where client_is_active = '1' ";
+            $sql .= "and client_name like :search ";
+            $sql .= "order by client_is_active desc, ";
+            $sql .= "client_name asc ";
+            $query = $this->connection->prepare($sql);
+            $query->execute([
+                "search" => "%{$this->client_search}%",
             ]);
         } catch (PDOException $ex) {
             $query = false;
