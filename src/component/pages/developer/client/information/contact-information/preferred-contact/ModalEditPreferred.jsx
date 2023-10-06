@@ -191,7 +191,7 @@ const ModalEditPreferred = ({ itemEdit, setPreferredModalShow }) => {
                       <div className="form__wrap">
                         <InputText
                           label="Email"
-                          type="text"
+                          type="email"
                           name="preferred_contact_email"
                           disabled={mutation.isLoading}
                         />

@@ -179,7 +179,8 @@ const ModalEditPrimary = ({ itemEdit, setPrimaryModalShow }) => {
                       <div className="form__wrap">
                         <InputText
                           label="Email"
-                          type="text"
+                          type="email"
+                          email="email"
                           name="primary_contact_email"
                           disabled={mutation.isLoading}
                         />

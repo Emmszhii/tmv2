@@ -180,7 +180,7 @@ const ModalEditBilling = ({ itemEdit, setBillingModalShow }) => {
                       <div className="form__wrap">
                         <InputText
                           label="Email"
-                          type="text"
+                          type="email"
                           name="billing_contact_email"
                           disabled={mutation.isLoading}
                         />
